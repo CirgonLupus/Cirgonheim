@@ -2,10 +2,66 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Cirgonheim – Miasto Cirgona</title>
+    <title>Cirgonheim – Brama Miasta</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: #e0e0e0;
+            font-family: Georgia, serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .gate {
+            font-size: 48px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #cfcfcf;
+        }
+
+        .enter-button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: #222;
+            color: #e0e0e0;
+            border: 2px solid #555;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .enter-button:hover {
+            background: #333;
+            border-color: #888;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align:center; margin-top:50px;">Cirgonheim</h1>
-    <p style="text-align:center;">Art by Cirgon Tyberius Marcus Lupus</p>
+
+    <div class="gate">⛩️ Brama Cirgonheim</div>
+
+    <div class="description">
+        Cirgonheim nie jest zwykłą stroną internetową.  
+        To miasto‑uniwersum stworzone przez Cirgona Tyberiusza Marka Lupusa —  
+        miejsce, w którym sztuka, symbole i opowieści splatają się w jedną całość.  
+        Wejdź przez bramę i odkryj dzielnice pełne ilustracji, motywów i historii.
+    </div>
+
+    <a class="enter-button" href="main.html">Wejdź do miasta</a>
+
 </body>
 </html>
