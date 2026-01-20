@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Cirgonheim – Miasto Cirgona</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #111;
+            color: #eee;
+            font-family: Georgia, serif;
+            text-align: center;
+        }
+        header {
+            padding: 60px 20px;
+            background: #1a1a1a;
+            border-bottom: 2px solid #444;
+        }
+        h1 {
+            font-size: 48px;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: normal;
+            margin-top: 10px;
+            color: #bbb;
+        }
+        .districts {
+            margin: 60px auto;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .district {
+            padding: 30px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .district:hover {
+            background: #333;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cirgonheim</h1>
+    <h2>Art by Cirgon Tyberius Marcus Lupus</h2>
+</header>
+
+<section class="districts">
+    <div class="district">🐺 District of Beasts</div>
+    <div class="district">🌿 Floral Quarter</div>
+    <div class="district">⚕️ Medical Ward</div>
+    <div class="district">✏️ Doodle Alley</div>
+</section>
+
+</body>
+</html>
