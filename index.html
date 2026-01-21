@@ -19,12 +19,12 @@
             overflow: hidden;
         }
 
-        /* Kontener bramy */
+        /* Kontener bramy – stabilna wysokość */
         .gate-container {
             position: relative;
             width: 90%;
             max-width: 700px;
-            aspect-ratio: 1216 / 832; /* proporcje Twojego obrazu */
+            height: 60vh; /* działa na każdym urządzeniu */
             margin-bottom: 40px;
             overflow: hidden;
             border: 2px solid #444;
@@ -37,4 +37,113 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition
+            transition: transform 1.8s ease-in-out;
+        }
+
+        /* Efekt otwierania – zwężenie do środka */
+        .open .gate-image {
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        /* Opis */
+        .description {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #cfcfcf;
+        }
+
+        /* Przycisk */
+        .enter-button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: #222;
+            color: #e0e0e0;
+            border: 2px solid #555;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .enter-button:hover {
+            background: #333;
+            border-color: #888;
+        }
+
+        /* Mgła */
+        .fog {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(255,255,255,0.15), rgba(255,255,255,0));
+            filter: blur(8px);
+            animation: fogMove 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes fogMove {
+            from { opacity: 0.4; transform: translateY(0); }
+            to { opacity: 0.8; transform: translateY(-10px); }
+        }
+
+        /* Drżenie */
+        @keyframes shakeGate {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake .gate-image {
+            animation: shakeGate 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gate-container">
+        <img src="gate.jpg" alt="Brama Cirgonheim" class="gate-image">
+    </div>
+
+    <audio id="gateSound" src="gate.mp3"></audio>
+
+    <div class="description">
+        Cirgonheim nie jest zwykłą stroną internetową.  
+        To miasto‑uniwersum stworzone przez Cirgona Tyberiusza Marka Lupusa —  
+        miejsce, w którym sztuka, symbole i opowieści splatają się w jedną całość.  
+        Wejdź przez bramę i odkryj dzielnice pełne ilustracji, motywów i historii.
+    </div>
+
+    <a class="enter-button" onclick="openGate()">Wejdź do miasta</a>
+
+    <div class="fog"></div>
+
+    <script>
+        function openGate() {
+            const gateContainer = document.querySelector('.gate-container');
+            const sound = document.getElementById('gateSound');
+
+            sound.currentTime = 0;
+            sound.play();
+
+            gateContainer.classList.add('shake');
+
+            setTimeout(() => {
+                gateContainer.classList.add('open');
+            }, 400);
+
+            setTimeout(() => {
+                window.location.href = "main.html";
+            }, 2200);
+        }
+    </script>
+
+</body>
+</html>
