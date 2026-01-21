@@ -104,6 +104,34 @@
             from { opacity: 0.4; transform: translateY(0); }
             to { opacity: 0.8; transform: translateY(-10px); }
         }
+
+        /* --- MOBILE FIX: usuwa czarny ekran + zmniejsza bramę --- */
+        @media (max-width: 800px) {
+
+            body {
+                display: block !important;
+                height: auto !important;
+                overflow: visible !important;
+                padding-top: 20px;
+            }
+
+            .gate-container {
+                height: 35vh !important;
+                max-width: 95%;
+                margin: 0 auto 20px auto;
+            }
+
+            .description {
+                font-size: 16px;
+                padding: 0 15px;
+                margin-bottom: 30px;
+            }
+
+            .enter-button {
+                font-size: 18px;
+                padding: 12px 30px;
+            }
+        }
     </style>
 </head>
 <body>
