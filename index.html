@@ -19,12 +19,12 @@
             overflow: hidden;
         }
 
-        /* Kontener bramy – stabilna wysokość */
+        /* Kontener bramy */
         .gate-container {
             position: relative;
             width: 90%;
             max-width: 700px;
-            height: 60vh; /* działa na każdym urządzeniu */
+            height: 60vh;
             margin-bottom: 40px;
             overflow: hidden;
             border: 2px solid #444;
@@ -32,18 +32,51 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        /* Obraz bramy */
-        .gate-image {
-            width: 100%;
+        /* Skrzydła bramy */
+        .gate-wing {
+            position: absolute;
+            top: 0;
+            width: 50%;
             height: 100%;
-            object-fit: cover;
+            background-image: url('gate.jpg'); /* jedno skrzydło */
+            background-size: cover;
+            background-position: center;
             transition: transform 1.8s ease-in-out;
         }
 
-        /* Efekt otwierania – zwężenie do środka */
-        .open .gate-image {
-            transform: scaleX(0);
+        /* Lewe skrzydło – oryginał */
+        .gate-left {
+            left: 0;
+        }
+
+        /* Prawe skrzydło – odbicie lustrzane */
+        .gate-right {
+            right: 0;
+            transform: scaleX(-1); /* odbicie */
             transform-origin: center;
+        }
+
+        /* Otwieranie */
+        .open .gate-left {
+            transform: translateX(-100%);
+        }
+
+        .open .gate-right {
+            transform: scaleX(-1) translateX(100%);
+        }
+
+        /* Drżenie */
+        @keyframes shakeGate {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake .gate-wing {
+            animation: shakeGate 0.4s ease-in-out;
         }
 
         /* Opis */
@@ -90,26 +123,13 @@
             from { opacity: 0.4; transform: translateY(0); }
             to { opacity: 0.8; transform: translateY(-10px); }
         }
-
-        /* Drżenie */
-        @keyframes shakeGate {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-3px); }
-            40% { transform: translateX(3px); }
-            60% { transform: translateX(-2px); }
-            80% { transform: translateX(2px); }
-            100% { transform: translateX(0); }
-        }
-
-        .shake .gate-image {
-            animation: shakeGate 0.4s ease-in-out;
-        }
     </style>
 </head>
 <body>
 
     <div class="gate-container">
-        <img src="gate.jpg" alt="Brama Cirgonheim" class="gate-image">
+        <div class="gate-wing gate-left"></div>
+        <div class="gate-wing gate-right"></div>
     </div>
 
     <audio id="gateSound" src="gate.mp3"></audio>
@@ -127,16 +147,16 @@
 
     <script>
         function openGate() {
-            const gateContainer = document.querySelector('.gate-container');
+            const gate = document.querySelector('.gate-container');
             const sound = document.getElementById('gateSound');
 
             sound.currentTime = 0;
             sound.play();
 
-            gateContainer.classList.add('shake');
+            gate.classList.add('shake');
 
             setTimeout(() => {
-                gateContainer.classList.add('open');
+                gate.classList.add('open');
             }, 400);
 
             setTimeout(() => {
