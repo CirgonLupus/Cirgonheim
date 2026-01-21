@@ -19,7 +19,6 @@
             overflow: hidden;
         }
 
-        /* Kontener bramy */
         .gate-container {
             position: relative;
             width: 90%;
@@ -30,30 +29,30 @@
             border: 2px solid #444;
             border-radius: 6px;
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            display: flex;
         }
 
-        /* Skrzydła bramy */
         .gate-wing {
-            position: absolute;
-            top: 0;
             width: 50%;
             height: 100%;
-            background-image: url('gate.jpg'); /* jedno skrzydło */
-            background-size: cover;
-            background-position: center;
+            overflow: hidden;
             transition: transform 1.8s ease-in-out;
         }
 
-        /* Lewe skrzydło – oryginał */
-        .gate-left {
-            left: 0;
+        .gate-wing img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        /* Prawe skrzydło – odbicie lustrzane */
+        /* Start: skrzydła są razem */
+        .gate-left {
+            transform: translateX(0);
+        }
+
         .gate-right {
-            right: 0;
-            transform: scaleX(-1); /* odbicie */
-            transform-origin: center;
+            transform: translateX(0);
         }
 
         /* Otwieranie */
@@ -62,7 +61,7 @@
         }
 
         .open .gate-right {
-            transform: scaleX(-1) translateX(100%);
+            transform: translateX(100%);
         }
 
         /* Drżenie */
@@ -75,11 +74,10 @@
             100% { transform: translateX(0); }
         }
 
-        .shake .gate-wing {
+        .shake {
             animation: shakeGate 0.4s ease-in-out;
         }
 
-        /* Opis */
         .description {
             max-width: 600px;
             font-size: 18px;
@@ -88,7 +86,6 @@
             color: #cfcfcf;
         }
 
-        /* Przycisk */
         .enter-button {
             padding: 15px 40px;
             font-size: 20px;
@@ -106,7 +103,6 @@
             border-color: #888;
         }
 
-        /* Mgła */
         .fog {
             position: absolute;
             bottom: 0;
@@ -127,9 +123,14 @@
 </head>
 <body>
 
-    <div class="gate-container">
-        <div class="gate-wing gate-left"></div>
-        <div class="gate-wing gate-right"></div>
+    <div class="gate-container" id="gate">
+        <div class="gate-wing gate-left">
+            <img src="gate_left.jpg" alt="Lewe skrzydło bramy">
+        </div>
+        <div class="gate-wing gate-right">
+            <img src="gate_right.jpg" alt="Prawe skrzydło bramy">
+        </div>
+        <div class="fog"></div>
     </div>
 
     <audio id="gateSound" src="gate.mp3"></audio>
@@ -143,11 +144,9 @@
 
     <a class="enter-button" onclick="openGate()">Wejdź do miasta</a>
 
-    <div class="fog"></div>
-
     <script>
         function openGate() {
-            const gate = document.querySelector('.gate-container');
+            const gate = document.getElementById('gate');
             const sound = document.getElementById('gateSound');
 
             sound.currentTime = 0;
