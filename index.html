@@ -3,15 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <title>Cirgonheim – Brama Miasta</title>
+
     <style>
+        /* --- PODSTAWOWY UKŁAD --- */
         body {
             margin: 0;
             padding: 0;
             background: #0d0d0d;
             color: #e0e0e0;
             font-family: Georgia, serif;
+            text-align: center;
+        }
+
+        /* --- BRAMA --- */
+        .gate-container {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            height: 60vh;
+            margin: 40px auto;
+            overflow: hidden;
+            border: 2px solid #444;
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height
+        }
+
+        .gate-wing {
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 1.8s ease-in-out;
+        }
+
+        .gate-wing img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .open .gate-left  { transform: translateX(-100%); }
+        .open .gate-right { transform: translateX(100%); }
+
+        /* --- ANIMACJA DRGAŃ --- */
+        @keyframes shakeGate {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-2px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake { animation: shakeGate 0.4s ease-in-out; }
+
+        /* --- MGŁA --- */
+        .fog {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(255,255,255,0.15), rgba(255,255,255,0));
+            filter: blur(8px);
+            animation: fogMove 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes fogMove {
+            from { opacity: 0.4; transform: translateY(0); }
+            to   { opacity: 0.8; transform: translateY(-10px); }
+        }
+
+        /* --- OPIS + PRZYCISK --- */
+        .description {
+            max-width: 600px;
+            margin: 20px auto 40px auto;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #cfcfcf;
+        }
+
+        .enter-button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: #222;
+            color: #e0e0e0;
+            border: 2px solid #555;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .enter-button:hover {
+            background: #333;
+            border-color: #888;
+        }
+
+        /* --- MOBILE FIX: poprawne proporcje bramy --- */
+        @media (max-width: 800px) {
+
+            .gate-container {
+                height: 32vh; /* mniejsza brama */
+            }
+
+            .gate-wing img {
+                object-fit: contain; /* zachowuje proporcje */
+                background: #000;
+            }
+
+            .description {
+                font-size: 16px;
+                padding: 0 15px;
+            }
+
+            .enter-button {
+                font-size: 18px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gate-container" id="gate">
+        <div class="gate-wing gate-left">
+            <img src="gate_left.jpg" alt="Lewe skrzydło bramy">
+        </div>
+
+        <div class="gate-wing gate-right">
+            <img src="gate_right.jpg" alt="Prawe skrzydło bramy">
+        </div>
+
+        <div class="fog"></div>
+    </div>
+
+    <audio id="gateSound" src="gate.mp3"></audio>
+
+    <div class="description">
+        Cirgonheim nie jest zwykłą stroną internetową.  
+        To miasto‑uniwersum stworzone przez Cirgona Tyberiusza Marka Lupusa —  
+        miejsce, w którym sztuka, symbole i opowieści splatają się w jedną całość.  
+        Wejdź
