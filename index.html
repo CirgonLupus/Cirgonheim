@@ -46,7 +46,6 @@
             display: block;
         }
 
-        /* Start: skrzydła są razem */
         .gate-left {
             transform: translateX(0);
         }
@@ -55,7 +54,6 @@
             transform: translateX(0);
         }
 
-        /* Otwieranie */
         .open .gate-left {
             transform: translateX(-100%);
         }
@@ -64,7 +62,6 @@
             transform: translateX(100%);
         }
 
-        /* Drżenie */
         @keyframes shakeGate {
             0% { transform: translateX(0); }
             20% { transform: translateX(-3px); }
@@ -107,62 +104,3 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: 120px;
-            pointer-events: none;
-            background: linear-gradient(to top, rgba(255,255,255,0.15), rgba(255,255,255,0));
-            filter: blur(8px);
-            animation: fogMove 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes fogMove {
-            from { opacity: 0.4; transform: translateY(0); }
-            to { opacity: 0.8; transform: translateY(-10px); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="gate-container" id="gate">
-        <div class="gate-wing gate-left">
-            <img src="gate_left.jpg" alt="Lewe skrzydło bramy">
-        </div>
-        <div class="gate-wing gate-right">
-            <img src="gate_right.jpg" alt="Prawe skrzydło bramy">
-        </div>
-        <div class="fog"></div>
-    </div>
-
-    <audio id="gateSound" src="gate.mp3"></audio>
-
-    <div class="description">
-        Cirgonheim nie jest zwykłą stroną internetową.  
-        To miasto‑uniwersum stworzone przez Cirgona Tyberiusza Marka Lupusa —  
-        miejsce, w którym sztuka, symbole i opowieści splatają się w jedną całość.  
-        Wejdź przez bramę i odkryj dzielnice pełne ilustracji, motywów i historii.
-    </div>
-
-    <a class="enter-button" onclick="openGate()">Wejdź do miasta</a>
-
-    <script>
-        function openGate() {
-            const gate = document.getElementById('gate');
-            const sound = document.getElementById('gateSound');
-
-            sound.currentTime = 0;
-            sound.play();
-
-            gate.classList.add('shake');
-
-            setTimeout(() => {
-                gate.classList.add('open');
-            }, 400);
-
-            setTimeout(() => {
-                window.location.href = "main.html";
-            }, 2200);
-        }
-    </script>
-
-</body>
-</html>
