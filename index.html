@@ -19,12 +19,12 @@
             overflow: hidden;
         }
 
-        /* Kontener bramy — proporcje 1216x832 */
+        /* Kontener bramy */
         .gate-container {
             position: relative;
             width: 90%;
             max-width: 700px;
-            aspect-ratio: 1216 / 832;
+            aspect-ratio: 1216 / 832; /* proporcje Twojego obrazu */
             margin-bottom: 40px;
             overflow: hidden;
             border: 2px solid #444;
@@ -32,27 +32,9 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        @media (max-width: 600px) {
-            .gate-container {
-                height: auto;
-            }
-        }
-
-        /* Połówki bramy — idealne cięcie */
-        .gate-left, .gate-right {
-            position: absolute;
-            top: 0;
-            width: 50%;
+        /* Obraz bramy */
+        .gate-image {
+            width: 100%;
             height: 100%;
-            background-image: url('gate.jpg');
-            background-size: 200% 100%;
-            transition: transform 1.8s ease-in-out;
-        }
-
-        .gate-left {
-            left: 0;
-            background-position: left center;
-        }
-
-        .gate-right {
-            right: 0;
+            object-fit: cover;
+            transition
