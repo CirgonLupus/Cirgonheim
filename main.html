@@ -1,73 +1,39 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Cirgonheim – Miasto</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #111;
-            color: #eee;
-            font-family: Georgia, serif;
-            text-align: center;
+// --- MOB RANDOM WALKER ---
+// Poruszanie obrazka "mob-sectrumgreen.png" po dole ekranu
+// Stała prędkość + losowe zmiany kierunku
+
+document.addEventListener("DOMContentLoaded", () => {
+    const mob = document.getElementById("ludzik");
+    const speed = 2; // px per frame
+    let direction = Math.random() < 0.5 ? -1 : 1;
+
+    function moveMob() {
+        const screenWidth = window.innerWidth;
+        const mobWidth = mob.offsetWidth;
+        let x = mob.offsetLeft;
+
+        // Losowa zmiana kierunku (1% szansy na klatkę)
+        if (Math.random() < 0.01) {
+            direction = Math.random() < 0.5 ? -1 : 1;
         }
 
-        header {
-            padding: 60px 20px;
-            background: #1a1a1a;
-            border-bottom: 2px solid #444;
+        // Ruch
+        x += direction * speed;
+
+        // Odbijanie od krawędzi
+        if (x <= 0) {
+            x = 0;
+            direction = 1;
+        }
+        if (x >= screenWidth - mobWidth) {
+            x = screenWidth - mobWidth;
+            direction = -1;
         }
 
-        h1 {
-            font-size: 48px;
-            letter-spacing: 3px;
-            margin: 0;
-        }
+        mob.style.left = x + "px";
 
-        h2 {
-            font-size: 20px;
-            font-weight: normal;
-            margin-top: 10px;
-            color: #bbb;
-        }
+        requestAnimationFrame(moveMob);
+    }
 
-        .districts {
-            margin: 60px auto;
-            max-width: 900px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .district {
-            padding: 30px;
-            background: #222;
-            border: 1px solid #333;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-size: 20px;
-        }
-
-        .district:hover {
-            background: #333;
-            transform: scale(1.03);
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>Cirgonheim</h1>
-    <h2>Art by Cirgon Tyberius Marcus Lupus</h2>
-</header>
-
-<section class="districts">
-    <div class="district">🐺 District of Beasts</div>
-    <div class="district">🌿 Floral Quarter</div>
-    <div class="district">⚕️ Medical Ward</div>
-    <div class="district">✏️ Doodle Alley</div>
-</section>
-
-</body>
-</html>
+    moveMob();
+});
