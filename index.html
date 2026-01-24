@@ -18,32 +18,25 @@
 
         .gate-container {
             position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 100vh;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
         }
 
         .wing {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            background-image: url("img/Maingate.jpg");
-            background-size: cover;
-            background-position: center;
+            height: 90vh; /* skrzydło dopasowane do ekranu */
+            width: auto;
             transition: transform 2.5s ease-in-out;
         }
 
         .left {
-            left: 0;
             transform-origin: left center;
         }
 
         .right {
-            right: 0;
             transform-origin: right center;
-            transform: scaleX(-1);
+            transform: scaleX(-1); /* odbicie lustrzane */
         }
 
         .open-left {
@@ -72,8 +65,8 @@
 <body>
 
     <div class="gate-container">
-        <div class="wing left"></div>
-        <div class="wing right"></div>
+        <img src="img/maingate.jpg" class="wing left">
+        <img src="img/maingate.jpg" class="wing right">
 
         <button id="enterBtn" onclick="location.href='cidis_a.html'">
             Wejdź do Cirgonheim
