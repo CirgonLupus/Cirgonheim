@@ -6,36 +6,36 @@ body {
     overflow: hidden;
 }
 
+/* Kontener bramy */
 .gate-container {
     position: relative;
     width: 100vw;
     height: 100vh;
-    display: flex;
-}
-
-.gate {
-    width: 50%;
-    height: 100%;
     overflow: hidden;
-    position: relative;
-    transition: transform 1.5s ease;
 }
 
-.gate img {
-    width: 100%;
+/* Skrzydła bramy – zawsze całe, zawsze stykają się na środku */
+.gate {
+    position: absolute;
+    top: 0;
     height: 100%;
-    object-fit: contain;   /* NIC nie jest przycięte */
-    object-position: center;
+    width: 50vw;                 /* Każde skrzydło zajmuje połowę ekranu */
+    background-size: contain;    /* Całe skrzydło widoczne */
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 1.5s ease;
 }
 
 /* Lewe skrzydło */
 .left {
-    transform-origin: left center;
+    left: 0;
+    background-image: url("img/gate_left.jpg");
 }
 
 /* Prawe skrzydło */
 .right {
-    transform-origin: right center;
+    right: 0;
+    background-image: url("img/gate_right.jpg");
 }
 
 /* Tekst powitalny */
@@ -68,3 +68,5 @@ button {
     transition: opacity 1s ease;
     z-index: 999;
 }
+
+/* Mobil
