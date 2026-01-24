@@ -47,3 +47,12 @@ button {
     font-size: 18px;
     cursor: pointer;
 }
+media (max-width: 600px) {
+    .left {
+        transform: translateX(-10%);
+    }
+
+    .right {
+        transform: translateX(10%);
+    }
+}
