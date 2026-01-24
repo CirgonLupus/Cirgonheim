@@ -19,6 +19,7 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     transition: transform 1.5s ease;
 }
 
@@ -48,13 +49,9 @@ button {
     cursor: pointer;
 }
 
-/* --- WERSJA MOBILNA: odsunięcie skrzydeł od środka --- */
+/* Wersja mobilna – pokaż całe skrzydła, bez przycinania */
 @media (max-width: 600px) {
-    .left {
-        transform: translateX(-10%);
-    }
-
-    .right {
-        transform: translateX(10%);
+    .gate {
+        background-size: contain;   /* zamiast cover */
     }
 }
