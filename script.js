@@ -1,7 +1,4 @@
-.left {
-    background: url("img/gate_left.jpg") center/cover no-repeat;
-}
-
-.right {
-    background: url("img/gate_right.jpg") center/cover no-repeat;
+function enterCity() {
+    document.querySelector('.left').style.transform = "translateX(-100%)";
+    document.querySelector('.right').style.transform = "translateX(100%)";
 }
