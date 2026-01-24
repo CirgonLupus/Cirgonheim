@@ -29,7 +29,7 @@
             top: 0;
             width: 50%;
             height: 100%;
-            background-image: url("maingate.jpg");
+            background-image: url("img/maingate.jpg");
             background-size: cover;
             background-position: center;
             transition: transform 2.5s ease-in-out;
@@ -43,7 +43,7 @@
         .right {
             right: 0;
             transform-origin: right center;
-            transform: scaleX(-1); /* odbicie lustrzane */
+            transform: scaleX(-1);
         }
 
         .open-left {
@@ -89,14 +89,11 @@
         const sound = document.getElementById('gateSound');
 
         window.onload = () => {
-            // Otwieranie wrót
             left.classList.add('open-left');
             right.classList.add('open-right');
 
-            // Dźwięk
             sound.play().catch(() => {});
 
-            // Pokazanie przycisku po otwarciu
             setTimeout(() => {
                 btn.style.opacity = 1;
             }, 2500);
