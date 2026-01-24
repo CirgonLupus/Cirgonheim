@@ -6,7 +6,6 @@ body {
     overflow: hidden;
 }
 
-/* Kontener bramy */
 .gate-container {
     position: relative;
     width: 100vw;
@@ -14,25 +13,23 @@ body {
     overflow: hidden;
 }
 
-/* Skrzydła bramy – zawsze całe, zawsze stykają się na środku */
+/* DESKTOP — skrzydła dopasowane do szerokości, stykają się idealnie */
 .gate {
     position: absolute;
     top: 0;
-    height: 100%;
-    width: 50vw;                 /* Każde skrzydło zajmuje połowę ekranu */
-    background-size: contain;    /* Całe skrzydło widoczne */
-    background-repeat: no-repeat;
+    width: 50vw;
+    height: 100vh;
+    background-size: cover;        /* klucz: dopasowanie do szerokości */
     background-position: center;
+    background-repeat: no-repeat;
     transition: transform 1.5s ease;
 }
 
-/* Lewe skrzydło */
 .left {
     left: 0;
     background-image: url("img/gate_left.jpg");
 }
 
-/* Prawe skrzydło */
 .right {
     right: 0;
     background-image: url("img/gate_right.jpg");
@@ -55,6 +52,15 @@ button {
     cursor: pointer;
 }
 
+/* MOBILNE — skrzydła dopasowane do wysokości, żeby były całe widoczne */
+@media (max-width: 600px) {
+    .gate {
+        background-size: contain;
+        width: 50vw;
+        height: 100vh;
+    }
+}
+
 /* Efekt oślepienia */
 .flash {
     position: fixed;
@@ -68,5 +74,3 @@ button {
     transition: opacity 1s ease;
     z-index: 999;
 }
-
-/* Mobil
