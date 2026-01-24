@@ -6,33 +6,38 @@ body {
     overflow: hidden;
 }
 
+/* Kontener bramy */
 .gate-container {
     position: relative;
     width: 100vw;
     height: 100vh;
 }
 
+/* Skrzydła bramy – teraz zawsze widać całe */
 .gate {
     position: absolute;
     top: 0;
     width: 50%;
     height: 100%;
-    background-size: cover;
+    background-size: contain;      /* najważniejsza zmiana */
     background-position: center;
     background-repeat: no-repeat;
     transition: transform 1.5s ease;
 }
 
+/* Lewe skrzydło */
 .left {
     left: 0;
     background-image: url("img/gate_left.jpg");
 }
 
+/* Prawe skrzydło */
 .right {
     right: 0;
     background-image: url("img/gate_right.jpg");
 }
 
+/* Tekst powitalny */
 .intro {
     position: absolute;
     top: 50%;
@@ -45,27 +50,3 @@ body {
 button {
     margin-top: 20px;
     padding: 12px 24px;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-/* Mobilne – pokazuje całe skrzydła bez przycinania */
-@media (max-width: 600px) {
-    .gate {
-        background-size: contain;
-    }
-}
-
-/* Efekt oślepienia */
-.flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s ease;
-    z-index: 999;
-}
