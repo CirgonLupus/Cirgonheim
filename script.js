@@ -1,4 +1,4 @@
 function enterCity() {
-    document.querySelector('.left').style.transform = "translateX(-100%)";
-    document.querySelector('.right').style.transform = "translateX(100%)";
+    document.querySelector('gate_left.jpg').style.transform = "translateX(-100%)";
+    document.querySelector('gate_right.jpg').style.transform = "translateX(100%)";
 }
