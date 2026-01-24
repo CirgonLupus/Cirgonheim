@@ -47,7 +47,9 @@ button {
     font-size: 18px;
     cursor: pointer;
 }
-media (max-width: 600px) {
+
+/* --- WERSJA MOBILNA: odsunięcie skrzydeł od środka --- */
+@media (max-width: 600px) {
     .left {
         transform: translateX(-10%);
     }
