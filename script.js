@@ -13,6 +13,6 @@ function enterCity() {
 
     // Przejście do kolejnej dzielnicy
     setTimeout(() => {
-        window.location.href = "world/district1.html";
+        window.location.href = "district/dis1/dis1_gatesquare.html";
     }, 2500);
 }
