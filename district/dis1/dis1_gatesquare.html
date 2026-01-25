@@ -1,39 +1,38 @@
-// --- MOB RANDOM WALKER ---
-// Poruszanie obrazka "mob-sectrumgreen.png" po dole ekranu
-// Stała prędkość + losowe zmiany kierunku
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Cirgonheim – Plac przed bramą</title>
+  <link rel="stylesheet" href="dis1_gatesquare.css">
+</head>
+<body>
 
-document.addEventListener("DOMContentLoaded", () => {
-    const mob = document.getElementById("ludzik");
-    const speed = 2; // px per frame
-    let direction = Math.random() < 0.5 ? -1 : 1;
+  <main class="plaza">
+    <div class="plaza-inner">
 
-    function moveMob() {
-        const screenWidth = window.innerWidth;
-        const mobWidth = mob.offsetWidth;
-        let x = mob.offsetLeft;
+      <!-- Dom informacyjny -->
+      <section class="info-house">
+        <div class="info-house-image"></div>
+        <div class="info-house-panel">
+          <h1>Dom Informacyjny</h1>
+          <p>Witaj na placu przed bramą Cirgonheimu.  
+             Tutaj poznasz podstawowe informacje o mieście i drogę do jego dzielnic.</p>
+          <button class="btn-primary">Wejdź do środka</button>
+        </div>
+      </section>
 
-        // Losowa zmiana kierunku (1% szansy na klatkę)
-        if (Math.random() < 0.01) {
-            direction = Math.random() < 0.5 ? -1 : 1;
-        }
+      <!-- Drogowskazy -->
+      <section class="signposts">
+        <div class="signpost">
+          <div class="signpost-board">Dystrykt Centralny</div>
+        </div>
+        <div class="signpost">
+          <div class="signpost-board">Dystrykt Rzemiosła</div>
+        </div>
+      </section>
 
-        // Ruch
-        x += direction * speed;
+    </div>
+  </main>
 
-        // Odbijanie od krawędzi
-        if (x <= 0) {
-            x = 0;
-            direction = 1;
-        }
-        if (x >= screenWidth - mobWidth) {
-            x = screenWidth - mobWidth;
-            direction = -1;
-        }
-
-        mob.style.left = x + "px";
-
-        requestAnimationFrame(moveMob);
-    }
-
-    moveMob();
-});
+</body>
+</html>
