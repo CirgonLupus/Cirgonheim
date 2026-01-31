@@ -1,18 +1,18 @@
-const gateSound = new Audio("sounds/open_gate.mp3");
+const btn = document.getElementById('enter-btn');
+const audio = new Audio('sound/open.mp3'); // ścieżka do dźwięku otwierania
 
-function enterCity() {
-    gateSound.play();
+btn.addEventListener('click', () => {
+    audio.play(); // dźwięk otwierania
 
-    document.querySelector('.left').style.transform = "translateX(-100%)";
-    document.querySelector('.right').style.transform = "translateX(100%)";
+    document.body.classList.add('open'); // animacja wrót
 
-    // Efekt oślepienia po otwarciu bramy
+    // rozjaśnienie po chwili
     setTimeout(() => {
-        document.querySelector('.flash').style.opacity = "1";
+        document.querySelector('.flash').classList.add('active');
     }, 1500);
 
-    // Przejście do kolejnej dzielnicy
+    // przejście do kolejnej dzielnicy
     setTimeout(() => {
-        window.location.href = "district/dis1/dis1_gatesquare.html";
-    }, 2500);
-}
+        window.location.href = "dzielnica.html";
+    }, 2600);
+});
