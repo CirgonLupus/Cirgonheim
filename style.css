@@ -1,76 +1,33 @@
-body {
-    margin: 0;
-    background: #111;
-    font-family: Arial, sans-serif;
-    color: #eee;
-    overflow: hidden;
+/* GŁÓWNY KONTAINER WRÓT — SCENA */
+.gate-wrapper {
+    width: 100%;
+    max-width: 1400px;      /* szerokość sceny na dużych ekranach */
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.gate-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* DESKTOP — skrzydła dopasowane do szerokości, stykają się idealnie */
+/* OBRAZ / ANIMACJA WRÓT */
 .gate {
-    position: absolute;
-    top: 0;
-    width: 50vw;
-    height: 100vh;
-    background-size: cover;        /* klucz: dopasowanie do szerokości */
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 1.5s ease;
+    width: 100%;
+    height: auto;
+    max-height: 90vh;        /* wrota zawsze mieszczą się w ekranie */
+    object-fit: contain;     /* nic nie jest przybliżane */
+    display: block;
 }
 
-.left {
-    left: 0;
-    background-image: url("img/gate_left.jpg");
-}
-
-.right {
-    right: 0;
-    background-image: url("img/gate_right.jpg");
-}
-
-/* Tekst powitalny */
-.intro {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-}
-
-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-/* MOBILNE — skrzydła dopasowane do wysokości, żeby były całe widoczne */
-@media (max-width: 600px) {
-    .gate {
-        background-size: contain;
-        width: 50vw;
-        height: 100vh;
+/* MOBILE — ta sama logika, tylko bez ograniczeń szerokości */
+@media (max-width: 768px) {
+    .gate-wrapper {
+        max-width: 100%;     /* pełna szerokość ekranu */
+        padding: 0 10px;     /* delikatny margines, żeby nie kleiło się do krawędzi */
     }
-}
 
-/* Efekt oślepienia */
-.flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s ease;
-    z-index: 999;
+    .gate {
+        max-height: 90vh;    /* również niech się mieści w ekranie */
+        width: 100%;
+        object-fit: contain;
+    }
 }
