@@ -1,10 +1,10 @@
 /* RESET */
-body, html {
+html, body {
     margin: 0;
     padding: 0;
+    background: black;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background: black;
     color: white;
 }
 
@@ -12,8 +12,10 @@ body, html {
 .gate-container {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100dvh; /* poprawne na mobile */
+    min-height: 100vh; /* fallback */
     overflow: hidden;
+    background: black;
 }
 
 /* LEWE SKRZYDŁO */
@@ -26,8 +28,10 @@ body, html {
     background-image: url('gate_left.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     transform: translateX(0);
     transition: transform 2s ease;
+    z-index: 5;
 }
 
 /* PRAWE SKRZYDŁO */
@@ -40,8 +44,10 @@ body, html {
     background-image: url('gate_right.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     transform: translateX(0);
     transition: transform 2s ease;
+    z-index: 5;
 }
 
 /* OTWARCIE */
@@ -64,6 +70,7 @@ body, html {
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.2s ease;
+    z-index: 20;
 }
 
 .flash.active {
@@ -73,15 +80,18 @@ body, html {
 /* TEKST POWITALNY */
 .intro-overlay {
     position: absolute;
-    top: 50%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     background: rgba(50, 50, 50, 0.6);
     padding: 20px 30px;
     border-radius: 8px;
     text-align: center;
-    max-width: 80%;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
     opacity: 0;
+    z-index: 10;
 }
 
 /* FADE-IN */
@@ -93,6 +103,12 @@ body, html {
 @keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+/* TEKST */
+.intro-overlay p {
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 /* PRZYCISK */
