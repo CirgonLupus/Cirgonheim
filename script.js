@@ -1,5 +1,5 @@
 const btn = document.getElementById('enter-btn');
-const audio = new Audio('sounds/open.mp3'); // ścieżka do dźwięku
+const audio = new Audio('sounds/open_gate.mp3'); // ścieżka do dźwięku
 
 btn.addEventListener('click', () => {
     audio.play(); // dźwięk otwierania
