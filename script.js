@@ -13,6 +13,6 @@ btn.addEventListener('click', () => {
 
     // przejście do kolejnej strony
     setTimeout(() => {
-        window.location.href = "dzielnica.html";
+        window.location.href = "district/dis1/dis1_gatesquare.html";
     }, 2600);
 });
