@@ -1,18 +1,30 @@
-const btn = document.getElementById('enter-btn');
-const audio = new Audio('sounds/open_gate.mp3'); // ścieżka do dźwięku
+// Otwieranie wrót + dźwięk
+const btn = document.getElementById("enter-btn");
+const sound = document.getElementById("gate-sound");
 
-btn.addEventListener('click', () => {
-    audio.play(); // dźwięk otwierania
+btn.addEventListener("click", () => {
+    document.querySelector(".gate-container").classList.add("gate-open");
+    sound.currentTime = 0;
+    sound.play();
 
-    document.body.classList.add('open'); // animacja wrót
-
-    // rozjaśnienie
+    // Po otwarciu wrót przechodzimy dalej
     setTimeout(() => {
-        document.querySelector('.flash').classList.add('active');
-    }, 1500);
+        goToDistrict();
+    }, 2000); // 2 sekundy po kliknięciu
+});
 
-    // przejście do kolejnej strony
+// Animacja przejścia do dzielnicy
+function goToDistrict() {
+    const overlay = document.getElementById("transition-overlay");
+
+    overlay.classList.add("flash");
+
+    setTimeout(() => {
+        overlay.classList.remove("flash");
+        overlay.classList.add("fade-out");
+    }, 250);
+
     setTimeout(() => {
         window.location.href = "district/dis1/dis1_gatesquare.html";
-    }, 2600);
-});
+    }, 1100);
+}
