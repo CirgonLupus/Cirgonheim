@@ -41,7 +41,6 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-    opacity: 0;
     transition: opacity 1.2s ease-in-out 1s;
 }
 
