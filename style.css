@@ -1,123 +1,126 @@
-/* RESET */
-html, body {
+body {
     margin: 0;
-    padding: 0;
-    background: black;
+    background: #000;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
+    font-family: 'Cinzel', serif;
 }
 
-/* KONTAINER WRÓT */
 .gate-container {
     position: relative;
-    width: 100%;
-    height: 100dvh; /* poprawne na mobile */
-    min-height: 100vh; /* fallback */
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    background: black;
 }
 
-/* LEWE SKRZYDŁO */
+/* Połówki wrót */
+.gate {
+    position: absolute;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.8s ease-in-out;
+}
+
 .gate-left {
-    position: absolute;
-    top: 0;
     left: 0;
-    width: 50%;
-    height: 100%;
     background-image: url('img/gate_left.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: translateX(0);
-    transition: transform 2s ease;
-    z-index: 5;
 }
 
-/* PRAWE SKRZYDŁO */
 .gate-right {
-    position: absolute;
-    top: 0;
     right: 0;
-    width: 50%;
-    height: 100%;
     background-image: url('img/gate_right.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: translateX(0);
-    transition: transform 2s ease;
-    z-index: 5;
 }
 
-/* OTWARCIE */
-.open .gate-left {
+/* Zawartość */
+.gate-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out 1s;
+}
+
+/* Pół‑przezroczyste tło tekstu */
+.gate-text-box {
+    background: rgba(80, 80, 80, 0.55);
+    padding: 20px 28px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    backdrop-filter: blur(2px);
+}
+
+.gate-text-box p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* Przycisk */
+#enter-btn {
+    padding: 14px 32px;
+    font-size: 1.2rem;
+    background: #1f8a3b;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#enter-btn:hover {
+    background: #27a447;
+}
+
+/* Po otwarciu wrót */
+.gate-open .gate-left {
     transform: translateX(-100%);
 }
 
-.open .gate-right {
+.gate-open .gate-right {
     transform: translateX(100%);
 }
 
-/* ROZJAŚNIENIE */
-.flash {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1.2s ease;
-    z-index: 20;
-}
-
-.flash.active {
+.gate-open .gate-content {
     opacity: 1;
 }
 
-/* TEKST POWITALNY */
-.intro-overlay {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(50, 50, 50, 0.6);
-    padding: 20px 30px;
-    border-radius: 8px;
-    text-align: center;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
+/* Nakładka przejścia */
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
     opacity: 0;
-    z-index: 10;
+    pointer-events: none;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 9999;
 }
 
-/* FADE-IN */
-.fade-in {
-    animation: fadeIn 1.5s ease forwards;
-    animation-delay: 1s;
+#transition-overlay.flash {
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 70%);
+    opacity: 1;
+    transition: opacity 0.25s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+#transition-overlay.fade-out {
+    opacity: 1;
 }
 
-/* TEKST */
-.intro-overlay p {
-    font-size: 1rem;
-    line-height: 1.4;
-}
+/* Mobile */
+@media (max-width: 768px) {
+    .gate-text-box p {
+        font-size: 1rem;
+    }
 
-/* PRZYCISK */
-#enter-btn {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #d4d4d4;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+    #enter-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
 }
