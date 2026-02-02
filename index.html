@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cirgonheim — Wrota</title>
+    <title>Cirgonheim – Wrota</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- WRÓTA -->
-    <div class="gate-container">
-        <div class="gate-left"></div>
-        <div class="gate-right"></div>
+<div class="gate-container">
+    <audio id="gate-sound" src="sounds/open_gate.mp3"></audio>
+
+    <div class="gate gate-left"></div>
+    <div class="gate gate-right"></div>
+
+    <div class="gate-content">
+        <div class="gate-text-box">
+            <p>
+                Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką
+                Cirgona Tyberiusa Marcusa Lupusa.<br><br>
+                Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do
+                punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.
+            </p>
+        </div>
+
+        <button id="enter-btn">Wejdź do miasta</button>
     </div>
+</div>
 
-    <!-- ROZJAŚNIENIE -->
-    <div class="flash"></div>
+<!-- Nakładka przejścia -->
+<div id="transition-overlay"></div>
 
-    <!-- TEKST POWITALNY -->
-    <div class="intro-overlay fade-in">
-        <p>
-            Znajdujesz się u wrót Cirgonheimu — strony‑miasta będącej wizytówką
-            Cirgona Tyberiusa Marcusa Lupusa.<br><br>
-            Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do punktu informacyjnego.<br>
-            Jeśli wracasz, dobrze Cię znowu widzieć.
-        </p>
-
-        <button id="enter-btn">Wejdź</button>
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
