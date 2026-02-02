@@ -46,7 +46,7 @@ body {
 
 /* Pół‑przezroczyste tło tekstu */
 .gate-text-box {
-    background: rgba(80, 80, 80, 0.55);
+    background: rgba(200, 200, 200, 0.25);
     padding: 20px 28px;
     border-radius: 10px;
     max-width: 600px;
