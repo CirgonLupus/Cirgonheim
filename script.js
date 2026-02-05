@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 overlay.classList.add('active');
                 setTimeout(() => {
                     // Kierunek: Plac Bramny w Dystrykcie 1
-                    window.location.href = 'districts/dis1/dis1_gatesquare.html';
+                    window.location.href = 'district/dis1/dis1_gatesquare.html';
                 }, 1000); // Czas trwania ściemniania (overlay)
             }, 2000); // Czas trwania otwierania bramy (zgodny z CSS)
         });
