@@ -8,26 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (enterBtn) {
         enterBtn.addEventListener('click', () => {
-            // 1. Dźwięk
+            // Start dźwięku
             if (gateSound) {
-                gateSound.play().catch(e => console.log("Audio play prevented"));
+                gateSound.play().catch(e => console.log("Audio play blocked"));
             }
 
-            // 2. Animacja wrót
+            // Animacja CSS
             gateLeft.classList.add('open');
             gateRight.classList.add('open');
-
-            // 3. Delikatne wygaszanie treści
             content.style.opacity = '0';
             content.style.pointerEvents = 'none';
 
-            // 4. Przejście (Overlay i zmiana strony)
+            // Przejście do kolejnej strony
             setTimeout(() => {
                 overlay.classList.add('active');
                 setTimeout(() => {
+                    // Ścieżka do Twojej pierwszej dzielnicy
                     window.location.href = 'districts/market.html';
-                }, 1000); // Czas na pełne zaciemnienie
-            }, 2000); // Czas otwierania bramy
+                }, 1000);
+            }, 2000);
         });
     }
 });
