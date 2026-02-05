@@ -4,24 +4,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const gateRight = document.querySelector('.gate-right');
     const gateSound = document.getElementById('gate-sound');
     const content = document.querySelector('.gate-content');
+    const overlay = document.getElementById('transition-overlay');
 
-    enterBtn.addEventListener('click', () => {
-        // 1. Odtwórz dźwięk
-        if (gateSound) {
-            gateSound.play().catch(e => console.error("Błąd audio:", e));
-        }
+    if (enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            // 1. Dźwięk
+            if (gateSound) {
+                gateSound.play().catch(e => console.log("Audio play prevented"));
+            }
 
-        // 2. Rozsuń wrota
-        gateLeft.classList.add('open');
-        gateRight.classList.add('open');
+            // 2. Animacja wrót
+            gateLeft.classList.add('open');
+            gateRight.classList.add('open');
 
-        // 3. Wygaś napisy
-        content.classList.add('fade-out');
+            // 3. Delikatne wygaszanie treści
+            content.style.opacity = '0';
+            content.style.pointerEvents = 'none';
 
-        // 4. Przekieruj po zakończeniu animacji
-        setTimeout(() => {
-            // Przenosimy do rynku (Dystrykt)
-            window.location.href = 'districts/market.html';
-        }, 2000); // 2000ms = 2s (zgodnie z CSS)
-    });
+            // 4. Przejście (Overlay i zmiana strony)
+            setTimeout(() => {
+                overlay.classList.add('active');
+                setTimeout(() => {
+                    window.location.href = 'districts/market.html';
+                }, 1000); // Czas na pełne zaciemnienie
+            }, 2000); // Czas otwierania bramy
+        });
+    }
 });
