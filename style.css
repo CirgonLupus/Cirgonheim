@@ -1,88 +1,22 @@
-:root {
-    --dark-bg: #0d0d0d;
-    --gold: #c5a059;
-    --transition-speed: 2s;
-}
-
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--dark-bg);
-    color: white;
-    font-family: 'Georgia', serif;
-    overflow: hidden; /* Blokujemy przewijanie podczas animacji */
-}
-
-/* Kontener bramy */
-.gate-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Połówki bramy */
+/* Brama powinna być tłem pod przyciskiem na starcie */
 .gate {
     position: absolute;
     top: 0;
-    width: 50%;
+    width: 50.5%;
     height: 100%;
-    background: #1a1a1a; /* Tu docelowo dasz obrazek wrót */
-    border: 2px solid #222;
-    z-index: 2;
-    transition: transform var(--transition-speed) ease-in-out;
+    z-index: 1; /* Obniżamy z 10 na 1 */
+    transition: transform 2s ease-in-out;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.gate-left {
-    left: 0;
-    border-right: 1px solid var(--gold);
-}
-
-.gate-right {
-    right: 0;
-    border-left: 1px solid var(--gold);
-}
-
-/* Klasy otwierające - dodawane przez JS */
-.gate-left.open {
-    transform: translateX(-100%);
-}
-
-.gate-right.open {
-    transform: translateX(100%);
-}
-
-/* Treść za bramą */
+/* Treść z przyciskiem musi być NAD bramą, żeby dało się klikać */
 .gate-content {
+    position: relative;
+    z-index: 10; /* Podnosimy z 5 na 10 */
     text-align: center;
-    z-index: 1; /* Pod bramą */
-    padding: 20px;
-    max-width: 600px;
-    transition: opacity 1s ease;
-}
-
-.gate-content.fade-out {
-    opacity: 0;
-}
-
-/* Przycisk */
-#enter-btn {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: all 0.3s;
-}
-
-#enter-btn:hover {
-    background: var(--gold);
-    color: black;
-    box-shadow: 0 0 15px var(--gold);
+    padding: 40px;
+    max-width: 700px;
+    background: rgba(0, 0, 0, 0.5); /* Półprzezroczyste tło, by widzieć bramę */
+    border-radius: 10px;
 }
