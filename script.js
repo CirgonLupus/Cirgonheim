@@ -8,25 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (enterBtn) {
         enterBtn.addEventListener('click', () => {
-            // Start dźwięku
+            // 1. Dźwięk
             if (gateSound) {
                 gateSound.play().catch(e => console.log("Audio play blocked"));
             }
 
-            // Animacja CSS
+            // 2. Animacja wrót i wygaszanie tekstu
             gateLeft.classList.add('open');
             gateRight.classList.add('open');
             content.style.opacity = '0';
             content.style.pointerEvents = 'none';
 
-            // Przejście do kolejnej strony
+            // 3. Przejście do nowej lokalizacji
             setTimeout(() => {
                 overlay.classList.add('active');
                 setTimeout(() => {
-                    // Ścieżka do Twojej pierwszej dzielnicy
-                    window.location.href = 'districts/market.html';
-                }, 1000);
-            }, 2000);
+                    // Kierunek: Plac Bramny w Dystrykcie 1
+                    window.location.href = 'districts/dis1/dis1_gatesquare.html';
+                }, 1000); // Czas trwania ściemniania (overlay)
+            }, 2000); // Czas trwania otwierania bramy (zgodny z CSS)
         });
     }
 });
