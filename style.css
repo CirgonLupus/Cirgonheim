@@ -25,7 +25,7 @@ body, html {
     overflow: hidden;
 }
 
-/* Skrzydła bramy - brak obramowań */
+/* Skrzydła bramy bez obramowań */
 .gate {
     position: absolute;
     top: 0;
@@ -53,31 +53,34 @@ body, html {
 .gate-left.open { transform: translateX(-100%); }
 .gate-right.open { transform: translateX(100%); }
 
-/* Treść interfejsu - usunięto border i background */
+/* Szary przezroczysty panel pod tekstem */
 .gate-content {
     position: relative;
     z-index: 10;
     text-align: center;
     max-width: 600px;
-    padding: 30px;
-    background: transparent;
+    padding: 40px;
+    background: rgba(40, 40, 40, 0.6); /* Szare przezroczyste */
+    backdrop-filter: blur(8px); /* Rozmycie tła pod panelem */
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 4px;
     transition: opacity 1s ease;
 }
 
 .gate-text-box p {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.6;
-    text-shadow: 2px 2px 8px rgba(0,0,0,1); /* Zwiększony cień dla czytelności na tle bramy */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
-/* Przycisk - czysty styl bez zbędnych kontenerów */
+/* Szary przezroczysty przycisk */
 #enter-btn {
-    background: transparent;
+    background: rgba(60, 60, 60, 0.5);
     border: 1px solid var(--gold);
     color: var(--gold);
     padding: 15px 40px;
     font-family: 'Georgia', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
@@ -91,7 +94,7 @@ body, html {
     box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
 }
 
-/* Overlay przejścia */
+/* Nakładka przejścia */
 #transition-overlay {
     position: fixed;
     top: 0;
@@ -102,9 +105,7 @@ body, html {
     opacity: 0;
     z-index: 100;
     pointer-events: none;
-    transition: opacity 1.5s ease;
+    transition: opacity 1.2s ease;
 }
 
-#transition-overlay.active {
-    opacity: 1;
-}
+#transition-overlay.active { opacity: 1; }
