@@ -23,16 +23,17 @@ body, html {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background-color: black; /* Tło pod grafikami */
 }
 
-/* Skrzydła bramy bez obramowań */
+/* SKRZYDŁA BRAMY - TRYB CONTAIN */
 .gate {
     position: absolute;
     top: 0;
-    width: 50.5vw;
+    width: 50vw; /* Dokładnie połowa ekranu */
     height: 100vh;
     z-index: 1;
-    background-size: cover;
+    background-size: contain; /* Obrazek widać w całości */
     background-repeat: no-repeat;
     transition: transform var(--gate-speed) ease-in-out;
 }
@@ -40,61 +41,58 @@ body, html {
 .gate-left {
     left: 0;
     background-image: url('assets/img/gate_left.jpg');
-    background-position: right center;
+    background-position: right center; /* Styka się ze środkiem */
 }
 
 .gate-right {
     right: 0;
     background-image: url('assets/img/gate_right.jpg');
-    background-position: left center;
+    background-position: left center; /* Styka się ze środkiem */
 }
 
-/* Animacja otwierania */
 .gate-left.open { transform: translateX(-100%); }
 .gate-right.open { transform: translateX(100%); }
 
-/* Szary przezroczysty panel pod tekstem */
+/* WĄSKI, SZARY PANEL TEKSTOWY */
 .gate-content {
     position: relative;
     z-index: 10;
     text-align: center;
-    max-width: 600px;
-    padding: 40px;
-    background: rgba(40, 40, 40, 0.6); /* Szare przezroczyste */
-    backdrop-filter: blur(8px); /* Rozmycie tła pod panelem */
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 4px;
-    transition: opacity 1s ease;
+    width: 320px;
+    padding: 25px;
+    background: rgba(35, 35, 35, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 2px;
+    transition: opacity 0.6s ease; /* Szybsze znikanie tekstu */
 }
 
 .gate-text-box p {
-    font-size: 1.15rem;
-    line-height: 1.6;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    text-shadow: 1px 1px 4px rgba(0,0,0,1);
 }
 
-/* Szary przezroczysty przycisk */
 #enter-btn {
-    background: rgba(60, 60, 60, 0.5);
+    background: rgba(60, 60, 60, 0.4);
     border: 1px solid var(--gold);
     color: var(--gold);
-    padding: 15px 40px;
+    padding: 12px 30px;
     font-family: 'Georgia', serif;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.4s;
-    margin-top: 20px;
 }
 
 #enter-btn:hover {
     background: var(--gold);
     color: black;
-    box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+    box-shadow: 0 0 15px var(--gold);
 }
 
-/* Nakładka przejścia */
 #transition-overlay {
     position: fixed;
     top: 0;
