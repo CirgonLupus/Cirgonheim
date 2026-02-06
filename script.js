@@ -8,33 +8,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (enterBtn) {
         enterBtn.addEventListener('click', () => {
-            // KROK 1: Natychmiastowe zniknięcie tekstu
+            // 1. Tekst znika pierwszy
             content.style.opacity = '0';
             content.style.pointerEvents = 'none';
 
-            // KROK 2: Opóźnienie przed otwarciem bramy i dźwiękiem
-            // Zmieniając 800 na inną wartość (milisekundy), regulujesz czas pauzy
+            // 2. Pauza 800ms przed ruszeniem bramy
             setTimeout(() => {
                 
-                // Start dźwięku
+                // Start dźwięku (ścieżka: assets/sound/)
                 if (gateSound) {
-                    gateSound.play().catch(e => console.log("Audio zablokowane"));
+                    gateSound.play().catch(e => console.log("Audio zablokowane lub zła ścieżka"));
                 }
 
-                // Start animacji wrót
+                // Brama rusza
                 gateLeft.classList.add('open');
                 gateRight.classList.add('open');
 
-                // KROK 3: Przejście do nowej strony po zakończeniu animacji bramy
-                // 2000ms (otwieranie) + 500ms (zapas na overlay)
+                // 3. Przejście do nowej strony po animacji
                 setTimeout(() => {
                     overlay.classList.add('active');
                     setTimeout(() => {
+                        // Ścieżka: district/dis1/...
                         window.location.href = 'district/dis1/dis1_gatesquare.html';
                     }, 1000);
                 }, 2000);
 
-            }, 800); // <-- TUTAJ ustawiasz czas pauzy (800ms = 0.8 sekundy)
+            }, 800); 
         });
     }
 });
