@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gateSound = document.getElementById('gate-sound');
     const content = document.querySelector('.gate-content');
     const overlay = document.getElementById('transition-overlay');
-
+    
     if (enterBtn) {
         enterBtn.addEventListener('click', () => {
             // 1. Tekst znika pierwszy
