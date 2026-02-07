@@ -1,128 +1,37 @@
-:root {
-    --gold: #c5a059;
-    --gate-speed: 2s;
-}
-
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    /* Główne tło strony */
-    background-image: url('assets/img/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    overflow: hidden;
-    font-family: 'Georgia', serif;
-}
-
-.gate-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* CZARNY KONTENER POD WROTAMI */
-.gate-viewport {
-    position: absolute;
-    width: 100vw; /* Możesz zmienić na np. 80vw, jeśli chcesz widzieć background.jpg po bokach */
-    height: 100vh;
-    background-color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
-/* Skrzydła bramy wewnątrz czarnego kontenera */
-.gate {
-    position: absolute;
-    top: 0;
-    width: 50vw;
-    height: 100vh;
-    z-index: 2;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: transform var(--gate-speed) ease-in-out;
-}
-
-.gate-left {
-    left: 0;
-    background-image: url('assets/img/gate_left.jpg');
-    background-position: right center;
-}
-
-.gate-right {
-    right: 0;
-    background-image: url('assets/img/gate_right.jpg');
-    background-position: left center;
-}
-
-.gate-left.open { transform: translateX(-100%); }
-.gate-right.open { transform: translateX(100%); }
-
-/* Panel tekstowy */
-.gate-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    width: 320px;
-    padding: 25px;
-    background: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 4px;
-    transition: opacity 0.6s ease;
-}
-
-.lang-switch {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.lang-btn {
-    width: 22px;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: 0.3s;
-}
-
-.lang-btn:hover, .lang-btn.active {
-    opacity: 1;
-}
-
-.gate-text-box p {
-    color: white;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-#enter-btn {
-    background: rgba(60, 60, 60, 0.4);
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 12px 35px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-}
-
-#transition-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: black;
-    opacity: 0;
-    z-index: 100;
-    pointer-events: none;
-    transition: opacity 1.2s ease;
-}
-
-#transition-overlay.active { opacity: 1; }
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirgonheim – Wrota</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gate-container">
+        <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
+        
+        <div class="gate-viewport">
+            <div class="gate gate-left"></div>
+            <div class="gate gate-right"></div>
+        </div>
+        
+        <div class="gate-content">
+            <div class="lang-switch">
+                <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
+                <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
+            </div>
+            <div class="gate-text-box">
+                <p id="welcome-text">
+                    Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką
+                    Cirgona Tyberiusa Marcusa Lupusa.<br><br>
+                    Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do
+                    punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.
+                </p>
+            </div>
+            <button id="enter-btn">Wejdź do miasta</button>
+        </div>
+    </div>
+    <div id="transition-overlay"></div>
+    <script src="script.js"></script>
+</body>
+</html>
