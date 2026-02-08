@@ -1,18 +1,29 @@
-<div class="gate-container">
-    <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
-    
-    <div class="gate-viewport">
-        <div class="gate gate-left"></div>
-        <div class="gate gate-right"></div>
-    </div>
-    
-    <div class="gate-content">
-        <div class="lang-switch">
-            <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
-            <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Cirgonheim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gate-container">
+        <audio id="gate-sound" src="assets/sound/open_gate.mp3"></audio>
+        
+        <div class="gate-viewport">
+            <div class="gate gate-left"></div>
+            <div class="gate gate-right"></div>
         </div>
-        <p id="welcome-text">Znajdujesz się u wrót...</p>
-        <button id="enter-btn">Wejdź do miasta</button>
+        
+        <div class="gate-content">
+            <div class="lang-switch">
+                <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl">
+                <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en">
+            </div>
+            <p id="welcome-text">Znajdujesz się u wrót Cirgonheimu...</p>
+            <button id="enter-btn">Wejdź do miasta</button>
+        </div>
     </div>
-</div>
-<div id="transition-overlay"></div>
+    <div id="transition-overlay"></div>
+    <script src="script.js"></script>
+</body>
+</html>
