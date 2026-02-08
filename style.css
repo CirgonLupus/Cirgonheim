@@ -1,17 +1,18 @@
-    :root {
+:root {
     --gold: #c5a059;
     --gate-speed: 2s;
 }
 
+/* Tło strony - widoczne zawsze i wszędzie */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    /* BACKGROUND ZAWSZE WIDOCZNY */
     background-image: url('assets/img/background.jpg');
     background-size: cover;
     background-position: center;
+    background-color: #333; /* Jeśli obrazek nie zadziała, zobaczysz szary zamiast bieli */
     overflow: hidden;
     font-family: 'Georgia', serif;
 }
@@ -25,23 +26,21 @@ body, html {
     align-items: center;
 }
 
-/* CZERŃ WIDOCZNA TYLKO POD WROTAMI */
+/* CZARNY PROSTOKĄT POD WROTAMI - to on odsłoni ciemność */
 .gate-viewport {
-    position: absolute;
-    width: 100%; /* Rozciąga się na szerokość contain */
+    position: relative;
+    width: 100%; 
     height: 100%;
-    background-color: black; /* To się odsłoni */
-    z-index: 1;
-    /* Maska, by czerń nie wystawała poza obrys bramy contain */
-    display: flex;
-    justify-content: center;
+    background-color: black; /* CIEMNOŚĆ ZA WROTAMI */
+    overflow: hidden;
 }
 
+/* SKRZYDŁA BRAMY */
 .gate {
     position: absolute;
     top: 0;
-    width: 50.5vw;
-    height: 100vh;
+    width: 50.5%; /* Połowa szerokości kontenera */
+    height: 100%;
     z-index: 2;
     background-size: contain;
     background-repeat: no-repeat;
@@ -60,20 +59,43 @@ body, html {
     background-position: left center;
 }
 
-/* Animacja */
+/* Ruch bramy */
 .gate-left.open { transform: translateX(-100%); }
 .gate-right.open { transform: translateX(100%); }
 
-/* PANEL */
+/* PANEL TEKSTOWY - na samym wierzchu */
 .gate-content {
-    position: relative;
+    position: absolute;
     z-index: 10;
-    background: rgba(30, 30, 30, 0.7);
+    background: rgba(30, 30, 30, 0.8);
     backdrop-filter: blur(8px);
     padding: 25px;
     border: 1px solid var(--gold);
     width: 320px;
-    transition: opacity 0.6s;
+    text-align: center;
+    color: white;
 }
 
-/* ... reszta styli (button, lang) bez zmian ... */
+.lang-switch { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 10px; }
+.lang-btn { width: 20px; cursor: pointer; opacity: 0.6; }
+.lang-btn.active { opacity: 1; border-bottom: 1px solid var(--gold); }
+
+#enter-btn {
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 25px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#transition-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black;
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+#transition-overlay.active { opacity: 1; }
