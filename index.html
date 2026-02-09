@@ -8,46 +8,58 @@
         :root {
             --gold: #c5a059;
             --gate-speed: 2s;
+            /* TUTAJ MOŻESZ ŁATWO ZMIENIĆ ROZMIAR BRAMY */
+            --gate-width: 600px; 
+            --gate-height: 80vh;
         }
 
-        /* TŁO CAŁEJ STRONY */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
+            /* TŁO WIDOCZNE DOOkoła BRAMY */
             background-image: url('assets/img/background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Georgia', serif;
+            background-color: #1a1a1a;
         }
 
-        /* KONTENER WRÓT - CZARNY ŚRODEK */
-        .gate-viewport {
+        /* KONTENER POZYCJONUJĄCY BRAMĘ NA ŚRODKU */
+        .gate-area {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000000;
+            width: var(--gate-width);
+            height: var(--gate-height);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        /* CZARNA OTCHŁAŃ POD WROTAMI */
+        .gate-viewport {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         /* SKRZYDŁA BRAMY */
         .gate {
             position: absolute;
             top: 0;
-            width: 50.1vw;
-            height: 100vh;
+            width: 50.5%; /* Lekka zakładka na środku */
+            height: 100%;
             z-index: 2;
-            background-size: contain;
+            background-size: cover; /* Wypełnia swój obszar */
             background-repeat: no-repeat;
             transition: transform var(--gate-speed) ease-in-out;
         }
@@ -68,56 +80,50 @@
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
-        /* PANEL TEKSTOWY - POPRAWIONY (ELASTYCZNY) */
+        /* PANEL TEKSTOWY - teraz idealnie na środku bramy */
         .gate-content {
             position: absolute;
             z-index: 10;
-            width: 90%;
-            max-width: 400px; /* Nieco szerszy dla lepszego rozkładu tekstu */
-            padding: 30px;
-            background: rgba(15, 15, 15, 0.85);
+            width: 80%;
+            max-width: 350px;
+            padding: 25px;
+            background: rgba(15, 15, 15, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid var(--gold);
             text-align: center;
             color: white;
             transition: opacity 0.8s;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
         .lang-switch {
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .lang-btn {
-            width: 24px;
+            width: 20px;
             cursor: pointer;
             opacity: 0.5;
             transition: 0.3s;
         }
 
-        .lang-btn.active { 
-            opacity: 1; 
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 5px var(--gold));
-        }
+        .lang-btn.active { opacity: 1; transform: scale(1.1); }
 
         #welcome-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         #enter-btn {
             background: none;
             border: 1px solid var(--gold);
             color: var(--gold);
-            padding: 12px 35px;
+            padding: 10px 25px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             font-family: 'Georgia', serif;
             cursor: pointer;
             transition: 0.4s;
@@ -126,10 +132,8 @@
         #enter-btn:hover {
             background: var(--gold);
             color: black;
-            box-shadow: 0 0 15px var(--gold);
         }
 
-        /* EKRAN PRZEJŚCIA */
         #transition-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -137,32 +141,33 @@
             opacity: 0;
             z-index: 100;
             pointer-events: none;
-            transition: opacity 1.2s;
+            transition: opacity 1s;
         }
         #transition-overlay.active { opacity: 1; }
     </style>
 </head>
 <body>
 
-    <div class="gate-viewport">
-        <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
-        
-        <div class="gate gate-left"></div>
-        <div class="gate gate-right"></div>
+    <div class="gate-area">
+        <div class="gate-viewport">
+            <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
+            
+            <div class="gate gate-left"></div>
+            <div class="gate gate-right"></div>
 
-        <div class="gate-content">
-            <div class="lang-switch">
-                <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
-                <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
+            <div class="gate-content">
+                <div class="lang-switch">
+                    <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
+                    <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
+                </div>
+                
+                <div id="welcome-text">
+                    Znajdujesz się u wrót Cirgonheimu.<br><br>
+                    Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.
+                </div>
+                
+                <button id="enter-btn">Wejdź</button>
             </div>
-            
-            <div id="welcome-text">
-                Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką 
-                Cirgona Tyberiusa Marcusa Lupusa.<br><br>
-                Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.
-            </div>
-            
-            <button id="enter-btn">Wejdź do miasta</button>
         </div>
     </div>
 
@@ -181,39 +186,32 @@
 
             const translations = {
                 pl: {
-                    welcome: "Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.",
-                    button: "Wejdź do miasta"
+                    welcome: "Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.",
+                    button: "Wejdź"
                 },
                 en: {
-                    welcome: "You stand at the gates of Cirgonheim – a website/city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the information point after passing the gates. If you are returning, it is good to have you back.",
-                    button: "Enter the city"
+                    welcome: "You stand at the gates of Cirgonheim – a city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the info point.",
+                    button: "Enter"
                 }
             };
 
-            // Obsługa języka
             langBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const lang = btn.getAttribute('data-lang');
                     localStorage.setItem('selectedLang', lang);
-                    
                     welcomeText.innerHTML = translations[lang].welcome;
                     enterBtn.innerText = translations[lang].button;
-                    
                     langBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                 });
             });
 
-            // Animacja wejścia
             enterBtn.addEventListener('click', () => {
                 content.style.opacity = '0';
                 content.style.pointerEvents = 'none';
 
                 setTimeout(() => {
-                    if(gateSound) {
-                        gateSound.play().catch(e => console.log("Audio play blocked"));
-                    }
-                    
+                    if(gateSound) gateSound.play().catch(e => {});
                     gateLeft.classList.add('open');
                     gateRight.classList.add('open');
 
@@ -221,16 +219,15 @@
                         overlay.classList.add('active');
                         setTimeout(() => {
                             window.location.href = 'district/dis1/dis1_gatesquare.html';
-                        }, 1200);
+                        }, 1000);
                     }, 2000);
-                }, 800);
+                }, 500);
             });
 
-            // Przywracanie języka
             const savedLang = localStorage.getItem('selectedLang');
-            if(savedLang && translations[savedLang]) {
-                const activeBtn = document.querySelector(`[data-lang="${savedLang}"]`);
-                if(activeBtn) activeBtn.click();
+            if(savedLang) {
+                const btn = document.querySelector(`[data-lang="${savedLang}"]`);
+                if(btn) btn.click();
             }
         });
     </script>
