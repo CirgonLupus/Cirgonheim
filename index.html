@@ -2,28 +2,226 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Cirgonheim</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirgonheim – Wrota</title>
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gate-speed: 2s;
+        }
+
+        /* TŁO CAŁEJ STRONY - zawsze widoczne */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/img/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #1a1a1a; /* Kolor zapasowy, gdyby obrazka nie było */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+        }
+
+        /* KONTENER WRÓT - tutaj jest czarne tło (ciemność), którą odsłoni brama */
+        .gate-viewport {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000; /* TO JEST CIEMNOŚĆ W ŚRODKU */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Możesz tu dodać maskę, jeśli chcesz, by brama nie była na cały ekran */
+        }
+
+        /* SKRZYDŁA BRAMY */
+        .gate {
+            position: absolute;
+            top: 0;
+            width: 50.1vw;
+            height: 100vh;
+            z-index: 2;
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: transform var(--gate-speed) ease-in-out;
+        }
+
+        .gate-left {
+            left: 0;
+            background-image: url('assets/img/gate_left.jpg');
+            background-position: right center;
+        }
+
+        .gate-right {
+            right: 0;
+            background-image: url('assets/img/gate_right.jpg');
+            background-position: left center;
+        }
+
+        /* ANIMACJA OTWARCIA */
+        .gate-left.open { transform: translateX(-100%); }
+        .gate-right.open { transform: translateX(100%); }
+
+        /* PANEL TEKSTOWY */
+        .gate-content {
+            position: absolute;
+            z-index: 10;
+            width: 320px;
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gold);
+            text-align: center;
+            color: white;
+            transition: opacity 0.8s;
+        }
+
+        /* ZMIANA JĘZYKA */
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lang-btn {
+            width: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active { opacity: 1; transform: scale(1.1); }
+
+        #welcome-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        #enter-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        #enter-btn:hover {
+            background: var(--gold);
+            color: black;
+        }
+
+        /* EKRAN PRZEJŚCIA */
+        #transition-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 1.2s;
+        }
+        #transition-overlay.active { opacity: 1; }
+    </style>
 </head>
 <body>
-    <div class="gate-container">
-        <audio id="gate-sound" src="assets/sound/open_gate.mp3"></audio>
+
+    <div class="gate-viewport">
+        <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
         
-        <div class="gate-viewport">
-            <div class="gate gate-left"></div>
-            <div class="gate gate-right"></div>
-        </div>
-        
+        <div class="gate gate-left"></div>
+        <div class="gate gate-right"></div>
+
         <div class="gate-content">
             <div class="lang-switch">
-                <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl">
-                <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en">
+                <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
+                <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
             </div>
-            <p id="welcome-text">Znajdujesz się u wrót Cirgonheimu...</p>
+            
+            <p id="welcome-text">
+                Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką 
+                Cirgona Tyberiusa Marcusa Lupusa.
+            </p>
+            
             <button id="enter-btn">Wejdź do miasta</button>
         </div>
     </div>
+
     <div id="transition-overlay"></div>
-    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const enterBtn = document.getElementById('enter-btn');
+            const welcomeText = document.getElementById('welcome-text');
+            const gateLeft = document.querySelector('.gate-left');
+            const gateRight = document.querySelector('.gate-right');
+            const content = document.querySelector('.gate-content');
+            const overlay = document.getElementById('transition-overlay');
+            const gateSound = document.getElementById('gate-sound');
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            const translations = {
+                pl: {
+                    welcome: "Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.",
+                    button: "Wejdź do miasta"
+                },
+                en: {
+                    welcome: "You stand at the gates of Cirgonheim – a website/city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the information point. If you are returning, it is good to have you back.",
+                    button: "Enter the city"
+                }
+            };
+
+            // Zmiana języka
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-lang');
+                    localStorage.setItem('selectedLang', lang);
+                    
+                    welcomeText.innerHTML = translations[lang].welcome;
+                    enterBtn.innerText = translations[lang].button;
+                    
+                    langBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            // Otwieranie bramy
+            enterBtn.addEventListener('click', () => {
+                content.style.opacity = '0';
+                content.style.pointerEvents = 'none';
+
+                setTimeout(() => {
+                    if(gateSound) gateSound.play().catch(e => console.log("Audio block"));
+                    
+                    gateLeft.classList.add('open');
+                    gateRight.classList.add('open');
+
+                    setTimeout(() => {
+                        overlay.classList.add('active');
+                        setTimeout(() => {
+                            window.location.href = 'district/dis1/dis1_gatesquare.html';
+                        }, 1200);
+                    }, 2000);
+                }, 800);
+            });
+
+            // Wczytaj zapamiętany język
+            const savedLang = localStorage.getItem('selectedLang');
+            if(savedLang && translations[savedLang]) {
+                document.querySelector(`[data-lang="${savedLang}"]`).click();
+            }
+        });
+    </script>
 </body>
 </html>
