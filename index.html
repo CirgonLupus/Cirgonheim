@@ -10,7 +10,7 @@
             --gate-speed: 2s;
         }
 
-        /* TŁO CAŁEJ STRONY - zawsze widoczne */
+        /* TŁO CAŁEJ STRONY */
         body, html {
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-color: #1a1a1a; /* Kolor zapasowy, gdyby obrazka nie było */
+            background-color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,17 +28,16 @@
             font-family: 'Georgia', serif;
         }
 
-        /* KONTENER WRÓT - tutaj jest czarne tło (ciemność), którą odsłoni brama */
+        /* KONTENER WRÓT - CZARNY ŚRODEK */
         .gate-viewport {
             position: relative;
             width: 100vw;
             height: 100vh;
-            background-color: #000000; /* TO JEST CIEMNOŚĆ W ŚRODKU */
+            background-color: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            /* Możesz tu dodać maskę, jeśli chcesz, by brama nie była na cały ekran */
         }
 
         /* SKRZYDŁA BRAMY */
@@ -69,50 +68,57 @@
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
-        /* PANEL TEKSTOWY */
+        /* PANEL TEKSTOWY - POPRAWIONY (ELASTYCZNY) */
         .gate-content {
             position: absolute;
             z-index: 10;
-            width: 320px;
+            width: 90%;
+            max-width: 400px; /* Nieco szerszy dla lepszego rozkładu tekstu */
             padding: 30px;
-            background: rgba(20, 20, 20, 0.8);
+            background: rgba(15, 15, 15, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid var(--gold);
             text-align: center;
             color: white;
             transition: opacity 0.8s;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
-        /* ZMIANA JĘZYKA */
         .lang-switch {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .lang-btn {
-            width: 20px;
+            width: 24px;
             cursor: pointer;
             opacity: 0.5;
             transition: 0.3s;
         }
 
-        .lang-btn.active { opacity: 1; transform: scale(1.1); }
+        .lang-btn.active { 
+            opacity: 1; 
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 5px var(--gold));
+        }
 
         #welcome-text {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 25px;
+            text-align: center;
         }
 
         #enter-btn {
             background: none;
             border: 1px solid var(--gold);
             color: var(--gold);
-            padding: 12px 30px;
+            padding: 12px 35px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-family: 'Georgia', serif;
             cursor: pointer;
             transition: 0.4s;
         }
@@ -120,6 +126,7 @@
         #enter-btn:hover {
             background: var(--gold);
             color: black;
+            box-shadow: 0 0 15px var(--gold);
         }
 
         /* EKRAN PRZEJŚCIA */
@@ -149,10 +156,11 @@
                 <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
             </div>
             
-            <p id="welcome-text">
+            <div id="welcome-text">
                 Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką 
-                Cirgona Tyberiusa Marcusa Lupusa.
-            </p>
+                Cirgona Tyberiusa Marcusa Lupusa.<br><br>
+                Jeśli to Twoja pierwsza wizyta, po przekroczeniu wrót skieruj się do punktu informacyjnego. Jeśli wracasz, dobrze Cię znowu gościć.
+            </div>
             
             <button id="enter-btn">Wejdź do miasta</button>
         </div>
@@ -177,12 +185,12 @@
                     button: "Wejdź do miasta"
                 },
                 en: {
-                    welcome: "You stand at the gates of Cirgonheim – a website/city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the information point. If you are returning, it is good to have you back.",
+                    welcome: "You stand at the gates of Cirgonheim – a website/city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the information point after passing the gates. If you are returning, it is good to have you back.",
                     button: "Enter the city"
                 }
             };
 
-            // Zmiana języka
+            // Obsługa języka
             langBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const lang = btn.getAttribute('data-lang');
@@ -196,13 +204,15 @@
                 });
             });
 
-            // Otwieranie bramy
+            // Animacja wejścia
             enterBtn.addEventListener('click', () => {
                 content.style.opacity = '0';
                 content.style.pointerEvents = 'none';
 
                 setTimeout(() => {
-                    if(gateSound) gateSound.play().catch(e => console.log("Audio block"));
+                    if(gateSound) {
+                        gateSound.play().catch(e => console.log("Audio play blocked"));
+                    }
                     
                     gateLeft.classList.add('open');
                     gateRight.classList.add('open');
@@ -216,10 +226,11 @@
                 }, 800);
             });
 
-            // Wczytaj zapamiętany język
+            // Przywracanie języka
             const savedLang = localStorage.getItem('selectedLang');
             if(savedLang && translations[savedLang]) {
-                document.querySelector(`[data-lang="${savedLang}"]`).click();
+                const activeBtn = document.querySelector(`[data-lang="${savedLang}"]`);
+                if(activeBtn) activeBtn.click();
             }
         });
     </script>
