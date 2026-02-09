@@ -1,38 +1,132 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>Cirgonheim – Plac przed bramą</title>
-  <link rel="stylesheet" href="dis1_gatesquare.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirgonheim – Plac Bramny</title>
+    <style>
+        :root {
+            --gold: #c5a059;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* Tutaj wykorzystujemy tło miasta */
+            background: url('../../assets/img/background.jpg') no-repeat center center / cover;
+            background-attachment: fixed;
+            font-family: 'Georgia', serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Górny pasek z opcjami */
+        .top-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+
+        .lang-btn {
+            width: 25px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active { opacity: 1; transform: scale(1.1); }
+
+        /* Scena placu */
+        .square-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Dom Informacyjny */
+        .info-house {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .info-house img {
+            max-width: 500px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
+        }
+
+        .info-house:hover {
+            transform: scale(1.03);
+        }
+
+        /* Tabliczka nad domem */
+        .info-label {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 20, 20, 0.9);
+            color: var(--gold);
+            padding: 8px 25px;
+            border: 1px solid var(--gold);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
 
-  <main class="plaza">
-    <div class="plaza-inner">
-
-      <!-- Dom informacyjny -->
-      <section class="info-house">
-        <div class="info-house-image"></div>
-        <div class="info-house-panel">
-          <h1>Dom Informacyjny</h1>
-          <p>Witaj na placu przed bramą Cirgonheimu.  
-             Tutaj poznasz podstawowe informacje o mieście i drogę do jego dzielnic.</p>
-          <button class="btn-primary">Wejdź do środka</button>
-        </div>
-      </section>
-
-      <!-- Drogowskazy -->
-      <section class="signposts">
-        <div class="signpost">
-          <div class="signpost-board">Dystrykt Centralny</div>
-        </div>
-        <div class="signpost">
-          <div class="signpost-board">Dystrykt Rzemiosła</div>
-        </div>
-      </section>
-
+    <div class="top-bar">
+        <img src="https://flagcdn.com/w40/pl.png" class="lang-btn" data-lang="pl" alt="PL">
+        <img src="https://flagcdn.com/w40/gb.png" class="lang-btn" data-lang="en" alt="EN">
     </div>
-  </main>
 
+    <div class="square-container">
+        <div class="info-house" onclick="location.href='info_house.html'">
+            <div class="info-label" id="label-info">Dom Informacyjny</div>
+            <img src="../../assets/img/infohouse.png" alt="Dom Informacyjny">
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            pl: { labelInfo: "Dom Informacyjny" },
+            en: { labelInfo: "Information House" }
+        };
+
+        function updateLang(lang) {
+            document.getElementById('label-info').innerText = translations[lang].labelInfo;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            localStorage.setItem('selectedLang', lang);
+        }
+
+        // Inicjalizacja języka
+        const savedLang = localStorage.getItem('selectedLang') || 'pl';
+        updateLang(savedLang);
+
+        // Obsługa przełącznika na bieżąco
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                updateLang(e.target.dataset.lang);
+            });
+        });
+    </script>
 </body>
 </html>
