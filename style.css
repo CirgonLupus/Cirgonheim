@@ -1,101 +1,69 @@
-:root {
-    --gold: #c5a059;
-    --gate-speed: 2s;
-}
+/* RESET */
+* { box-sizing: border-box; }
 
-/* Tło strony - widoczne zawsze i wszędzie */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
-    background-image: url('assets/img/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-color: #333; /* Jeśli obrazek nie zadziała, zobaczysz szary zamiast bieli */
-    overflow: hidden;
-    font-family: 'Georgia', serif;
-}
-
-.gate-container {
-    position: relative;
-    width: 100vw;
     height: 100vh;
+    /* TŁO GŁÓWNE - DODAJEMY KOLOR CZERWONY JAKO TEST */
+    background: red url('assets/img/background.jpg') no-repeat center center / cover;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* CZARNY PROSTOKĄT POD WROTAMI - to on odsłoni ciemność */
-.gate-viewport {
+/* KONTENER WRÓT */
+.gate-container {
     position: relative;
-    width: 100%; 
-    height: 100%;
-    background-color: black; /* CIEMNOŚĆ ZA WROTAMI */
+    width: 100%;
+    max-width: 1200px; /* Szerokość maksymalna dla trybu contain */
+    height: 80vh;      /* Wysokość bramy */
+    background: black; /* TO JEST TWOJA CIEMNOŚĆ ZA WROTAMI */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
+    border: 2px solid gold; /* Widoczna ramka, żebyś widział gdzie jest brama */
 }
 
-/* SKRZYDŁA BRAMY */
 .gate {
     position: absolute;
     top: 0;
-    width: 50.5%; /* Połowa szerokości kontenera */
+    width: 50%;
     height: 100%;
     z-index: 2;
     background-size: contain;
     background-repeat: no-repeat;
-    transition: transform var(--gate-speed) ease-in-out;
+    transition: transform 2s ease-in-out;
 }
 
 .gate-left {
     left: 0;
     background-image: url('assets/img/gate_left.jpg');
     background-position: right center;
+    background-color: #222; /* Kolor testowy wrót */
 }
 
 .gate-right {
     right: 0;
     background-image: url('assets/img/gate_right.jpg');
     background-position: left center;
+    background-color: #222; /* Kolor testowy wrót */
 }
 
-/* Ruch bramy */
+/* Animacja */
 .gate-left.open { transform: translateX(-100%); }
 .gate-right.open { transform: translateX(100%); }
 
-/* PANEL TEKSTOWY - na samym wierzchu */
+/* PANEL TEKSTOWY */
 .gate-content {
     position: absolute;
     z-index: 10;
-    background: rgba(30, 30, 30, 0.8);
-    backdrop-filter: blur(8px);
-    padding: 25px;
-    border: 1px solid var(--gold);
-    width: 320px;
-    text-align: center;
+    background: rgba(0, 0, 0, 0.85);
     color: white;
+    padding: 20px;
+    width: 300px;
+    border: 1px solid #c5a059;
+    text-align: center;
 }
-
-.lang-switch { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 10px; }
-.lang-btn { width: 20px; cursor: pointer; opacity: 0.6; }
-.lang-btn.active { opacity: 1; border-bottom: 1px solid var(--gold); }
-
-#enter-btn {
-    background: none;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 10px 25px;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-#transition-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: black;
-    opacity: 0;
-    z-index: 100;
-    pointer-events: none;
-    transition: opacity 1s;
-}
-#transition-overlay.active { opacity: 1; }
