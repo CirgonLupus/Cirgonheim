@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cirgonheim – Plac Bramny</title>
+    <title>Cirgonheim – Plac Bramny (Izometria)</title>
     <style>
         :root {
             --gold: #c5a059;
+            --dark-glass: rgba(10, 10, 10, 0.9);
+            /* Kąt rzutu izometrycznego dla podłogi */
+            --iso-transform: rotateX(60deg) rotateZ(45deg);
         }
 
         body, html {
@@ -14,119 +17,109 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* Tutaj wykorzystujemy tło miasta */
-            background: url('../../assets/img/background.jpg') no-repeat center center / cover;
-            background-attachment: fixed;
-            font-family: 'Georgia', serif;
+            background-color: #050505; /* Głęboka czerń tła */
             color: white;
-            overflow: hidden;
-        }
-
-        /* Górny pasek z opcjami */
-        .top-bar {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-            z-index: 100;
-        }
-
-        .lang-btn {
-            width: 25px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: 0.3s;
-        }
-
-        .lang-btn.active { opacity: 1; transform: scale(1.1); }
-
-        /* Scena placu */
-        .square-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
+            font-family: 'Georgia', serif;
+            overflow: hidden; /* Blokujemy przewijanie, plac jest sceną */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Dom Informacyjny */
-        .info-house {
+        /* PODŁOGA PLACU - city.jpg leżący płasko */
+        .iso-ground {
+            position: absolute;
+            width: 2500px;
+            height: 2500px;
+            background-image: url('../../assets/img/city.jpg');
+            background-size: 400px; /* Rozmiar tekstury bruku/placu */
+            background-repeat: repeat;
+            transform: var(--iso-transform);
+            z-index: 1;
+            /* Efekt winiety, żeby krawędzie placu tonęły w mroku */
+            box-shadow: inset 0 0 800px #000, inset 0 0 400px #000;
+        }
+
+        /* KONTENER NA ŚWIAT (budynki) */
+        .world-scene {
             position: relative;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            pointer-events: none; /* Żeby kontener nie blokował kliknięć */
+        }
+
+        /* STYL DLA KAŻDEGO BUDYNKU */
+        .iso-object {
+            position: absolute;
+            pointer-events: auto; /* Włączamy kliknięcia dla konkretnego budynku */
             cursor: pointer;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Cień rzucany przez budynek */
+            filter: drop-shadow(20px 40px 20px rgba(0,0,0,0.7));
         }
 
-        .info-house img {
-            max-width: 500px;
+        /* POZYCJONOWANIE DOMU INFORMACYJNEGO */
+        #info-house {
+            bottom: 40%; /* Miejsce na siatce (pion) */
+            left: 35%;   /* Miejsce na siatce (poziom) */
+        }
+
+        .iso-object img {
+            width: 400px; /* Rozmiar Twojego rysunku */
             height: auto;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.7));
+            display: block;
         }
 
-        .info-house:hover {
-            transform: scale(1.03);
+        /* EFEKT PO NAJECHANIU MYSZKĄ */
+        .iso-object:hover {
+            transform: translateY(-15px) scale(1.02);
+            filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.4));
         }
 
-        /* Tabliczka nad domem */
-        .info-label {
+        /* ETYKIETA NAD BUDYNKIEM */
+        .iso-label {
             position: absolute;
             top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(20, 20, 20, 0.9);
-            color: var(--gold);
-            padding: 8px 25px;
+            background: var(--dark-glass);
             border: 1px solid var(--gold);
-            white-space: nowrap;
+            color: var(--gold);
+            padding: 6px 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="top-bar">
-        <img src="https://flagcdn.com/w40/pl.png" class="lang-btn" data-lang="pl" alt="PL">
-        <img src="https://flagcdn.com/w40/gb.png" class="lang-btn" data-lang="en" alt="EN">
-    </div>
-
-    <div class="square-container">
-        <div class="info-house" onclick="location.href='info_house.html'">
-            <div class="info-label" id="label-info">Dom Informacyjny</div>
-            <img src="../../assets/img/infohouse.png" alt="Dom Informacyjny">
-        </div>
-    </div>
-
-    <script>
-        const translations = {
-            pl: { labelInfo: "Dom Informacyjny" },
-            en: { labelInfo: "Information House" }
-        };
-
-        function updateLang(lang) {
-            document.getElementById('label-info').innerText = translations[lang].labelInfo;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
-            localStorage.setItem('selectedLang', lang);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0.7;
+            transition: 0.3s;
         }
 
-        // Inicjalizacja języka
-        const savedLang = localStorage.getItem('selectedLang') || 'pl';
-        updateLang(savedLang);
+        .iso-object:hover .iso-label {
+            opacity: 1;
+            background: var(--gold);
+            color: black;
+            box-shadow: 0 0 15px var(--gold);
+        }
 
-        // Obsługa przełącznika na bieżąco
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                updateLang(e.target.dataset.lang);
-            });
-        });
-    </script>
-</body>
-</html>
+        /* INTERFEJS GÓRNY */
+        .top-nav {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+
+        .lang-btn {
+            width: 25px;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active { 
+            opacity: 1; 
+            filter: drop-shadow(0 0 5px var(--gold));
+            
