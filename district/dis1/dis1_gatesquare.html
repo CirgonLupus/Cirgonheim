@@ -19,16 +19,16 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* Przyciemnienie tła dla kontrastu */
+        /* Klimatyczne przyciemnienie tła */
         body::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
         }
 
         .carousel-container {
             position: relative;
-            width: 100vw; height: 80vh;
+            width: 100vw; height: 85vh;
             display: flex; justify-content: center; align-items: center;
             perspective: 1500px;
             z-index: 10;
@@ -40,7 +40,6 @@
             transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* KARTA DOMKU */
         .house-card {
             position: absolute;
             width: 450px;
@@ -50,44 +49,43 @@
             user-select: none;
         }
 
-        /* RAMKA Z NAZWĄ (NAD DOMKIEM) */
+        /* Ramka nad budynkiem */
         .house-title-frame {
             border: 2px solid var(--gold);
             padding: 8px 25px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             color: var(--gold);
             text-transform: uppercase;
             letter-spacing: 3px;
             font-size: 1.1rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
             opacity: 0;
             transform: translateY(20px);
             transition: 0.5s;
         }
 
-        /* GRAFIKA DOMKU */
         .house-card img {
             width: 100%; height: auto;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9));
             transition: 0.4s;
         }
 
-        /* OPIS (POD DOMKIEM) */
+        /* Opis pod budynkiem */
         .house-description {
-            margin-top: 25px;
-            width: 80%;
+            margin-top: 30px;
+            width: 85%;
             text-align: center;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ddd;
             opacity: 0;
             transform: translateY(-20px);
             transition: 0.5s;
-            text-shadow: 2px 2px 4px black;
+            text-shadow: 2px 2px 5px black;
         }
 
-        /* ELEMENTY AKTYWNE (NA ŚRODKU) */
+        /* Animacje dla aktywnego domku na środku */
         .active .house-title-frame,
         .active .house-description {
             opacity: 1;
@@ -99,22 +97,24 @@
             filter: drop-shadow(0 0 25px var(--gold));
         }
 
-        /* NAWIGACJA */
+        /* Przyciski nawigacji */
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.5); border: 1px solid var(--gold); color: var(--gold);
-            font-size: 2.5rem; width: 60px; height: 60px; cursor: pointer;
+            background: rgba(0,0,0,0.7); border: 1px solid var(--gold); color: var(--gold);
+            font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
             z-index: 100; transition: 0.3s; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
         }
-        .nav-btn:hover { background: var(--gold); color: black; }
+        .nav-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
         .prev { left: 40px; }
         .next { right: 40px; }
 
         .back-link {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             color: rgba(255,255,255,0.4); text-decoration: none; text-transform: uppercase;
-            letter-spacing: 4px; font-size: 0.75rem; z-index: 100;
+            letter-spacing: 4px; font-size: 0.75rem; z-index: 100; transition: 0.3s;
         }
+        .back-link:hover { color: var(--gold); }
     </style>
 </head>
 <body>
@@ -124,27 +124,35 @@
     <div class="carousel-container">
         <div class="carousel-track">
             
-            <div class="house-card active" data-index="0" onclick="handleCardClick('info_house.html', 0)">
-                <div class="house-title-frame" id="title-info">Dom Informacyjny</div>
+            <div class="house-card" data-index="0" onclick="handleCardClick('info_house.html', 0)">
+                <div class="house-title-frame">Dom Informacyjny</div>
                 <img src="../../assets/img/infohouse.png" alt="Dom Informacyjny">
-                <div class="house-description" id="desc-info">
-                    Poznaj historię Cirgona Tyberiusa Marcusa Lupusa oraz fundamenty tego niezwykłego świata.
+                <div class="house-description">
+                    Wielkie Archiwum Cirgonheimu. Poznaj historię Cirgona Tyberiusa Marcusa Lupusa oraz fundamenty tego niezwykłego świata.
                 </div>
             </div>
             
-            <div class="house-card" data-index="1" onclick="handleCardClick('tavern.html', 1)">
-                <div class="house-title-frame" id="title-tavern">Tawerna "Pod Smokiem"</div>
-                <img src="../../assets/img/infohouse.png" style="filter: hue-rotate(90deg);" alt="Tawerna">
-                <div class="house-description" id="desc-tavern">
-                    Odpocznij przy kuflu zimnego napitku i posłuchaj najnowszych plotek z najdalszych zakątków królestwa.
+            <div class="house-card" data-index="1" onclick="handleCardClick('pinakotheka.html', 1)">
+                <div class="house-title-frame">Pinakoteka</div>
+                <img src="../../assets/img/pinakotheka.png" alt="Pinakoteka">
+                <div class="house-description">
+                    Królewska Galeria Sztuki. Miejsce, gdzie wizje i sny stają się rzeczywistością uwiecznioną na najszlachetniejszych płótnach.
                 </div>
             </div>
 
-            <div class="house-card" data-index="2" onclick="handleCardClick('armory.html', 2)">
-                <div class="house-title-frame" id="title-armory">Królewska Zbrojownia</div>
-                <img src="../../assets/img/infohouse.png" style="filter: hue-rotate(180deg);" alt="Zbrojownia">
-                <div class="house-description" id="desc-armory">
-                    Miejsce, gdzie stal hartuje się w ogniu przeznaczenia. Znajdziesz tu oręż godny największych bohaterów.
+            <div class="house-card" data-index="2" onclick="handleCardClick('tavern.html', 2)">
+                <div class="house-title-frame">Tawerna "Pod Smokiem"</div>
+                <img src="../../assets/img/wip.png" alt="W budowie">
+                <div class="house-description">
+                    Trwają prace renowacyjne. Już niedługo odpoczniesz tu przy kuflu zimnego napitku i posłuchasz najświeższych plotek.
+                </div>
+            </div>
+
+            <div class="house-card" data-index="3" onclick="handleCardClick('armory.html', 3)">
+                <div class="house-title-frame">Królewska Zbrojownia</div>
+                <img src="../../assets/img/wip.png" alt="W budowie">
+                <div class="house-description">
+                    Kowale hartują stal. Wkrótce znajdziesz tu oręż i pancerze godne największych bohaterów Cirgonheimu.
                 </div>
             </div>
 
@@ -153,7 +161,7 @@
 
     <button class="nav-btn next">›</button>
 
-    <a href="../../index.html" class="back-link" id="btn-back">← Powrót do wrót</a>
+    <a href="../../index.html" class="back-link">← Powrót do wrót</a>
 
     <script>
         const track = document.querySelector('.carousel-track');
@@ -167,15 +175,18 @@
                 card.classList.remove('active');
                 let offset = index - currentIndex;
                 
-                let translateX = offset * 500;
-                let translateZ = Math.abs(offset) * -400;
-                let rotateY = offset * -40;
-                let opacity = 1 - (Math.abs(offset) * 0.5);
+                // Konfiguracja przestrzenna
+                let translateX = offset * 550;
+                let translateZ = Math.abs(offset) * -500;
+                let rotateY = offset * -45;
+                let opacity = 1 - (Math.abs(offset) * 0.6);
 
                 card.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`;
                 card.style.opacity = opacity;
                 card.style.zIndex = 100 - Math.abs(offset);
-                card.style.pointerEvents = offset === 0 ? "auto" : "none"; // Klikalne tylko to, co na środku
+                
+                // Blokada klikania w nieaktywne domki
+                card.style.pointerEvents = offset === 0 ? "auto" : "none";
 
                 if (offset === 0) card.classList.add('active');
             });
@@ -201,15 +212,7 @@
             }
         }
 
-        // Tłumaczenia (opcjonalnie do rozbudowy)
-        const translations = {
-            pl: { back: "← Powrót do wrót" },
-            en: { back: "← Back to the gates" }
-        };
-
-        const lang = localStorage.getItem('selectedLang') || 'pl';
-        document.getElementById('btn-back').innerText = translations[lang].back;
-
+        // Start karuzeli
         updateCarousel();
     </script>
 </body>
