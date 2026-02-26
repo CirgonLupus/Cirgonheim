@@ -6,7 +6,7 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100vh;
-    /* TŁO GŁÓWNE - DODAJEMY KOLOR CZERWONY JAKO TEST */
+    /* TŁO GŁÓWNE - TWOJE ORYGINALNE USTAWIENIE */
     background: red url('assets/img/background.jpg') no-repeat center center / cover;
     display: flex;
     justify-content: center;
@@ -19,12 +19,12 @@ body, html {
     width: 100%;
     max-width: 1200px; /* Szerokość maksymalna dla trybu contain */
     height: 80vh;      /* Wysokość bramy */
-    background: black; /* TO JEST TWOJA CIEMNOŚĆ ZA WROTAMI */
+    background: black; /* TWOJA CIEMNOŚĆ ZA WROTAMI */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border: 2px solid gold; /* Widoczna ramka, żebyś widział gdzie jest brama */
+    border: 2px solid gold; /* Widoczna ramka */
 }
 
 .gate {
@@ -36,6 +36,11 @@ body, html {
     background-size: contain;
     background-repeat: no-repeat;
     transition: transform 2s ease-in-out;
+    
+    /* DODANA OCHRONA: Wyłączenie interakcji myszką ze skrzydłami bramy */
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .gate-left {
@@ -52,7 +57,7 @@ body, html {
     background-color: #222; /* Kolor testowy wrót */
 }
 
-/* Animacja */
+/* Animacja otwarcia */
 .gate-left.open { transform: translateX(-100%); }
 .gate-right.open { transform: translateX(100%); }
 
@@ -66,4 +71,18 @@ body, html {
     width: 300px;
     border: 1px solid #c5a059;
     text-align: center;
+    /* Panel musi być klikalny, żeby przycisk działał */
+    pointer-events: auto;
+}
+
+/* --- DODATKOWA GLOBALNA OCHRONA GRAFIK --- */
+img {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+}
+
+/* Przyciski muszą ignorować powyższą blokadę, żeby można było w nie klikać */
+.lang-btn, #enter-btn {
+    pointer-events: auto !important;
 }
