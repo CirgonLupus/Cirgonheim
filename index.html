@@ -8,7 +8,6 @@
         :root {
             --gold: #c5a059;
             --gate-speed: 2s;
-            /* TUTAJ MOŻESZ ŁATWO ZMIENIĆ ROZMIAR BRAMY */
             --gate-width: 600px; 
             --gate-height: 80vh;
         }
@@ -18,7 +17,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* TŁO WIDOCZNE DOOkoła BRAMY */
             background-image: url('assets/img/background.jpg');
             background-size: cover;
             background-position: center;
@@ -31,7 +29,6 @@
             background-color: #1a1a1a;
         }
 
-        /* KONTENER POZYCJONUJĄCY BRAMĘ NA ŚRODKU */
         .gate-area {
             position: relative;
             width: var(--gate-width);
@@ -40,7 +37,6 @@
             border: 1px solid rgba(197, 160, 89, 0.3);
         }
 
-        /* CZARNA OTCHŁAŃ POD WROTAMI */
         .gate-viewport {
             position: absolute;
             width: 100%;
@@ -52,16 +48,18 @@
             align-items: center;
         }
 
-        /* SKRZYDŁA BRAMY */
         .gate {
             position: absolute;
             top: 0;
-            width: 50.5%; /* Lekka zakładka na środku */
+            width: 50.5%;
             height: 100%;
             z-index: 2;
-            background-size: cover; /* Wypełnia swój obszar */
+            background-size: cover;
             background-repeat: no-repeat;
             transition: transform var(--gate-speed) ease-in-out;
+            /* OCHRONA: Brama nie reaguje na mysz */
+            pointer-events: none;
+            user-select: none;
         }
 
         .gate-left {
@@ -76,11 +74,9 @@
             background-position: left center;
         }
 
-        /* ANIMACJA OTWARCIA */
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
-        /* PANEL TEKSTOWY - teraz idealnie na środku bramy */
         .gate-content {
             position: absolute;
             z-index: 10;
@@ -107,6 +103,7 @@
             cursor: pointer;
             opacity: 0.5;
             transition: 0.3s;
+            pointer-events: auto !important; /* Flagi muszą być klikalne */
         }
 
         .lang-btn.active { opacity: 1; transform: scale(1.1); }
@@ -127,6 +124,7 @@
             font-family: 'Georgia', serif;
             cursor: pointer;
             transition: 0.4s;
+            pointer-events: auto !important; /* Przycisk musi być klikalny */
         }
 
         #enter-btn:hover {
@@ -144,6 +142,12 @@
             transition: opacity 1s;
         }
         #transition-overlay.active { opacity: 1; }
+
+        /* OCHRONA: Globalne wyłączenie przeciągania wszystkich obrazków */
+        img {
+            -webkit-user-drag: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -173,63 +177,6 @@
 
     <div id="transition-overlay"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const enterBtn = document.getElementById('enter-btn');
-            const welcomeText = document.getElementById('welcome-text');
-            const gateLeft = document.querySelector('.gate-left');
-            const gateRight = document.querySelector('.gate-right');
-            const content = document.querySelector('.gate-content');
-            const overlay = document.getElementById('transition-overlay');
-            const gateSound = document.getElementById('gate-sound');
-            const langBtns = document.querySelectorAll('.lang-btn');
-
-            const translations = {
-                pl: {
-                    welcome: "Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.",
-                    button: "Wejdź"
-                },
-                en: {
-                    welcome: "You stand at the gates of Cirgonheim – a city representing Cirgon Tyberius Marcus Lupus.<br><br>If this is your first visit, head to the info point.",
-                    button: "Enter"
-                }
-            };
-
-            langBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const lang = btn.getAttribute('data-lang');
-                    localStorage.setItem('selectedLang', lang);
-                    welcomeText.innerHTML = translations[lang].welcome;
-                    enterBtn.innerText = translations[lang].button;
-                    langBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                });
-            });
-
-            enterBtn.addEventListener('click', () => {
-                content.style.opacity = '0';
-                content.style.pointerEvents = 'none';
-
-                setTimeout(() => {
-                    if(gateSound) gateSound.play().catch(e => {});
-                    gateLeft.classList.add('open');
-                    gateRight.classList.add('open');
-
-                    setTimeout(() => {
-                        overlay.classList.add('active');
-                        setTimeout(() => {
-                            window.location.href = 'district/dis1/dis1_gatesquare.html';
-                        }, 1000);
-                    }, 2000);
-                }, 500);
-            });
-
-            const savedLang = localStorage.getItem('selectedLang');
-            if(savedLang) {
-                const btn = document.querySelector(`[data-lang="${savedLang}"]`);
-                if(btn) btn.click();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
