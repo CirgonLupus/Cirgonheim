@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Logika zmiany języka
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Logika otwierania bramy
     enterBtn.addEventListener('click', () => {
         content.style.opacity = '0';
         content.style.pointerEvents = 'none';
@@ -48,9 +50,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 
+    // Przywrócenie zapisanego języka
     const savedLang = localStorage.getItem('selectedLang');
     if(savedLang) {
         const btn = document.querySelector(`[data-lang="${savedLang}"]`);
         if(btn) btn.click();
     }
+
+    // --- MECHANIZMY OCHRONY ---
+
+    // Blokada prawego przycisku myszy
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+
+    // Blokada skrótów klawiszowych (F12, Ctrl+S, Ctrl+U, Ctrl+Shift+I)
+    document.addEventListener('keydown', (e) => {
+        if (
+            e.keyCode === 123 || 
+            (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73)) ||
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73)
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Blokada przeciągania grafiki bramy
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.nodeName === 'IMG' || e.target.classList.contains('gate')) {
+            e.preventDefault();
+        }
+    });
 });
