@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Obsługa języków
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Obsługa wejścia
     enterBtn.addEventListener('click', () => {
         content.style.opacity = '0';
         content.style.pointerEvents = 'none';
@@ -50,18 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 
-    // Wczytywanie języka
     const savedLang = localStorage.getItem('selectedLang');
     if(savedLang) {
         const btn = document.querySelector(`[data-lang="${savedLang}"]`);
         if(btn) btn.click();
     }
-
-    // --- BLOKADY OCHRONNE ---
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) {
-            e.preventDefault();
-        }
-    });
 });
