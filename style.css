@@ -1,0 +1,121 @@
+:root {
+    --gold: #c5a059;
+    --gate-speed: 2s;
+    --gate-width: 600px; 
+    --gate-height: 80vh;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a url('assets/img/background.jpg') no-repeat center center / cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Georgia', serif;
+}
+
+/* NIEWIDZIALNA TARCZA - Blokuje kliknięcia w tło i bramę */
+.invisible-shield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5; /* Pod interfejsem, ale nad grafikami */
+    background: rgba(0,0,0,0);
+}
+
+.gate-area {
+    position: relative;
+    width: var(--gate-width);
+    height: var(--gate-height);
+    box-shadow: 0 0 50px rgba(0,0,0,0.9);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    z-index: 2;
+}
+
+.gate-viewport {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gate {
+    position: absolute;
+    top: 0;
+    width: 50.5%;
+    height: 100%;
+    z-index: 2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: transform var(--gate-speed) ease-in-out;
+    pointer-events: none; /* Kluczowe: brama nie reaguje na mysz */
+}
+
+.gate-left {
+    left: 0;
+    background-image: url('assets/img/gate_left.jpg');
+    background-position: right center;
+}
+
+.gate-right {
+    right: 0;
+    background-image: url('assets/img/gate_right.jpg');
+    background-position: left center;
+}
+
+.gate-left.open { transform: translateX(-100%); }
+.gate-right.open { transform: translateX(100%); }
+
+.gate-content {
+    position: relative;
+    z-index: 10; /* Nad tarczą i bramą */
+    width: 80%;
+    max-width: 350px;
+    padding: 25px;
+    background: rgba(15, 15, 15, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold);
+    text-align: center;
+    color: white;
+    transition: opacity 0.8s;
+    pointer-events: auto; /* Przycisk musi działać */
+}
+
+.lang-switch { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
+.lang-btn { width: 20px; cursor: pointer; opacity: 0.5; transition: 0.3s; }
+.lang-btn.active { opacity: 1; transform: scale(1.1); }
+
+#enter-btn {
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Georgia', serif;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+#enter-btn:hover { background: var(--gold); color: black; }
+
+#transition-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black; opacity: 0; z-index: 100;
+    pointer-events: none; transition: opacity 1s;
+}
+#transition-overlay.active { opacity: 1; }
+
+/* Globalna blokada obrazków */
+img { pointer-events: none !important; user-select: none; -webkit-user-drag: none; }
+                  
