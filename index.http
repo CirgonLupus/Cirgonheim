@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirgonheim – Wrota</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="invisible-shield"></div>
+
+    <div class="gate-area">
+        <div class="gate-viewport">
+            <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
+            
+            <div class="gate gate-left"></div>
+            <div class="gate gate-right"></div>
+
+            <div class="gate-content">
+                <div class="lang-switch">
+                    <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
+                    <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
+                </div>
+                
+                <div id="welcome-text">
+                    Znajdujesz się u wrót Cirgonheimu.<br><br>
+                    Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.
+                </div>
+                
+                <button id="enter-btn">Wejdź</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="transition-overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+  
