@@ -4,11 +4,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cirgonheim – Wrota</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gate-speed: 2s;
+            /* TUTAJ MOŻESZ ŁATWO ZMIENIĆ ROZMIAR BRAMY */
+            --gate-width: 600px; 
+            --gate-height: 80vh;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* TŁO WIDOCZNE DOOkoła BRAMY */
+            background-image: url('assets/img/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Georgia', serif;
+            background-color: #1a1a1a;
+        }
+
+        /* KONTENER POZYCJONUJĄCY BRAMĘ NA ŚRODKU */
+        .gate-area {
+            position: relative;
+            width: var(--gate-width);
+            height: var(--gate-height);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        /* CZARNA OTCHŁAŃ POD WROTAMI */
+        .gate-viewport {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SKRZYDŁA BRAMY */
+        .gate {
+            position: absolute;
+            top: 0;
+            width: 50.5%; /* Lekka zakładka na środku */
+            height: 100%;
+            z-index: 2;
+            background-size: cover; /* Wypełnia swój obszar */
+            background-repeat: no-repeat;
+            transition: transform var(--gate-speed) ease-in-out;
+        }
+
+        .gate-left {
+            left: 0;
+            background-image: url('assets/img/gate_left.jpg');
+            background-position: right center;
+        }
+
+        .gate-right {
+            right: 0;
+            background-image: url('assets/img/gate_right.jpg');
+            background-position: left center;
+        }
+
+        /* ANIMACJA OTWARCIA */
+        .gate-left.open { transform: translateX(-100%); }
+        .gate-right.open { transform: translateX(100%); }
+
+        /* PANEL TEKSTOWY - teraz idealnie na środku bramy */
+        .gate-content {
+            position: absolute;
+            z-index: 10;
+            width: 80%;
+            max-width: 350px;
+            padding: 25px;
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gold);
+            text-align: center;
+            color: white;
+            transition: opacity 0.8s;
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .lang-btn {
+            width: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active { opacity: 1; transform: scale(1.1); }
+
+        #welcome-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        #enter-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        #enter-btn:hover {
+            background: var(--gold);
+            color: black;
+        }
+
+        #transition-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: black;
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+        #transition-overlay.active { opacity: 1; }
+
+        /* DODANA OCHRONA GRAFIK */
+        img, .gate {
+            user-select: none !important;
+            -webkit-user-drag: none !important;
+            pointer-events: none;
+        }
+        .lang-btn, #enter-btn {
+            pointer-events: auto !important;
+        }
+    </style>
 </head>
 <body>
-
-    <div class="invisible-shield"></div>
 
     <div class="gate-area">
         <div class="gate-viewport">
@@ -38,4 +186,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-  
