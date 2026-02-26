@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ELEMENTY INTERFEJSU ---
     const enterBtn = document.getElementById('enter-btn');
     const welcomeText = document.getElementById('welcome-text');
     const gateLeft = document.querySelector('.gate-left');
@@ -9,10 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gateSound = document.getElementById('gate-sound');
     const langBtns = document.querySelectorAll('.lang-btn');
 
-    // --- TŁUMACZENIA ---
     const translations = {
         pl: {
-            welcome: "Znajdujesz się u wrót Cirgonheimu – strony miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.",
+            welcome: "Znajdujesz się u wrót Cirgonheimu – strony/miasta będącej wizytówką Cirgona Tyberiusa Marcusa Lupusa.<br><br>Jeśli to Twoja pierwsza wizyta, skieruj się do punktu informacyjnego.",
             button: "Wejdź"
         },
         en: {
@@ -21,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- LOGIKA JĘZYKA ---
+    // Obsługa języków
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -33,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- OTWIERANIE BRAMY ---
+    // Obsługa wejścia
     enterBtn.addEventListener('click', () => {
         content.style.opacity = '0';
         content.style.pointerEvents = 'none';
@@ -52,24 +50,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     });
 
-    // Wczytaj zapisany język
+    // Wczytywanie języka
     const savedLang = localStorage.getItem('selectedLang');
     if(savedLang) {
         const btn = document.querySelector(`[data-lang="${savedLang}"]`);
         if(btn) btn.click();
     }
 
-    // --- ZABEZPIECZENIA (NIEWIDZIALNA TARCZA) ---
+    // --- BLOKADY OCHRONNE ---
     document.addEventListener('contextmenu', e => e.preventDefault());
-
     document.addEventListener('keydown', e => {
-        if (e.keyCode === 123) e.preventDefault(); // F12
-        if (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73)) {
-            e.preventDefault(); // Ctrl+S, U, I
+        if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) {
+            e.preventDefault();
         }
-    });
-
-    document.addEventListener('dragstart', e => {
-        if (e.target.nodeName === 'IMG') e.preventDefault();
     });
 });
