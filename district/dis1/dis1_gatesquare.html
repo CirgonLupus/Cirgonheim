@@ -74,6 +74,9 @@
             <div class="house-card" data-url="pinakotheka.html">
                 <div class="house-title-frame">Pinakoteka</div>
                 <img src="../../assets/img/pinakotheka.png" class="house-img">
+                <div class="character-zone">
+                    <img src="../../assets/img/023_orange.png" class="character char-twister">
+                </div>
             </div>
 
             <div class="house-card" data-url="market.html">
@@ -89,19 +92,18 @@
     <script type="module">
         import { initCarousel } from '../../assets/js/engine/carousel.js';
         import { initWanderers } from '../../assets/js/actors/wanderer.js';
+        import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
 
         window.onload = () => {
-            // Uruchomienie karuzeli (start od indexu 0)
             const engine = initCarousel(0);
             
-            // Podpięcie przycisków nawigacji
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
 
-            // Uruchomienie ludzików
+            // Inicjalizacja obu systemów ruchu
             initWanderers();
+            initCalmTwisters();
 
-            // Ochrona grafik
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
                 if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) e.preventDefault();
