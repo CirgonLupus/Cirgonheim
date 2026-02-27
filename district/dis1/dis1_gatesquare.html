@@ -56,10 +56,10 @@
         .character {
             position: absolute;
             bottom: 10px; 
-            width: 100px; /* ZMIANA: Ludzik jest teraz 2x większy (z 50px na 100px) */
+            width: 125px; /* ZMIANA: Ludzik zwiększony o kolejne 25% (z 100px na 125px) */
             height: auto;
             transition: left 3s ease-in-out, transform 0.3s; 
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
             pointer-events: none;
         }
 
@@ -114,17 +114,22 @@
     <script>
         const cards = document.querySelectorAll('.house-card');
         const characters = document.querySelectorAll('.character');
-        let currentIndex = 1;
+        
+        // ZMIANA: currentIndex ustawiony na 0 (Domek Informacyjny)
+        let currentIndex = 0;
 
         function updateCarousel() {
             cards.forEach((card, index) => {
                 card.classList.remove('active');
                 let offset = index - currentIndex;
+                
                 let rotateY = offset * 45; 
                 let translateX = offset * 520;
                 let translateZ = Math.abs(offset) * -500;
 
                 card.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`;
+                
+                // Poprawka widoczności dla startu od brzegu
                 card.style.opacity = (Math.abs(offset) > 1) ? "0" : "1";
                 card.style.filter = offset === 0 ? "none" : "brightness(0.4) blur(1px)";
                 card.style.zIndex = 100 - Math.abs(offset);
@@ -133,25 +138,21 @@
             });
         }
 
-        // --- LOSOWY RUCH LUDZIKA ---
         function moveCharacters() {
             characters.forEach(char => {
                 const decision = Math.random() > 0.3 ? 1 : 0;
-                
                 if (decision === 1) {
                     const currentLeft = parseFloat(char.style.left) || 50;
-                    const newLeft = Math.floor(Math.random() * 60) + 15; // Cel od 15% do 75% szerokości
+                    const newLeft = Math.floor(Math.random() * 60) + 15;
                     
                     if (newLeft > currentLeft) {
                         char.style.transform = "scaleX(-1)";
                     } else {
                         char.style.transform = "scaleX(1)";
                     }
-                    
                     char.style.left = newLeft + "%";
                 }
             });
-
             setTimeout(moveCharacters, Math.random() * 3000 + 4000);
         }
 
