@@ -17,10 +17,17 @@
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
+        /* OCHRONA TŁA */
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
+        }
+
         .carousel-container {
             position: relative; width: 100vw; height: 90vh;
             display: flex; justify-content: center; align-items: center;
-            perspective: 2000px;
+            perspective: 2000px; z-index: 10;
         }
 
         .carousel-track {
@@ -39,7 +46,7 @@
         .house-img {
             width: 100%; height: auto;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
-            pointer-events: none; 
+            pointer-events: none;
             -webkit-user-drag: none;
         }
 
@@ -56,122 +63,7 @@
         .character {
             position: absolute;
             bottom: 10px; 
-            width: 125px; /* ZMIANA: Ludzik zwiększony o kolejne 25% (z 100px na 125px) */
+            width: 125px; /* Duży rozmiar */
             height: auto;
-            transition: left 3s ease-in-out, transform 0.3s; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
-            pointer-events: none;
-        }
-
-        .house-title-frame {
-            border: 2px solid var(--gold); padding: 10px 25px;
-            background: rgba(10, 10, 10, 0.9); color: var(--gold);
-            text-transform: uppercase; letter-spacing: 3px;
-            margin-bottom: 15px; opacity: 0; transition: 0.5s;
-        }
-        .active .house-title-frame { opacity: 1; }
-
-        .nav-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
-            font-size: 2.5rem; width: 60px; height: 60px; cursor: pointer;
-            z-index: 1000; border-radius: 50%; transition: 0.3s;
-        }
-        .nav-btn:hover { background: var(--gold); color: black; }
-        .prev { left: 40px; } .next { right: 40px; }
-    </style>
-</head>
-<body>
-
-    <button class="nav-btn prev" onclick="movePrev()">‹</button>
-
-    <div class="carousel-container">
-        <div class="carousel-track">
+            /* ŻWAWY
             
-            <div class="house-card" data-index="0" onclick="handleCardClick(0, 'about.html')">
-                <div class="house-title-frame">O Panu Świata</div>
-                <img src="../../assets/img/infohouse.png" class="house-img">
-                <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character">
-                </div>
-            </div>
-
-            <div class="house-card" data-index="1" onclick="handleCardClick(1, 'pinakotheka.html')">
-                <div class="house-title-frame">Pinakoteka</div>
-                <img src="../../assets/img/pinakotheka.png" class="house-img">
-            </div>
-
-            <div class="house-card" data-index="2" onclick="handleCardClick(2, 'market.html')">
-                <div class="house-title-frame">Targowisko</div>
-                <img src="../../assets/img/wip.png" class="house-img">
-            </div>
-
-        </div>
-    </div>
-
-    <button class="nav-btn next" onclick="moveNext()">›</button>
-
-    <script>
-        const cards = document.querySelectorAll('.house-card');
-        const characters = document.querySelectorAll('.character');
-        
-        // ZMIANA: currentIndex ustawiony na 0 (Domek Informacyjny)
-        let currentIndex = 0;
-
-        function updateCarousel() {
-            cards.forEach((card, index) => {
-                card.classList.remove('active');
-                let offset = index - currentIndex;
-                
-                let rotateY = offset * 45; 
-                let translateX = offset * 520;
-                let translateZ = Math.abs(offset) * -500;
-
-                card.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`;
-                
-                // Poprawka widoczności dla startu od brzegu
-                card.style.opacity = (Math.abs(offset) > 1) ? "0" : "1";
-                card.style.filter = offset === 0 ? "none" : "brightness(0.4) blur(1px)";
-                card.style.zIndex = 100 - Math.abs(offset);
-                
-                if (offset === 0) card.classList.add('active');
-            });
-        }
-
-        function moveCharacters() {
-            characters.forEach(char => {
-                const decision = Math.random() > 0.3 ? 1 : 0;
-                if (decision === 1) {
-                    const currentLeft = parseFloat(char.style.left) || 50;
-                    const newLeft = Math.floor(Math.random() * 60) + 15;
-                    
-                    if (newLeft > currentLeft) {
-                        char.style.transform = "scaleX(-1)";
-                    } else {
-                        char.style.transform = "scaleX(1)";
-                    }
-                    char.style.left = newLeft + "%";
-                }
-            });
-            setTimeout(moveCharacters, Math.random() * 3000 + 4000);
-        }
-
-        function moveNext() { if (currentIndex < cards.length - 1) { currentIndex++; updateCarousel(); } }
-        function movePrev() { if (currentIndex > 0) { currentIndex--; updateCarousel(); } }
-
-        function handleCardClick(index, url) {
-            if (index === currentIndex) window.location.href = url;
-            else { currentIndex = index; updateCarousel(); }
-        }
-
-        // ZABEZPIECZENIA
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) e.preventDefault();
-        });
-
-        updateCarousel();
-        moveCharacters(); 
-    </script>
-</body>
-</html>
