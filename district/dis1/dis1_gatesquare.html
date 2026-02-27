@@ -43,7 +43,7 @@
             -webkit-user-drag: none;
         }
 
-        /* STREFA LUDZIKA (Max 1/3 wysokości) */
+        /* STREFA LUDZIKA */
         .character-zone {
             position: absolute;
             bottom: 0;
@@ -56,9 +56,8 @@
         .character {
             position: absolute;
             bottom: 10px; 
-            width: 50px;
+            width: 100px; /* ZMIANA: Ludzik jest teraz 2x większy (z 50px na 100px) */
             height: auto;
-            /* Płynne przesuwanie sterowane przez JS */
             transition: left 3s ease-in-out, transform 0.3s; 
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
             pointer-events: none;
@@ -100,17 +99,11 @@
             <div class="house-card" data-index="1" onclick="handleCardClick(1, 'pinakotheka.html')">
                 <div class="house-title-frame">Pinakoteka</div>
                 <img src="../../assets/img/pinakotheka.png" class="house-img">
-                <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character">
-                </div>
             </div>
 
             <div class="house-card" data-index="2" onclick="handleCardClick(2, 'market.html')">
                 <div class="house-title-frame">Targowisko</div>
                 <img src="../../assets/img/wip.png" class="house-img">
-                <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character">
-                </div>
             </div>
 
         </div>
@@ -123,7 +116,6 @@
         const characters = document.querySelectorAll('.character');
         let currentIndex = 1;
 
-        // --- KARUZELA (Perspektywa na zewnątrz) ---
         function updateCarousel() {
             cards.forEach((card, index) => {
                 card.classList.remove('active');
@@ -141,18 +133,15 @@
             });
         }
 
-        // --- LOSOWY RUCH LUDZIKÓW ---
+        // --- LOSOWY RUCH LUDZIKA ---
         function moveCharacters() {
             characters.forEach(char => {
-                // Losowanie decyzji: 0 - stoi, 1 - idzie
                 const decision = Math.random() > 0.3 ? 1 : 0;
                 
                 if (decision === 1) {
                     const currentLeft = parseFloat(char.style.left) || 50;
-                    const newLeft = Math.floor(Math.random() * 70) + 10; // Losowy cel od 10% do 80%
+                    const newLeft = Math.floor(Math.random() * 60) + 15; // Cel od 15% do 75% szerokości
                     
-                    // Obracanie grafiki: baza patrzy w lewo (scaleX: 1)
-                    // Jeśli nowy cel jest większy niż obecny, idzie w prawo -> scaleX(-1)
                     if (newLeft > currentLeft) {
                         char.style.transform = "scaleX(-1)";
                     } else {
@@ -163,7 +152,6 @@
                 }
             });
 
-            // Ponowne losowanie za 4 do 7 sekund
             setTimeout(moveCharacters, Math.random() * 3000 + 4000);
         }
 
@@ -181,7 +169,6 @@
             if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) e.preventDefault();
         });
 
-        // Start
         updateCarousel();
         moveCharacters(); 
     </script>
