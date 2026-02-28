@@ -23,6 +23,7 @@
             perspective: 2000px; z-index: 5;
         }
         .carousel-track { position: relative; width: 450px; height: 600px; transform-style: preserve-3d; }
+        
         .house-card {
             position: absolute; top: 0; left: 0; width: 450px;
             display: flex; flex-direction: column; align-items: center;
@@ -30,12 +31,30 @@
         }
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
-        /* POSTACI */
-        .character-zone { position: absolute; bottom: 0; width: 100%; height: 30%; pointer-events: none; overflow: hidden; }
+        .character-zone { 
+            position: absolute; 
+            bottom: 0; 
+            width: 100%; 
+            height: 40%; 
+            pointer-events: none; 
+            overflow: visible; 
+        }
+        
+        /* OGÓLNY STYL LUDZIKA */
         .character {
-            position: absolute; bottom: 10px; width: 125px; height: auto;
-            transition: left 1.2s ease-in-out, transform 0.3s; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); pointer-events: none;
+            position: absolute; 
+            bottom: 10px; /* Standardowa wysokość dla wszystkich domków */
+            width: 125px; 
+            height: auto;
+            transform-origin: center center;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* SPECYFICZNA ZASADA: Tylko postacie wewnątrz Pinakoteki są obniżone */
+        .pinakotheka-card .character {
+            bottom: -65px !important;
         }
 
         .house-title-frame {
@@ -71,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="house-card" data-url="pinakotheka.html">
+            <div class="house-card pinakotheka-card" data-url="pinakotheka.html">
                 <div class="house-title-frame">Pinakoteka</div>
                 <img src="../../assets/img/pinakotheka.png" class="house-img">
                 <div class="character-zone">
@@ -96,11 +115,9 @@
 
         window.onload = () => {
             const engine = initCarousel(0);
-            
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
 
-            // Inicjalizacja obu systemów ruchu
             initWanderers();
             initCalmTwisters();
 
