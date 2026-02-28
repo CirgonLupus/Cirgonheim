@@ -6,22 +6,27 @@
     <title>Cirgonheim – Plac Bramny</title>
     <style>
         :root { --gold: #c5a059; --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background: #050505 url('../../assets/img/city.jpg') no-repeat center center / cover;
             color: white; font-family: 'Georgia', serif; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
         }
+
+        /* Warstwa przyciemniająca tło */
         body::after {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
             background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
         }
+
         .carousel-container {
             position: relative; width: 100%; height: 100vh;
             display: flex; justify-content: center; align-items: center;
             perspective: 2000px; z-index: 5;
         }
+
         .carousel-track { position: relative; width: 450px; height: 600px; transform-style: preserve-3d; }
         
         .house-card {
@@ -29,6 +34,7 @@
             display: flex; flex-direction: column; align-items: center;
             transition: all var(--transition); cursor: pointer; user-select: none;
         }
+
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
         .character-zone { 
@@ -40,19 +46,21 @@
             overflow: visible; 
         }
         
-        /* OGÓLNY STYL LUDZIKA */
+        /* PODSTAWOWY STYL LUDZIKA */
         .character {
             position: absolute; 
-            bottom: 10px; /* Standardowa wysokość dla wszystkich domków */
+            bottom: 10px; /* Standardowa wysokość */
             width: 125px; 
             height: auto;
             transform-origin: center center;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none;
             z-index: 20;
+            /* Zapasowe przejście, by zapobiec teleportacji */
+            transition: left 1s ease-in-out, transform 0.5s ease-in-out;
         }
 
-        /* SPECYFICZNA ZASADA: Tylko postacie wewnątrz Pinakoteki są obniżone */
+        /* SPECYFICZNA ZASADA: Tylko postacie wewnątrz Pinakoteki są obniżone o połowę wysokości */
         .pinakotheka-card .character {
             bottom: -65px !important;
         }
@@ -114,13 +122,18 @@
         import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
 
         window.onload = () => {
+            // Inicjalizacja silnika karuzeli
             const engine = initCarousel(0);
+            
+            // Obsługa przycisków
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
 
+            // Inicjalizacja systemów chodu
             initWanderers();
             initCalmTwisters();
 
+            // Zabezpieczenia strony
             document.addEventListener('contextmenu', e => e.preventDefault());
             document.addEventListener('keydown', e => {
                 if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) e.preventDefault();
