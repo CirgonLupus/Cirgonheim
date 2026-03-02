@@ -2,39 +2,32 @@ export function initPhasers() {
     const phasers = document.querySelectorAll('.char-phaser');
     
     phasers.forEach(char => {
-        // Wymuszamy CSS bezpośrednio na elemencie, żeby wykluczyć błędy z arkusza stylów
+        // Ustawienie płynności dla wszystkich parametrów
         char.style.transition = "left 1.5s ease-in-out, transform 0.4s ease-in-out, opacity 0.7s ease-in-out";
-        // Ustawiamy startowy transform, żeby przeglądarka miała punkt odniesienia
-        char.style.transform = "scaleX(1)";
 
         const move = () => {
-            // Pobieramy pozycję (usuwamy znak %, żeby mieć czystą liczbę)
             const currentLeft = parseFloat(char.style.left) || 60;
             const newLeft = Math.floor(Math.random() * 60) + 10;
 
-            // MECHANIKA OBROTU (Zapożyczona z Wanderera)
-            // Jeśli cel (newLeft) jest WIĘKSZY niż obecna pozycja -> idzie w prawo -> scaleX(-1)
-            if (newLeft > currentLeft) {
-                char.style.setProperty('transform', 'scaleX(-1)');
-            } else {
-                char.style.setProperty('transform', 'scaleX(1)');
-            }
+            // MECHANIKA OBROTU:
+            // Jeśli newLeft > currentLeft (idzie w prawo) -> zmienna --dir = -1
+            // Jeśli newLeft < currentLeft (idzie w lewo) -> zmienna --dir = 1
+            const direction = newLeft > currentLeft ? -1 : 1;
+            char.style.setProperty('--dir', direction);
 
-            // EFEKT PHASER
+            // EFEKT PHASER (Zanikanie)
             char.style.opacity = "0.2";
             char.style.left = newLeft + "%";
 
-            // POWRÓT WIDOCZNOŚCI
+            // Powrót widoczności
             setTimeout(() => {
                 char.style.opacity = "1";
-            }, 750);
+            }, 800);
 
-            // POSTÓJ (zgodnie z prośbą: nie dłużej niż 1 sekunda po zakończeniu ruchu)
-            // Ruch trwa 1500ms + losowo do 1000ms postoju
-            setTimeout(move, 1500 + Math.random() * 1000);
+            // Czas do następnego ruchu: 1.5s marszu + ok. 0.5s - 1s postoju
+            setTimeout(move, 2000 + Math.random() * 1000);
         };
         
-        // Start
         setTimeout(move, 300);
     });
 }
