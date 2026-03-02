@@ -39,18 +39,20 @@
 
         .carousel-track { 
             position: relative; width: var(--card-width); height: 600px; 
-            transform-style: preserve-3d; transition: transform var(--transition);
+            transform-style: preserve-3d;
         }
         
+        /* POPRAWKA: Domyślne rozstawienie, jeśli JS zawiedzie */
         .house-card {
             position: absolute; top: 0; left: 0; width: var(--card-width);
             display: flex; flex-direction: column; align-items: center;
             transition: all var(--transition); cursor: pointer; user-select: none;
-            visibility: hidden; opacity: 0; /* Ukryte do momentu załadowania JS */
+            z-index: 10;
         }
 
-        /* Klasa aktywna dla widocznych domków */
-        .house-card.is-ready { visibility: visible; opacity: 1; }
+        /* Styl wymuszający brak nakładania się przy starcie */
+        .house-card:nth-child(2) { transform: translateX(100%) translateZ(-300px); opacity: 0.5; }
+        .house-card:nth-child(3) { transform: translateX(-100%) translateZ(-300px); opacity: 0.5; }
 
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
@@ -63,7 +65,8 @@
             position: absolute; bottom: 10px; width: 125px; height: auto;
             transform-origin: center center; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none; z-index: 20;
-            transition: left 1s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            /* Transition musi tu być, by uniknąć teleportacji */
+            transition: left 1.2s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
         .pinakotheka-card .character { bottom: -65px !important; }
@@ -80,7 +83,7 @@
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
             font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
-            z-index: 100; border-radius: 50%; transition: 0.3s;
+            z-index: 1000; border-radius: 50%; transition: 0.3s;
             display: flex; justify-content: center; align-items: center;
         }
         .nav-btn:hover { background: var(--gold); color: black; }
@@ -94,28 +97,28 @@
     <div class="carousel-container">
         <div class="carousel-track" id="carousel-main-track">
             
-            <div class="house-card is-ready active" data-url="about.html">
+            <div class="house-card active" data-url="about.html">
                 <div class="house-title-frame">O Panu Świata</div>
                 <img src="../../assets/img/infohouse.png" class="house-img">
                 <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-wanderer">
-                    <img src="../../assets/img/007_cosmos.png" class="character char-phaser">
+                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-wanderer" style="left: 20%">
+                    <img src="../../assets/img/007_cosmos.png" class="character char-phaser" style="left: 60%">
                 </div>
             </div>
 
-            <div class="house-card is-ready pinakotheka-card" data-url="pinakotheka.html">
+            <div class="house-card pinakotheka-card" data-url="pinakotheka.html">
                 <div class="house-title-frame">Pinakoteka</div>
                 <img src="../../assets/img/pinakotheka.png" class="house-img">
                 <div class="character-zone">
-                    <img src="../../assets/img/023_orange.png" class="character char-twister">
+                    <img src="../../assets/img/023_orange.png" class="character char-twister" style="left: 50%">
                 </div>
             </div>
 
-            <div class="house-card is-ready" data-url="market.html">
+            <div class="house-card" data-url="market.html">
                 <div class="house-title-frame">Targowisko</div>
                 <img src="../../assets/img/wip.png" class="house-img">
                 <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-glider">
+                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-glider" style="left: 40%">
                 </div>
             </div>
 
@@ -125,35 +128,33 @@
     <button class="nav-btn next" id="btn-next">›</button>
 
     <script type="module">
+        // Importy z obsługą błędów w konsoli
         import { initCarousel } from '../../assets/js/engine/carousel.js';
         import { initWanderers } from '../../assets/js/actors/wanderer.js';
         import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
         import { initShadowGliders } from '../../assets/js/actors/shadow_glider.js';
         import { initPhasers } from '../../assets/js/actors/phaser.js';
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
+            console.log("Ładowanie systemów...");
+
+            // 1. Inicjalizacja karuzeli (osobny blok, by błąd tutaj nie zabił reszty)
             try {
-                // Inicjalizacja karuzeli
                 const engine = initCarousel(0);
-                
                 if (engine) {
                     document.getElementById('btn-next').onclick = engine.moveNext;
                     document.getElementById('btn-prev').onclick = engine.movePrev;
                 }
+            } catch (e) { console.error("Błąd karuzeli:", e); }
 
-                // Inicjalizacja ludzików
-                initWanderers();
-                initCalmTwisters();
-                initShadowGliders();
-                initPhasers();
-
-                console.log("Systemy zainicjowane pomyślnie.");
-            } catch (error) {
-                console.error("Błąd podczas uruchamiania systemów:", error);
-            }
+            // 2. Inicjalizacja ludzików
+            try { initWanderers(); } catch (e) { console.error("Błąd Wanderera:", e); }
+            try { initCalmTwisters(); } catch (e) { console.error("Błąd Twistera:", e); }
+            try { initShadowGliders(); } catch (e) { console.error("Błąd Glidera:", e); }
+            try { initPhasers(); } catch (e) { console.error("Błąd Phasera:", e); }
 
             document.addEventListener('contextmenu', e => e.preventDefault());
-        });
+        };
     </script>
 </body>
 </html>
