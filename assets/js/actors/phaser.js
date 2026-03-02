@@ -2,27 +2,31 @@ export function initPhasers() {
     const phasers = document.querySelectorAll('.char-phaser');
     
     phasers.forEach(char => {
-        // Ruch trwa 1.5s, zanikanie (opacity) 0.7s
-        char.style.transition = "left 1.5s ease-in-out, transform 0.3s, opacity 0.7s ease-in-out";
+        // Ustawiamy przejścia: ruch, obrót i znikanie
+        char.style.transition = "left 1.5s ease-in-out, transform 0.4s ease-in-out, opacity 0.7s ease-in-out";
 
         const move = () => {
-            const currentLeft = parseFloat(char.style.left) || 50;
-            const newLeft = Math.floor(Math.random() * 70) + 15;
+            const currentLeft = parseFloat(char.style.left) || 60;
+            const newLeft = Math.floor(Math.random() * 60) + 10;
 
-            // 1. START: Obrót, ruch i wejście w fazę (20% widoczności)
+            // OBRÓT: Sprawdzamy kierunek podróży
+            // Jeśli newLeft > currentLeft, idzie w prawo. Jeśli nie, w lewo.
             char.style.transform = (newLeft > currentLeft) ? "scaleX(-1)" : "scaleX(1)";
+
+            // FAZOWANIE: Znika w trakcie startu
             char.style.opacity = "0.2";
             char.style.left = newLeft + "%";
 
-            // 2. ŚRODEK: Powrót do pełnej formy przed dotarciem do celu
+            // POWRÓT: Odzyskuje materialność po 800ms (w połowie drogi)
             setTimeout(() => {
                 char.style.opacity = "1";
-            }, 750);
+            }, 800);
 
-            // 3. POSTÓJ: Bardzo krótki (od 0.5s do 1s)
-            setTimeout(move, 1500 + (Math.random() * 500 + 500));
+            // Kolejna decyzja o ruchu za 2.5 - 3 sekundy
+            setTimeout(move, 2500 + Math.random() * 500);
         };
         
+        // Start z lekkim opóźnieniem
         setTimeout(move, 500);
     });
 }
