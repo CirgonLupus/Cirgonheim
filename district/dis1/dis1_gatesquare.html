@@ -18,13 +18,20 @@
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background: #050505 url('../../assets/img/city.jpg') no-repeat center center / cover;
-            overflow: hidden; display: flex; justify-content: center; align-items: center;
+            color: white; font-family: 'Georgia', serif; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
         }
 
         .carousel-container {
             position: relative; width: 100%; height: 100vh;
             display: flex; justify-content: center; align-items: center;
-            perspective: 2000px;
+            perspective: 2000px; z-index: 5;
         }
 
         .carousel-track { 
@@ -36,24 +43,26 @@
             position: absolute; top: 0; left: 0; width: var(--card-width);
             display: flex; flex-direction: column; align-items: center;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
 
-        .house-img { width: 100%; height: auto; pointer-events: none; }
+        .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
         .character-zone { 
             position: absolute; bottom: 0; width: 100%; height: 40%; 
             pointer-events: none; overflow: visible; 
         }
         
-        /* USUNIĘTO STĄD TRANSFORM, aby nie blokował JS */
         .character {
             position: absolute; 
             bottom: 10px; 
             width: 125px; 
             height: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none; 
             z-index: 20;
-            opacity: 1;
+            /* KLUCZ: Sterowanie obrotem przez zmienną --dir ze skryptu JS */
+            transform: scaleX(var(--dir, 1));
         }
 
         .pinakotheka-card .character { bottom: -65px !important; }
@@ -81,6 +90,7 @@
 
     <div class="carousel-container">
         <div class="carousel-track">
+            
             <div class="house-card active" data-url="about.html">
                 <div class="house-title-frame">O Panu Świata</div>
                 <img src="../../assets/img/infohouse.png" class="house-img">
@@ -91,4 +101,44 @@
             </div>
 
             <div class="house-card pinakotheka-card" data-url="pinakotheka.html">
-                
+                <div class="house-title-frame">Pinakoteka</div>
+                <img src="../../assets/img/pinakotheka.png" class="house-img">
+                <div class="character-zone">
+                    <img src="../../assets/img/023_orange.png" class="character char-twister" style="left: 50%">
+                </div>
+            </div>
+
+            <div class="house-card" data-url="market.html">
+                <div class="house-title-frame">Targowisko</div>
+                <img src="../../assets/img/wip.png" class="house-img">
+            </div>
+
+        </div>
+    </div>
+
+    <button class="nav-btn next" id="btn-next">›</button>
+
+    <script type="module">
+        import { initCarousel } from '../../assets/js/engine/carousel.js';
+        import { initWanderers } from '../../assets/js/actors/wanderer.js';
+        import { initPhasers } from '../../assets/js/actors/phaser.js';
+        import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
+
+        window.onload = () => {
+            try {
+                const engine = initCarousel(0);
+                if (engine) {
+                    document.getElementById('btn-next').onclick = engine.moveNext;
+                    document.getElementById('btn-prev').onclick = engine.movePrev;
+                }
+            } catch(e) { console.error("Carousel system fail:", e); }
+            
+            initWanderers();
+            initPhasers();
+            initCalmTwisters();
+
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        };
+    </script>
+</body>
+</html>
