@@ -8,9 +8,20 @@
         :root { 
             --gold: #c5a059; 
             --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            --card-width: 450px; /* Domyślna szerokość dla PC */
+            --card-width: 450px;
+            --spread: 500px; /* Odległość między domkami w 3D */
         }
         
+        @media (max-width: 768px) {
+            :root { 
+                --card-width: 260px; 
+                --spread: 300px; /* Mniejszy rozstęp na telefonie */
+            }
+            .nav-btn { width: 45px !important; height: 45px !important; font-size: 1.2rem !important; }
+            .character { width: 70px !important; }
+            .pinakotheka-card .character { bottom: -35px !important; }
+        }
+
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background: #050505 url('../../assets/img/city.jpg') no-repeat center center / cover;
@@ -21,120 +32,102 @@
         body::after {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
-        }
-
-        /* Responsywność szerokości domków */
-        @media (max-width: 768px) {
-            :root { --card-width: 280px; } /* Mniejsze domki na telefonach */
-            .nav-btn { width: 50px !important; height: 50px !important; font-size: 1.5rem !important; }
-            .house-title-frame { font-size: 0.8rem; padding: 8px 15px !important; }
-            .character { width: 80px !important; } /* Mniejsi ludzicy na telefonie */
-            .pinakotheka-card .character { bottom: -40px !important; } /* Korekta pozycji dla mniejszych ludzików */
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
         }
 
         .carousel-container {
             position: relative; 
             width: 100%; 
-            height: 100vh;
-            display: flex; 
-            justify-content: center; 
+            height: 100%;
+            perspective: 1200px; /* Głębia 3D */
+            display: flex;
+            justify-content: center;
             align-items: center;
-            perspective: 1500px; 
             z-index: 5;
         }
 
         .carousel-track { 
             position: relative; 
             width: var(--card-width); 
-            height: 80vh; 
-            transform-style: preserve-3d; 
-            transition: transform var(--transition);
+            height: 600px; 
+            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .house-card {
             position: absolute; 
-            top: 0; 
-            left: 0; 
             width: var(--card-width);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
             transition: all var(--transition); 
             cursor: pointer; 
             user-select: none;
             backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0; /* Ukrywamy domki przed zainicjowaniem przez JS */
+        }
+
+        /* Klasa dodawana przez silnik karuzeli dla widocznych elementów */
+        .house-card.visible, .house-card.active {
+            opacity: 1;
         }
 
         .house-img { 
             width: 100%; 
             height: auto; 
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.7));
             pointer-events: none; 
         }
         
         .character-zone { 
             position: absolute; 
-            bottom: 0; 
-            width: 100%; 
-            height: 40%; 
-            pointer-events: none; 
-            overflow: visible; 
+            bottom: 0; width: 100%; height: 40%; 
+            pointer-events: none; overflow: visible; 
         }
         
         .character {
             position: absolute; 
             bottom: 10px; 
-            width: 125px; 
+            width: 120px; 
             height: auto;
             transform-origin: center center; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
-            pointer-events: none; 
-            z-index: 20;
-            transition: left 1s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); 
+            z-index: 25;
+            pointer-events: none;
         }
 
-        .pinakotheka-card .character { 
-            bottom: -65px !important; 
-        }
+        .pinakotheka-card .character { bottom: -65px !important; }
 
         .house-title-frame {
             border: 2px solid var(--gold); 
-            padding: 10px 25px;
-            background: rgba(10, 10, 10, 0.9); 
+            padding: 8px 20px;
+            background: rgba(0, 0, 0, 0.85); 
             color: var(--gold);
             text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin-bottom: 15px;
-            opacity: 0; 
-            transition: 0.5s;
+            letter-spacing: 2px; 
+            margin-bottom: 10px;
+            opacity: 0;
+            transition: 0.4s;
             white-space: nowrap;
         }
 
         .active .house-title-frame { opacity: 1; }
 
-        /* Przycisk nawigacji */
         .nav-btn {
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.8); 
-            border: 1px solid var(--gold); 
-            color: var(--gold);
-            font-size: 2.5rem; 
-            width: 65px; 
-            height: 65px; 
-            cursor: pointer;
-            z-index: 100; 
-            border-radius: 50%; 
-            transition: 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.7); border: 1px solid var(--gold); color: var(--gold);
+            width: 60px; height: 600px; /* Wysokie przyciski ułatwiające klikanie na mobile */
+            max-height: 80vh;
+            cursor: pointer; z-index: 100; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2rem;
+            border-radius: 5px;
         }
-        .nav-btn:hover { background: var(--gold); color: black; }
-        .prev { left: 20px; } 
-        .next { right: 20px; }
+        .nav-btn:hover { background: rgba(197, 160, 89, 0.2); }
+        .prev { left: 0; border-left: none; } 
+        .next { right: 0; border-right: none; }
 
     </style>
 </head>
@@ -143,9 +136,9 @@
     <button class="nav-btn prev" id="btn-prev">‹</button>
 
     <div class="carousel-container">
-        <div class="carousel-track" id="carousel-track">
+        <div class="carousel-track" id="main-track">
             
-            <div class="house-card" data-url="about.html">
+            <div class="house-card active" data-url="about.html">
                 <div class="house-title-frame">O Panu Świata</div>
                 <img src="../../assets/img/infohouse.png" class="house-img">
                 <div class="character-zone">
@@ -183,19 +176,17 @@
         import { initPhasers } from '../../assets/js/actors/phaser.js';
 
         window.onload = () => {
-            // Inicjalizacja karuzeli
+            // Przekazujemy promień rozstawienia do silnika, jeśli funkcja to wspiera
             const engine = initCarousel(0);
             
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
 
-            // Inicjalizacja wszystkich systemów ludzików
             initWanderers();
             initCalmTwisters();
             initShadowGliders();
             initPhasers();
 
-            // Blokada prawego przycisku
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
