@@ -13,9 +13,7 @@
         
         @media (max-width: 768px) {
             :root { --card-width: 280px; }
-            .nav-btn { width: 50px !important; height: 50px !important; font-size: 1.5rem !important; }
             .character { width: 80px !important; }
-            .pinakotheka-card .character { bottom: -45px !important; }
         }
 
         body, html {
@@ -23,12 +21,6 @@
             background: #050505 url('../../assets/img/city.jpg') no-repeat center center / cover;
             color: white; font-family: 'Georgia', serif; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-        }
-
-        body::after {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
         }
 
         .carousel-container {
@@ -42,17 +34,11 @@
             transform-style: preserve-3d;
         }
         
-        /* POPRAWKA: Domyślne rozstawienie, jeśli JS zawiedzie */
         .house-card {
             position: absolute; top: 0; left: 0; width: var(--card-width);
             display: flex; flex-direction: column; align-items: center;
-            transition: all var(--transition); cursor: pointer; user-select: none;
-            z-index: 10;
+            transition: all var(--transition); cursor: pointer;
         }
-
-        /* Styl wymuszający brak nakładania się przy starcie */
-        .house-card:nth-child(2) { transform: translateX(100%) translateZ(-300px); opacity: 0.5; }
-        .house-card:nth-child(3) { transform: translateX(-100%) translateZ(-300px); opacity: 0.5; }
 
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
@@ -63,12 +49,12 @@
         
         .character {
             position: absolute; bottom: 10px; width: 125px; height: auto;
-            transform-origin: center center; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none; z-index: 20;
-            /* Transition musi tu być, by uniknąć teleportacji */
-            transition: left 1.2s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transition: left 1.2s ease-in-out, transform 0.5s ease-in-out, opacity 0.7s ease-in-out;
         }
 
+        /* Obniżenie tylko dla Pinakoteki */
         .pinakotheka-card .character { bottom: -65px !important; }
 
         .house-title-frame {
@@ -83,10 +69,8 @@
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
             font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
-            z-index: 1000; border-radius: 50%; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; border-radius: 50%;
         }
-        .nav-btn:hover { background: var(--gold); color: black; }
         .prev { left: 20px; } .next { right: 20px; }
     </style>
 </head>
@@ -95,7 +79,7 @@
     <button class="nav-btn prev" id="btn-prev">‹</button>
 
     <div class="carousel-container">
-        <div class="carousel-track" id="carousel-main-track">
+        <div class="carousel-track">
             
             <div class="house-card active" data-url="about.html">
                 <div class="house-title-frame">O Panu Świata</div>
@@ -117,9 +101,6 @@
             <div class="house-card" data-url="market.html">
                 <div class="house-title-frame">Targowisko</div>
                 <img src="../../assets/img/wip.png" class="house-img">
-                <div class="character-zone">
-                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-glider" style="left: 40%">
-                </div>
             </div>
 
         </div>
@@ -128,32 +109,51 @@
     <button class="nav-btn next" id="btn-next">›</button>
 
     <script type="module">
-        // Importy z obsługą błędów w konsoli
         import { initCarousel } from '../../assets/js/engine/carousel.js';
-        import { initWanderers } from '../../assets/js/actors/wanderer.js';
-        import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
-        import { initShadowGliders } from '../../assets/js/actors/shadow_glider.js';
-        import { initPhasers } from '../../assets/js/actors/phaser.js';
+
+        // WBUDOWANE LUDZIKI (żeby nie szukać plików)
+        function initActors() {
+            // 1. WANDERER (Zielony)
+            document.querySelectorAll('.char-wanderer').forEach(el => {
+                setInterval(() => {
+                    const newLeft = Math.random() * 60 + 10;
+                    const curLeft = parseFloat(el.style.left);
+                    el.style.transform = newLeft > curLeft ? "scaleX(-1)" : "scaleX(1)";
+                    el.style.left = newLeft + "%";
+                }, 3000);
+            });
+
+            // 2. PHASER (Cosmos - znika w ruchu)
+            document.querySelectorAll('.char-phaser').forEach(el => {
+                setInterval(() => {
+                    const newLeft = Math.random() * 60 + 10;
+                    el.style.opacity = "0.2";
+                    el.style.left = newLeft + "%";
+                    setTimeout(() => { el.style.opacity = "1"; }, 800);
+                }, 2500);
+            });
+
+            // 3. TWISTER (Pomarańczowy - tura się)
+            let rot = 0;
+            document.querySelectorAll('.char-twister').forEach(el => {
+                el.style.transition = "left 3s ease-in-out, transform 3s";
+                setInterval(() => {
+                    const newLeft = Math.random() * 60 + 10;
+                    rot += 360;
+                    el.style.left = newLeft + "%";
+                    el.style.transform = `rotate(${rot}deg)`;
+                }, 5000);
+            });
+        }
 
         window.onload = () => {
-            console.log("Ładowanie systemów...");
-
-            // 1. Inicjalizacja karuzeli (osobny blok, by błąd tutaj nie zabił reszty)
             try {
                 const engine = initCarousel(0);
-                if (engine) {
-                    document.getElementById('btn-next').onclick = engine.moveNext;
-                    document.getElementById('btn-prev').onclick = engine.movePrev;
-                }
-            } catch (e) { console.error("Błąd karuzeli:", e); }
-
-            // 2. Inicjalizacja ludzików
-            try { initWanderers(); } catch (e) { console.error("Błąd Wanderera:", e); }
-            try { initCalmTwisters(); } catch (e) { console.error("Błąd Twistera:", e); }
-            try { initShadowGliders(); } catch (e) { console.error("Błąd Glidera:", e); }
-            try { initPhasers(); } catch (e) { console.error("Błąd Phasera:", e); }
-
-            document.addEventListener('contextmenu', e => e.preventDefault());
+                document.getElementById('btn-next').onclick = engine.moveNext;
+                document.getElementById('btn-prev').onclick = engine.movePrev;
+            } catch(e) { console.error("Problem z karuzelą"); }
+            
+            initActors();
         };
     </script>
 </body>
