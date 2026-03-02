@@ -5,61 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cirgonheim – Plac Bramny</title>
     <style>
-        :root { --gold: #c5a059; --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        :root { 
+            --gold: #c5a059; 
+            --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-width: 450px; /* Domyślna szerokość dla PC */
+        }
+        
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background: #050505 url('../../assets/img/city.jpg') no-repeat center center / cover;
             color: white; font-family: 'Georgia', serif; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
         }
+
         body::after {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
             background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
         }
+
+        /* Responsywność szerokości domków */
+        @media (max-width: 768px) {
+            :root { --card-width: 280px; } /* Mniejsze domki na telefonach */
+            .nav-btn { width: 50px !important; height: 50px !important; font-size: 1.5rem !important; }
+            .house-title-frame { font-size: 0.8rem; padding: 8px 15px !important; }
+            .character { width: 80px !important; } /* Mniejsi ludzicy na telefonie */
+            .pinakotheka-card .character { bottom: -40px !important; } /* Korekta pozycji dla mniejszych ludzików */
+        }
+
         .carousel-container {
-            position: relative; width: 100%; height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            perspective: 2000px; z-index: 5;
+            position: relative; 
+            width: 100%; 
+            height: 100vh;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            perspective: 1500px; 
+            z-index: 5;
         }
-        .carousel-track { position: relative; width: 450px; height: 600px; transform-style: preserve-3d; }
+
+        .carousel-track { 
+            position: relative; 
+            width: var(--card-width); 
+            height: 80vh; 
+            transform-style: preserve-3d; 
+            transition: transform var(--transition);
+        }
+        
         .house-card {
-            position: absolute; top: 0; left: 0; width: 450px;
-            display: flex; flex-direction: column; align-items: center;
-            transition: all var(--transition); cursor: pointer; user-select: none;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: var(--card-width);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            transition: all var(--transition); 
+            cursor: pointer; 
+            user-select: none;
+            backface-visibility: hidden;
         }
-        .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
-        .character-zone { position: absolute; bottom: 0; width: 100%; height: 40%; pointer-events: none; overflow: visible; }
+
+        .house-img { 
+            width: 100%; 
+            height: auto; 
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
+            pointer-events: none; 
+        }
+        
+        .character-zone { 
+            position: absolute; 
+            bottom: 0; 
+            width: 100%; 
+            height: 40%; 
+            pointer-events: none; 
+            overflow: visible; 
+        }
+        
         .character {
-            position: absolute; bottom: 10px; width: 125px; height: auto;
-            transform-origin: center center; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
-            pointer-events: none; z-index: 20;
+            position: absolute; 
+            bottom: 10px; 
+            width: 125px; 
+            height: auto;
+            transform-origin: center center; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
+            pointer-events: none; 
+            z-index: 20;
             transition: left 1s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
-        /* Obniżenie tylko dla Pinakoteki */
-        .pinakotheka-card .character { bottom: -65px !important; }
+
+        .pinakotheka-card .character { 
+            bottom: -65px !important; 
+        }
 
         .house-title-frame {
-            border: 2px solid var(--gold); padding: 10px 25px;
-            background: rgba(10, 10, 10, 0.9); color: var(--gold);
-            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
-            opacity: 0; transition: 0.5s;
+            border: 2px solid var(--gold); 
+            padding: 10px 25px;
+            background: rgba(10, 10, 10, 0.9); 
+            color: var(--gold);
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin-bottom: 15px;
+            opacity: 0; 
+            transition: 0.5s;
+            white-space: nowrap;
         }
+
         .active .house-title-frame { opacity: 1; }
+
+        /* Przycisk nawigacji */
         .nav-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
-            font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
-            z-index: 100; border-radius: 50%; transition: 0.3s;
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.8); 
+            border: 1px solid var(--gold); 
+            color: var(--gold);
+            font-size: 2.5rem; 
+            width: 65px; 
+            height: 65px; 
+            cursor: pointer;
+            z-index: 100; 
+            border-radius: 50%; 
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .nav-btn:hover { background: var(--gold); color: black; }
-        .prev { left: 40px; } .next { right: 40px; }
+        .prev { left: 20px; } 
+        .next { right: 20px; }
+
     </style>
 </head>
 <body>
+
     <button class="nav-btn prev" id="btn-prev">‹</button>
+
     <div class="carousel-container">
-        <div class="carousel-track">
+        <div class="carousel-track" id="carousel-track">
             
             <div class="house-card" data-url="about.html">
                 <div class="house-title-frame">O Panu Świata</div>
@@ -88,6 +172,7 @@
 
         </div>
     </div>
+
     <button class="nav-btn next" id="btn-next">›</button>
 
     <script type="module">
@@ -98,19 +183,20 @@
         import { initPhasers } from '../../assets/js/actors/phaser.js';
 
         window.onload = () => {
+            // Inicjalizacja karuzeli
             const engine = initCarousel(0);
+            
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
 
+            // Inicjalizacja wszystkich systemów ludzików
             initWanderers();
             initCalmTwisters();
             initShadowGliders();
             initPhasers();
 
+            // Blokada prawego przycisku
             document.addEventListener('contextmenu', e => e.preventDefault());
-            document.addEventListener('keydown', e => {
-                if (e.keyCode === 123 || (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 73))) e.preventDefault();
-            });
         };
     </script>
 </body>
