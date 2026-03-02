@@ -2,39 +2,39 @@ export function initPhasers() {
     const phasers = document.querySelectorAll('.char-phaser');
     
     phasers.forEach(char => {
-        // Konfiguracja płynności: ruch (1.5s), obrót (0.4s) i znikanie (0.7s)
+        // Wymuszamy CSS bezpośrednio na elemencie, żeby wykluczyć błędy z arkusza stylów
         char.style.transition = "left 1.5s ease-in-out, transform 0.4s ease-in-out, opacity 0.7s ease-in-out";
+        // Ustawiamy startowy transform, żeby przeglądarka miała punkt odniesienia
+        char.style.transform = "scaleX(1)";
 
         const move = () => {
-            // 1. Pobieramy obecną pozycję (jeśli nie ma, startujemy z 60%)
+            // Pobieramy pozycję (usuwamy znak %, żeby mieć czystą liczbę)
             const currentLeft = parseFloat(char.style.left) || 60;
-            
-            // 2. Losujemy cel podróży (zakres 10% - 70%)
             const newLeft = Math.floor(Math.random() * 60) + 10;
 
-            // 3. LOGIKA OBROTU ZIMPORTOWANA Z WANDERERA:
-            // Jeśli cel jest na większej wartości (czyli po prawej stronie od obecnej),
-            // odbijamy grafikę lustrzanie, bo bazowo patrzy w lewo.
+            // MECHANIKA OBROTU (Zapożyczona z Wanderera)
+            // Jeśli cel (newLeft) jest WIĘKSZY niż obecna pozycja -> idzie w prawo -> scaleX(-1)
             if (newLeft > currentLeft) {
-                char.style.transform = "scaleX(-1)"; // Obrót w prawo
+                char.style.setProperty('transform', 'scaleX(-1)');
             } else {
-                char.style.transform = "scaleX(1)";  // Powrót do widoku w lewo
+                char.style.setProperty('transform', 'scaleX(1)');
             }
 
-            // 4. EFEKT PHASER (Zanikanie na starcie)
+            // EFEKT PHASER
             char.style.opacity = "0.2";
             char.style.left = newLeft + "%";
 
-            // 5. Powrót do pełnej widoczności w trakcie ruchu (po 800ms)
+            // POWRÓT WIDOCZNOŚCI
             setTimeout(() => {
                 char.style.opacity = "1";
-            }, 800);
+            }, 750);
 
-            // 6. Planujemy kolejny ruch za 2.5 - 3 sekundy
-            setTimeout(move, 2500 + Math.random() * 500);
+            // POSTÓJ (zgodnie z prośbą: nie dłużej niż 1 sekunda po zakończeniu ruchu)
+            // Ruch trwa 1500ms + losowo do 1000ms postoju
+            setTimeout(move, 1500 + Math.random() * 1000);
         };
         
-        // Pierwsze uruchomienie po załadowaniu strony
-        setTimeout(move, 500);
+        // Start
+        setTimeout(move, 300);
     });
 }
