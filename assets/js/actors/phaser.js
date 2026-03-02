@@ -2,39 +2,39 @@ export function initPhasers() {
     const phasers = document.querySelectorAll('.char-phaser');
     
     phasers.forEach(char => {
-        // Płynny ruch, obrót i zanikanie
+        // Konfiguracja płynności: ruch (1.5s), obrót (0.4s) i znikanie (0.7s)
         char.style.transition = "left 1.5s ease-in-out, transform 0.4s ease-in-out, opacity 0.7s ease-in-out";
 
         const move = () => {
-            // Pobieramy obecną pozycję (lub 60 jako start)
+            // 1. Pobieramy obecną pozycję (jeśli nie ma, startujemy z 60%)
             const currentLeft = parseFloat(char.style.left) || 60;
-            // Losujemy nową pozycję od 10% do 70%
+            
+            // 2. Losujemy cel podróży (zakres 10% - 70%)
             const newLeft = Math.floor(Math.random() * 60) + 10;
 
-            // LOGIKA OBROTU:
-            // Jeśli nowa pozycja jest większa niż obecna (idzie w prawo) -> obracamy (scaleX -1)
-            // Jeśli nowa pozycja jest mniejsza (idzie w lewo) -> zostawiamy oryginał (scaleX 1)
+            // 3. LOGIKA OBROTU ZIMPORTOWANA Z WANDERERA:
+            // Jeśli cel jest na większej wartości (czyli po prawej stronie od obecnej),
+            // odbijamy grafikę lustrzanie, bo bazowo patrzy w lewo.
             if (newLeft > currentLeft) {
-                char.style.transform = "scaleX(-1)"; 
+                char.style.transform = "scaleX(-1)"; // Obrót w prawo
             } else {
-                char.style.transform = "scaleX(1)";
+                char.style.transform = "scaleX(1)";  // Powrót do widoku w lewo
             }
 
-            // EFEKT PHASER:
-            // Zmniejszamy widoczność na starcie ruchu
+            // 4. EFEKT PHASER (Zanikanie na starcie)
             char.style.opacity = "0.2";
             char.style.left = newLeft + "%";
 
-            // Przywracamy widoczność w połowie drogi (po 800ms)
+            // 5. Powrót do pełnej widoczności w trakcie ruchu (po 800ms)
             setTimeout(() => {
                 char.style.opacity = "1";
             }, 800);
 
-            // Czekamy 2.5s - 3s do kolejnego ruchu
+            // 6. Planujemy kolejny ruch za 2.5 - 3 sekundy
             setTimeout(move, 2500 + Math.random() * 500);
         };
         
-        // Startujemy z lekkim opóźnieniem, żeby uniknąć gwałtownego startu przy ładowaniu
+        // Pierwsze uruchomienie po załadowaniu strony
         setTimeout(move, 500);
     });
 }
