@@ -61,7 +61,6 @@
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none; 
             z-index: 20;
-            /* KLUCZ: Sterowanie obrotem przez zmienną --dir ze skryptu JS */
             transform: scaleX(var(--dir, 1));
         }
 
@@ -89,9 +88,9 @@
     <button class="nav-btn prev" id="btn-prev">‹</button>
 
     <div class="carousel-container">
-        <div class="carousel-track">
+        <div class="carousel-track" id="main-carousel-track">
             
-            <div class="house-card active" data-url="about.html">
+            <div class="house-card active" data-url="interior/dis1/infohouse.html">
                 <div class="house-title-frame">O Panu Świata</div>
                 <img src="../../assets/img/infohouse.png" class="house-img">
                 <div class="character-zone">
@@ -108,11 +107,6 @@
                 </div>
             </div>
 
-            <div class="house-card" data-url="market.html">
-                <div class="house-title-frame">Targowisko</div>
-                <img src="../../assets/img/wip.png" class="house-img">
-            </div>
-
         </div>
     </div>
 
@@ -125,14 +119,29 @@
         import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
 
         window.onload = () => {
+            // 1. Inicjalizacja Karuzeli
             try {
                 const engine = initCarousel(0);
                 if (engine) {
                     document.getElementById('btn-next').onclick = engine.moveNext;
                     document.getElementById('btn-prev').onclick = engine.movePrev;
                 }
-            } catch(e) { console.error("Carousel system fail:", e); }
+            } catch(e) { console.error("Carousel Error"); }
             
+            // 2. Obsługa kliknięć w domki (wejście do wnętrza)
+            document.querySelectorAll('.house-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Reagujemy tylko jeśli karta jest aktywna (na środku)
+                    if (this.classList.contains('active')) {
+                        const targetUrl = this.getAttribute('data-url');
+                        if (targetUrl) {
+                            window.location.href = targetUrl;
+                        }
+                    }
+                });
+            });
+
+            // 3. Inicjalizacja aktorów
             initWanderers();
             initPhasers();
             initCalmTwisters();
