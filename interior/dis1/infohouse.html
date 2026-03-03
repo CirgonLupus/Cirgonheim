@@ -7,7 +7,6 @@
     <style>
         :root { 
             --gold: #c5a059; 
-            --inner-max-width: 1200px; 
         }
 
         body, html { 
@@ -18,10 +17,11 @@
             font-family: 'Georgia', serif; 
         }
 
+        /* Gigantyczny kontener na tło */
         .interior-wrapper { 
             position: relative; 
-            width: 95%; 
-            max-width: var(--inner-max-width); 
+            width: 95vw; /* 95% szerokości okna przeglądarki */
+            max-width: 1800px; /* Maksymalny limit dla bardzo dużych monitorów */
             display: flex; 
             justify-content: center; 
             align-items: flex-end; 
@@ -30,39 +30,40 @@
         .background-img { 
             width: 100%; 
             height: auto; 
-            filter: drop-shadow(0 0 50px rgba(197, 160, 89, 0.15)); 
+            filter: drop-shadow(0 0 80px rgba(197, 160, 89, 0.2));
+            border: 2px solid rgba(197, 160, 89, 0.3);
         }
 
         .character-layer { 
             position: absolute; 
-            bottom: 12%; 
+            bottom: 10%; /* Regulacja wysokości stania na podłodze grafiki */
             width: 100%; 
-            pointer-events: none; 
             display: flex;
             justify-content: center;
+            pointer-events: none; 
         }
 
         .character { 
             position: relative; 
-            width: 200px; 
+            width: 250px; /* Ludzik też musi być większy przy takim tle */
             height: auto; 
-            /* Wykorzystujemy --dir do obrotu, centrowanie zapewnia flexbox rodzica */
             transform: scaleX(var(--dir, 1)); 
             transition: transform 0.4s ease-in-out, opacity 0.5s; 
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.9));
         }
 
         .exit-btn { 
             position: fixed; 
-            bottom: 40px; 
-            padding: 12px 40px; 
-            background: rgba(0,0,0,0.9); 
-            border: 1px solid var(--gold); 
+            bottom: 50px; 
+            padding: 15px 50px; 
+            background: rgba(0,0,0,0.95); 
+            border: 2px solid var(--gold); 
             color: var(--gold); 
             cursor: pointer; 
             text-decoration: none; 
             text-transform: uppercase; 
-            letter-spacing: 3px; 
+            letter-spacing: 4px; 
+            font-weight: bold;
             transition: 0.3s; 
             z-index: 100;
         }
@@ -70,6 +71,7 @@
         .exit-btn:hover { 
             background: var(--gold); 
             color: black; 
+            box-shadow: 0 0 30px var(--gold);
         }
     </style>
 </head>
@@ -89,8 +91,10 @@
         import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
         
         window.onload = () => {
-            if (typeof initVinedressers === 'function') {
+            try {
                 initVinedressers();
+            } catch (e) {
+                console.warn("Skrypt vinedresser nie został jeszcze utworzony lub ma błąd ścieżki.");
             }
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
