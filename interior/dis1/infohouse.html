@@ -14,37 +14,97 @@
             padding: 0; 
             width: 100%; 
             height: 100%; 
-            /* Tło na cały ekran */
+            /* Tło zajmuje całą przestrzeń */
             background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
-            display: flex; 
-            justify-content: center; /* Środek w poziomie */
-            align-items: flex-end;    /* Postać na dole ekranu */
             overflow: hidden; 
             font-family: 'Georgia', serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Warstwa przyciemniająca tło dla lepszego klimatu */
+        /* Warstwa przyciemniająca tło */
         body::after {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.2);
             z-index: 1;
             pointer-events: none;
         }
 
+        /* Kontener postaci - wymuszamy widoczność na środku */
         .character-zone { 
-            position: relative;
+            position: absolute;
+            bottom: 15%; /* Ustawienie "na podłodze" - zmień ten % jeśli ludzik jest za nisko */
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 10;
-            /* Odstęp od dołu ekranu, aby ludzik stał "na podłodze" grafiki tła */
-            padding-bottom: 10vh; 
             display: flex;
             justify-content: center;
+            align-items: flex-end;
+            width: 200px; /* Szerokość robocza kontenera */
+            height: 200px;
         }
 
         .character { 
             position: relative; 
-            /* ZMNIEJSZENIE O POŁOWĘ: z 300px na 150px */
-            width: 150px; 
-            height: auto;
+            width: 150px; /* Połowa wcześniejszej wielkości */
+            height: auto; 
+            /* Łączymy system obrotu --dir z domyślnym wyświetlaniem */
+            transform: scaleX(var(--dir, 1)); 
+            transition: transform 0.4s ease-in-out, opacity 0.5s; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
+            display: block !important; /* Wymuszamy wyświetlanie */
+        }
+
+        .exit-btn { 
+            position: fixed; 
+            top: 30px; 
+            left: 30px;
+            padding: 12px 35px; 
+            background: rgba(0,0,0,0.85); 
+            border: 1px solid var(--gold); 
+            color: var(--gold); 
+            cursor: pointer; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            font-size: 0.85rem;
+            transition: 0.3s; 
+            z-index: 1000;
+        }
+
+        .exit-btn:hover { 
+            background: var(--gold); 
+            color: black; 
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">‹ Powrót na plac</a>
+
+    <div class="character-zone">
+        <img src="../../assets/img/001_winered.png" class="character char-vinedresser" id="actor-winered">
+    </div>
+
+    <script type="module">
+        import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
+        
+        window.onload = () => {
+            console.log("Wnętrze załadowane. Szukam aktora...");
+            const actor = document.getElementById('actor-winered');
+            if(actor) console.log("Aktor znaleziony: ", actor.src);
+
+            try {
+                initVinedressers();
+            } catch (e) {
+                console.warn("Błąd skryptu vinedresser.js - sprawdź czy plik istnieje w assets/js/actors/");
+            }
             
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        };
+    </script>
+</body>
+</html>
