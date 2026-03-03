@@ -17,46 +17,51 @@
             font-family: 'Georgia', serif; 
         }
 
-        /* Gigantyczny kontener na tło */
+        /* GIGANTYCZNY WIDOK - Wypełnia ekran, zachowując proporcje */
         .interior-wrapper { 
             position: relative; 
-            width: 95vw; /* 95% szerokości okna przeglądarki */
-            max-width: 1800px; /* Maksymalny limit dla bardzo dużych monitorów */
+            width: 100vw; 
+            height: 100vh;
             display: flex; 
             justify-content: center; 
-            align-items: flex-end; 
+            align-items: center; /* Centrujemy grafikę w pionie i poziomie */
         }
 
         .background-img { 
-            width: 100%; 
-            height: auto; 
-            filter: drop-shadow(0 0 80px rgba(197, 160, 89, 0.2));
-            border: 2px solid rgba(197, 160, 89, 0.3);
+            /* To sprawi, że grafika będzie tak duża, jak to możliwe bez ucinania */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 100px rgba(197, 160, 89, 0.25));
         }
 
         .character-layer { 
             position: absolute; 
-            bottom: 10%; /* Regulacja wysokości stania na podłodze grafiki */
+            /* Ustawienie ludzika na "podłodze" grafiki - dopasuj % jeśli trzeba */
+            bottom: 15%; 
             width: 100%; 
             display: flex;
             justify-content: center;
             pointer-events: none; 
+            z-index: 10;
         }
 
         .character { 
             position: relative; 
-            width: 250px; /* Ludzik też musi być większy przy takim tle */
+            width: 320px; /* Jeszcze większy ludzik do ogromnego tła */
             height: auto; 
             transform: scaleX(var(--dir, 1)); 
             transition: transform 0.4s ease-in-out, opacity 0.5s; 
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.9));
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9));
         }
 
+        /* PRZYCISK WYJŚCIA - Pancerny */
         .exit-btn { 
             position: fixed; 
-            bottom: 50px; 
-            padding: 15px 50px; 
-            background: rgba(0,0,0,0.95); 
+            bottom: 40px; 
+            right: 40px; /* Przeniesiony w róg, by nie zasłaniał środka */
+            padding: 15px 45px; 
+            background: rgba(0,0,0,0.9); 
             border: 2px solid var(--gold); 
             color: var(--gold); 
             cursor: pointer; 
@@ -65,13 +70,13 @@
             letter-spacing: 4px; 
             font-weight: bold;
             transition: 0.3s; 
-            z-index: 100;
+            z-index: 1000;
         }
 
         .exit-btn:hover { 
             background: var(--gold); 
             color: black; 
-            box-shadow: 0 0 30px var(--gold);
+            box-shadow: 0 0 40px var(--gold);
         }
     </style>
 </head>
@@ -85,17 +90,21 @@
         </div>
     </div>
 
-    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">Wróć na plac</a>
+    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">Powrót</a>
 
     <script type="module">
         import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
         
         window.onload = () => {
+            // Jeśli nadal masz błąd powrotu, to kliknięcie w przycisk wypisze ścieżkę w konsoli:
+            document.querySelector('.exit-btn').addEventListener('click', function(e) {
+                console.log("Próba powrotu do: " + this.href);
+            });
+
             try {
                 initVinedressers();
-            } catch (e) {
-                console.warn("Skrypt vinedresser nie został jeszcze utworzony lub ma błąd ścieżki.");
-            }
+            } catch (e) { console.error("Aktor nie zainicjalizowany"); }
+            
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
