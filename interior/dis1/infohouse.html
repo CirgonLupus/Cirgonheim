@@ -5,29 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wnętrze – Infohouse</title>
     <style>
-        :root { --gold: #c5a059; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; font-family: 'Georgia', serif; }
-        .interior-wrapper { position: relative; width: 100%; max-width: 900px; display: flex; justify-content: center; align-items: flex-end; }
-        .background-img { width: 100%; height: auto; filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.1)); }
-        .character-layer { position: absolute; bottom: 8%; width: 80%; height: 20%; pointer-events: none; }
-        .character { position: absolute; bottom: 0; width: 160px; height: auto; transform: scaleX(var(--dir, 1)); transition: left 2s ease-in-out, transform 0.4s, opacity 0.5s; }
-        .exit-btn { position: fixed; bottom: 30px; padding: 12px 35px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold); cursor: pointer; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .exit-btn:hover { background: var(--gold); color: black; }
+        :root { 
+            --gold: #c5a059; 
+            --inner-max-width: 1200px; 
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; 
+            display: flex; justify-content: center; align-items: center; 
+            overflow: hidden; 
+            font-family: 'Georgia', serif; 
+        }
+
+        .interior-wrapper { 
+            position: relative; 
+            width: 95%; 
+            max-width: var(--inner-max-width); 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+        }
+
+        .background-img { 
+            width: 100%; 
+            height: auto; 
+            filter: drop-shadow(0 0 50px rgba(197, 160, 89, 0.15)); 
+        }
+
+        .character-layer { 
+            position: absolute; 
+            bottom: 12%; 
+            width: 100%; 
+            pointer-events: none; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .character { 
+            position: relative; 
+            width: 200px; 
+            height: auto; 
+            /* Wykorzystujemy --dir do obrotu, centrowanie zapewnia flexbox rodzica */
+            transform: scaleX(var(--dir, 1)); 
+            transition: transform 0.4s ease-in-out, opacity 0.5s; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+        }
+
+        .exit-btn { 
+            position: fixed; 
+            bottom: 40px; 
+            padding: 12px 40px; 
+            background: rgba(0,0,0,0.9); 
+            border: 1px solid var(--gold); 
+            color: var(--gold); 
+            cursor: pointer; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            transition: 0.3s; 
+            z-index: 100;
+        }
+
+        .exit-btn:hover { 
+            background: var(--gold); 
+            color: black; 
+        }
     </style>
 </head>
 <body>
+
     <div class="interior-wrapper">
         <img src="../../assets/img/indoor.png" class="background-img">
+        
         <div class="character-layer">
-            <img src="../../assets/img/001_winered.png" class="character char-vinedresser" style="left: 45%;">
+            <img src="../../assets/img/001_winered.png" class="character char-vinedresser">
         </div>
     </div>
+
     <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">Wróć na plac</a>
 
     <script type="module">
         import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
+        
         window.onload = () => {
-            initVinedressers();
+            if (typeof initVinedressers === 'function') {
+                initVinedressers();
+            }
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
