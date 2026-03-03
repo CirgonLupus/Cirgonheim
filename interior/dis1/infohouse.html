@@ -14,89 +14,37 @@
             padding: 0; 
             width: 100%; 
             height: 100%; 
-            /* GRAFIKA JAKO TŁO */
+            /* Tło na cały ekran */
             background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
             display: flex; 
-            justify-content: center; 
-            align-items: flex-end; /* Ludzik na dole ekranu */
+            justify-content: center; /* Środek w poziomie */
+            align-items: flex-end;    /* Postać na dole ekranu */
             overflow: hidden; 
             font-family: 'Georgia', serif; 
         }
 
-        /* Warstwa ochronna (opcjonalna - lekki przyciemniacz, by ludzik lepiej wyglądał) */
+        /* Warstwa przyciemniająca tło dla lepszego klimatu */
         body::after {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
             z-index: 1;
             pointer-events: none;
         }
 
         .character-zone { 
             position: relative;
-            width: 100%;
-            height: 40vh; /* Obszar ruchu ludzika */
+            z-index: 10;
+            /* Odstęp od dołu ekranu, aby ludzik stał "na podłodze" grafiki tła */
+            padding-bottom: 10vh; 
             display: flex;
             justify-content: center;
-            align-items: flex-end;
-            z-index: 10;
-            padding-bottom: 5vh; /* Odstęp od dolnej krawędzi (podłoga) */
         }
 
         .character { 
             position: relative; 
-            width: 300px; /* Duży, wyraźny gospodarz */
-            height: auto; 
-            transform: scaleX(var(--dir, 1)); 
-            transition: transform 0.4s ease-in-out, opacity 0.5s; 
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9));
-        }
-
-        .exit-btn { 
-            position: fixed; 
-            top: 30px; /* Przycisk u góry, by nie psuł widoku podłogi */
-            left: 30px;
-            padding: 12px 35px; 
-            background: rgba(0,0,0,0.8); 
-            border: 1px solid var(--gold); 
-            color: var(--gold); 
-            cursor: pointer; 
-            text-decoration: none; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            font-size: 0.9rem;
-            transition: 0.3s; 
-            z-index: 1000;
-        }
-
-        .exit-btn:hover { 
-            background: var(--gold); 
-            color: black; 
-            box-shadow: 0 0 20px var(--gold);
-        }
-    </style>
-</head>
-<body>
-
-    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">‹ Wyjdź na plac</a>
-
-    <div class="character-zone">
-        <img src="../../assets/img/001_winered.png" class="character char-vinedresser">
-    </div>
-
-    <script type="module">
-        import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
-        
-        window.onload = () => {
-            try {
-                initVinedressers();
-            } catch (e) {
-                console.error("Błąd ładowania aktora:", e);
-            }
-            // Blokada prawego przycisku
-            document.addEventListener('contextmenu', e => e.preventDefault());
-        };
-    </script>
-</body>
-</html>
+            /* ZMNIEJSZENIE O POŁOWĘ: z 300px na 150px */
+            width: 150px; 
+            height: auto;
+            
