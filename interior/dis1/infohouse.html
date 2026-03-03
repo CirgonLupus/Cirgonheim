@@ -10,65 +10,62 @@
         }
 
         body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000; 
-            display: flex; justify-content: center; align-items: center; 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            /* GRAFIKA JAKO TŁO */
+            background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; /* Ludzik na dole ekranu */
             overflow: hidden; 
             font-family: 'Georgia', serif; 
         }
 
-        /* GIGANTYCZNY WIDOK - Wypełnia ekran, zachowując proporcje */
-        .interior-wrapper { 
-            position: relative; 
-            width: 100vw; 
-            height: 100vh;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; /* Centrujemy grafikę w pionie i poziomie */
+        /* Warstwa ochronna (opcjonalna - lekki przyciemniacz, by ludzik lepiej wyglądał) */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .background-img { 
-            /* To sprawi, że grafika będzie tak duża, jak to możliwe bez ucinania */
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 100px rgba(197, 160, 89, 0.25));
-        }
-
-        .character-layer { 
-            position: absolute; 
-            /* Ustawienie ludzika na "podłodze" grafiki - dopasuj % jeśli trzeba */
-            bottom: 15%; 
-            width: 100%; 
+        .character-zone { 
+            position: relative;
+            width: 100%;
+            height: 40vh; /* Obszar ruchu ludzika */
             display: flex;
             justify-content: center;
-            pointer-events: none; 
+            align-items: flex-end;
             z-index: 10;
+            padding-bottom: 5vh; /* Odstęp od dolnej krawędzi (podłoga) */
         }
 
         .character { 
             position: relative; 
-            width: 320px; /* Jeszcze większy ludzik do ogromnego tła */
+            width: 300px; /* Duży, wyraźny gospodarz */
             height: auto; 
             transform: scaleX(var(--dir, 1)); 
             transition: transform 0.4s ease-in-out, opacity 0.5s; 
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9));
         }
 
-        /* PRZYCISK WYJŚCIA - Pancerny */
         .exit-btn { 
             position: fixed; 
-            bottom: 40px; 
-            right: 40px; /* Przeniesiony w róg, by nie zasłaniał środka */
-            padding: 15px 45px; 
-            background: rgba(0,0,0,0.9); 
-            border: 2px solid var(--gold); 
+            top: 30px; /* Przycisk u góry, by nie psuł widoku podłogi */
+            left: 30px;
+            padding: 12px 35px; 
+            background: rgba(0,0,0,0.8); 
+            border: 1px solid var(--gold); 
             color: var(--gold); 
             cursor: pointer; 
             text-decoration: none; 
             text-transform: uppercase; 
-            letter-spacing: 4px; 
-            font-weight: bold;
+            letter-spacing: 3px; 
+            font-size: 0.9rem;
             transition: 0.3s; 
             z-index: 1000;
         }
@@ -76,35 +73,28 @@
         .exit-btn:hover { 
             background: var(--gold); 
             color: black; 
-            box-shadow: 0 0 40px var(--gold);
+            box-shadow: 0 0 20px var(--gold);
         }
     </style>
 </head>
 <body>
 
-    <div class="interior-wrapper">
-        <img src="../../assets/img/indoor.png" class="background-img">
-        
-        <div class="character-layer">
-            <img src="../../assets/img/001_winered.png" class="character char-vinedresser">
-        </div>
-    </div>
+    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">‹ Wyjdź na plac</a>
 
-    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">Powrót</a>
+    <div class="character-zone">
+        <img src="../../assets/img/001_winered.png" class="character char-vinedresser">
+    </div>
 
     <script type="module">
         import { initVinedressers } from '../../assets/js/actors/vinedresser.js';
         
         window.onload = () => {
-            // Jeśli nadal masz błąd powrotu, to kliknięcie w przycisk wypisze ścieżkę w konsoli:
-            document.querySelector('.exit-btn').addEventListener('click', function(e) {
-                console.log("Próba powrotu do: " + this.href);
-            });
-
             try {
                 initVinedressers();
-            } catch (e) { console.error("Aktor nie zainicjalizowany"); }
-            
+            } catch (e) {
+                console.error("Błąd ładowania aktora:", e);
+            }
+            // Blokada prawego przycisku
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
