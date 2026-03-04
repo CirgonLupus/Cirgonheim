@@ -9,7 +9,7 @@ export function initKeepers() {
 
         // KONFIGURACJA SKALI:
         const baseScale = 2.0; // Wielkość w punkcie podstawowym
-        const maxScale = 4.0;  // 2x większy niż w punkcie podstawowym (2.0 * 2)
+        const maxScale = 6.0;  // 2x większy niż w punkcie podstawowym (2.0 * 2)
 
         const wander = () => {
             // Losujemy postęp: 0 (środek) do 1 (najniższy punkt)
