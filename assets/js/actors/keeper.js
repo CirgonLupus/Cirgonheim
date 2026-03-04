@@ -2,33 +2,43 @@ export function initKeepers() {
     const actors = document.querySelectorAll('.char-keeper');
     
     actors.forEach(char => {
-        // Skrypt nie ustawia pozycji startowej - bierze ją z CSS (czyli 50%)
-        const startY = parseFloat(window.getComputedStyle(char).top) / window.innerHeight * 100 || 50;
-        const endY = 100; // Dolna krawędź
+        // KONFIGURACJA:
+        // Start: Środek grafiki (50%)
+        // Koniec: Dolna krawędź (100%)
+        const startY = 50; 
+        const endY = 100; 
 
         const wander = () => {
-            // Losujemy postęp (0 = środek, 1 = krawędź)
+            // Losujemy postęp: 0 (środek) do 1 (dół)
             const progress = Math.random(); 
             
+            // Obliczamy aktualne Y
             const targetY = startY + (progress * (endY - startY));
-            // Skaluje od 1.0 (bazowy rozmiar 150px) do 1.5 (225px)
-            const targetScale = 1.0 + (progress * 0.5);
+            
+            // SKALA: 2.0 na starcie (środek) -> 3.0 na dole (krawędź)
+            const targetScale = 2.0 + (progress * 1.0);
             
             const duration = 4000 + Math.random() * 3000;
             
             char.style.transition = `top ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
             
-            // Zachowujemy Twoje translateY(20%) w każdym kroku ruchu
+            // Pozycja i skala (bez dodatkowych przesunięć)
             char.style.top = `${targetY}%`;
-            char.style.transform = `translateX(-50%) translateY(20%) scale(${targetScale}) scaleX(var(--dir, 1))`;
+            char.style.transform = `translateX(-50%) scale(${targetScale}) scaleX(var(--dir, 1))`;
 
             setTimeout(wander, duration + 1000);
         };
 
-        // Ustawiamy origin na dół, żeby ludzik "rosnął" od stóp w górę
+        // USTAWIENIA POCZĄTKOWE: Na środku i od razu 2x większy
+        char.style.position = "absolute";
+        char.style.left = "50%";
+        char.style.top = `${startY}%`;
+        char.style.width = "150px"; 
+        char.style.transform = "translateX(-50%) scale(2.0) scaleX(1)";
         char.style.transformOrigin = "bottom center";
+        char.style.marginTop = "0px";
 
-        // Pierwszy ruch zaczyna się po 2 sekundach spokoju
+        // Start patrolowania
         setTimeout(wander, 2000);
     });
 }
