@@ -17,9 +17,10 @@
         .character { 
             position: absolute;
             left: 50%;
-            top: 50%; /* DOKŁADNIE ŚRODEK */
+            top: 50%; 
             width: 150px; 
-            transform: translateX(-50%); /* TYLKO centrowanie w poziomie */
+            /* Start: Środek, Obniżenie 1/5, Skala 2.0 */
+            transform: translateX(-50%) translateY(20%) scale(2.0);
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
         }
         .exit-btn { 
