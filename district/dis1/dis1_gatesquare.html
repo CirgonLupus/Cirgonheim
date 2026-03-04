@@ -90,7 +90,7 @@
     <div class="carousel-container">
         <div class="carousel-track" id="main-carousel-track">
             
-            <div class="house-card active" data-url="interior/dis1/infohouse.html">
+            <div class="house-card active" data-url="../../interior/dis1/infohouse.html">
                 <div class="house-title-frame">O Panu Świata</div>
                 <img src="../../assets/img/infohouse.png" class="house-img">
                 <div class="character-zone">
@@ -126,15 +126,16 @@
                     document.getElementById('btn-next').onclick = engine.moveNext;
                     document.getElementById('btn-prev').onclick = engine.movePrev;
                 }
-            } catch(e) { console.error("Carousel Error"); }
+            } catch(e) { 
+                console.error("Carousel Error:", e); 
+            }
             
-            // 2. Obsługa kliknięć w domki (wejście do wnętrza)
+            // 2. Obsługa kliknięć w aktywne karty (wejście do wnętrza)
             document.querySelectorAll('.house-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    // Reagujemy tylko jeśli karta jest aktywna (na środku)
                     if (this.classList.contains('active')) {
                         const targetUrl = this.getAttribute('data-url');
-                        if (targetUrl) {
+                        if (targetUrl && targetUrl !== "#") {
                             window.location.href = targetUrl;
                         }
                     }
@@ -142,9 +143,13 @@
             });
 
             // 3. Inicjalizacja aktorów
-            initWanderers();
-            initPhasers();
-            initCalmTwisters();
+            try {
+                initWanderers();
+                initPhasers();
+                initCalmTwisters();
+            } catch(e) {
+                console.error("Actors Init Error:", e);
+            }
 
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
