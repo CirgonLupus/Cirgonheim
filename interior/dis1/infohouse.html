@@ -16,18 +16,16 @@
         }
         .character { 
             position: absolute;
-            left: 50%;
-            top: 50%; 
             width: 150px; 
-            /* Start: Środek, Obniżenie 1/5, Skala 2.0 */
-            transform: translateX(-50%) translateY(20%) scale(2.0);
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+            /* JS przejmuje pełną kontrolę nad top, left i transform */
+            transition: all 5000ms ease-in-out; 
         }
         .exit-btn { 
             position: fixed; top: 30px; left: 30px; padding: 12px 35px; 
             background: rgba(0,0,0,0.85); border: 1px solid var(--gold); 
             color: var(--gold); text-decoration: none; text-transform: uppercase; 
-            letter-spacing: 3px; font-size: 0.85rem; z-index: 1000;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -38,7 +36,7 @@
     </div>
     <script type="module">
         import { initKeepers } from '../../assets/js/actors/keeper.js';
-        window.onload = () => { initKeepers(); };
+        window.onload = initKeepers;
     </script>
 </body>
 </html>
