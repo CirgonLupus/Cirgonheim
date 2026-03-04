@@ -2,38 +2,52 @@ export function initKeepers() {
     const actors = document.querySelectorAll('.char-keeper');
     
     actors.forEach(char => {
-        // KONFIGURACJA ZAKRESU:
-        const startY = 50;  // Punkt podstawowy (środek)
-        const endY = 75;    // Punkt najniższy (skrócona droga)
-        const offsetV = 20; // Stałe obniżenie o 1/5 wysokości
+        // KONFIGURACJA ZAKRESU PIONOWEGO:
+        const startY = 50;  
+        const endY = 75;    
+        const offsetV = 20; 
 
         // KONFIGURACJA SKALI:
-        const baseScale = 2.0; // Wielkość w punkcie podstawowym
-        const maxScale = 6.0;  // 2x większy niż w punkcie podstawowym (2.0 * 2)
+        const baseScale = 2.0; 
+        const maxScale = 5.0;  
+
+        // KONFIGURACJA MEANDROWANIA (POZIOM):
+        const centerX = 50;   // Środek ekranu
+        const drift = 15;     // Maksymalne wychylenie w lewo/prawo (w %)
+        let currentX = 50;    // Zapamiętujemy obecną pozycję X do sterowania kierunkiem
 
         const wander = () => {
-            // Losujemy postęp: 0 (środek) do 1 (najniższy punkt)
             const progress = Math.random(); 
             
-            // Obliczamy aktualne Y w zakresie 50% - 75%
+            // 1. Obliczamy Y i Skalę (bez zmian)
             const targetY = startY + (progress * (endY - startY));
-            
-            // Obliczamy skalę: od 2.0 do 4.0
             const targetScale = baseScale + (progress * (maxScale - baseScale));
             
+            // 2. Obliczamy X (meandrowanie)
+            // Losujemy nową pozycję w zakresie (50 - 15) do (50 + 15)
+            const targetX = (centerX - drift) + (Math.random() * drift * 2);
+            
+            // 3. Ustalamy kierunek patrzenia (scaleX)
+            // Jeśli idzie w prawo (targetX > currentX), patrz w prawo, jeśli w lewo, patrz w lewo
+            const direction = targetX > currentX ? 1 : -1;
+            currentX = targetX;
+
             const duration = 4000 + Math.random() * 3000;
             
-            char.style.transition = `top ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
+            // Dodajemy 'left' do przejścia, aby postać płynnie meandrowała
+            char.style.transition = `top ${duration}ms ease-in-out, left ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
             
-            // Aplikujemy pozycję, obniżenie i nową skalę
+            // Aplikujemy ruch
             char.style.top = `${targetY}%`;
-            char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${targetScale}) scaleX(var(--dir, 1))`;
+            char.style.left = `${targetX}%`;
+            
+            // Ważne: translateX(-50%) musi zostać, by postać była centrowana względem swojego punktu 'left'
+            char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${targetScale}) scaleX(${direction})`;
 
-            // Po zakończeniu ruchu czekamy i losujemy kolejny cel
             setTimeout(wander, duration + 1000);
         };
 
-        // USTAWIENIA STARTOWE (Punkt podstawowy)
+        // USTAWIENIA STARTOWE
         char.style.position = "absolute";
         char.style.left = "50%";
         char.style.top = `${startY}%`;
@@ -42,7 +56,6 @@ export function initKeepers() {
         char.style.transformOrigin = "bottom center";
         char.style.marginTop = "0px";
 
-        // Start animacji
         setTimeout(wander, 2000);
     });
 }
