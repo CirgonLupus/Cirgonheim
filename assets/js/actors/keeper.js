@@ -2,49 +2,33 @@ export function initKeepers() {
     const actors = document.querySelectorAll('.char-keeper');
     
     actors.forEach(char => {
-        // KONFIGURACJA:
-        // Start: Dokładnie środek grafiki tła (50% wysokości kontenera)
-        // Obniżenie: 1/5 wysokości postaci (używając margin-top, by nie psuć transform)
-        // Koniec: Dolna krawędź grafiki tła (100% wysokości kontenera)
-        
-        const startY = 50; 
-        const endY = 100;
+        // Skrypt nie ustawia pozycji startowej - bierze ją z CSS (czyli 50%)
+        const startY = parseFloat(window.getComputedStyle(char).top) / window.innerHeight * 100 || 50;
+        const endY = 100; // Dolna krawędź
 
         const wander = () => {
-            // Losujemy postęp: 0 (środek grafiki) do 1 (dół grafiki)
+            // Losujemy postęp (0 = środek, 1 = krawędź)
             const progress = Math.random(); 
             
-            // Obliczamy aktualne Y (pozycja stóp postaci)
             const targetY = startY + (progress * (endY - startY));
-            
-            // Skalowanie: 100% na starcie (środek) -> 150% na samym dole
+            // Skaluje od 1.0 (bazowy rozmiar 150px) do 1.5 (225px)
             const targetScale = 1.0 + (progress * 0.5);
             
             const duration = 4000 + Math.random() * 3000;
             
             char.style.transition = `top ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
             
+            // Zachowujemy Twoje translateY(20%) w każdym kroku ruchu
             char.style.top = `${targetY}%`;
-            // Tylko centrowanie w poziomie i skala. Obniżenie o 1/5 jest w margin-top.
-            char.style.transform = `translateX(-50%) scale(${targetScale}) scaleX(var(--dir, 1))`;
+            char.style.transform = `translateX(-50%) translateY(20%) scale(${targetScale}) scaleX(var(--dir, 1))`;
 
             setTimeout(wander, duration + 1000);
         };
 
-        // USTAWIENIA POCZĄTKOWE
-        char.style.position = "absolute";
-        char.style.left = "50%";
-        char.style.width = "150px"; 
-        char.style.top = `${startY}%`; // Środek grafiki
-        
-        // Obniżenie o 1/5 wysokości postaci (30px przy szerokości 150px, jeśli postać jest kwadratowa, 
-        // lub dynamicznie 20% wysokości jeśli użyjemy % w margin-top)
-        char.style.marginTop = "calc(150px / 5)"; 
-        
-        char.style.transform = "translateX(-50%) scale(1.0) scaleX(1)";
+        // Ustawiamy origin na dół, żeby ludzik "rosnął" od stóp w górę
         char.style.transformOrigin = "bottom center";
 
-        // Start ruchu
-        setTimeout(wander, 1500);
+        // Pierwszy ruch zaczyna się po 2 sekundach spokoju
+        setTimeout(wander, 2000);
     });
 }
