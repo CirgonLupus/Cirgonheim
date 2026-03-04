@@ -1,45 +1,43 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Wnętrze – Infohouse</title>
-    <style>
-        :root { --gold: #c5a059; }
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
-            overflow: hidden; position: relative;
-        }
-        .character-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; pointer-events: none;
-        }
-        .character { 
-            position: absolute;
-            left: 50%;
-            top: 50%; 
-            width: 150px; 
-            /* Start: Środek, Obniżenie 1/5, Skala 2.0 */
-            transform: translateX(-50%) translateY(20%) scale(2.0);
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
-        }
-        .exit-btn { 
-            position: fixed; top: 30px; left: 30px; padding: 12px 35px; 
-            background: rgba(0,0,0,0.85); border: 1px solid var(--gold); 
-            color: var(--gold); text-decoration: none; text-transform: uppercase; 
-            letter-spacing: 3px; font-size: 0.85rem; z-index: 1000;
-        }
-    </style>
-</head>
-<body>
-    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">‹ Powrót na plac</a>
-    <div class="character-container">
-        <img src="../../assets/img/001_winered.png" class="character char-keeper">
-    </div>
-    <script type="module">
-        import { initKeepers } from '../../assets/js/actors/keeper.js';
-        window.onload = () => { initKeepers(); };
-    </script>
-</body>
-</html>
-                
+export function initKeepers() {
+    const actors = document.querySelectorAll('.char-keeper');
+    
+    actors.forEach(char => {
+        // Parametry zgodne z Twoją instrukcją:
+        const startY = 50;  // Środek
+        const endY = 75;    // Skrócona droga (75%)
+        const baseScale = 2.0; 
+        const maxScale = 5.0;  // Rośnie do 5x
+        const offsetV = 20; // Obniżenie o 1/5 wysokości
+
+        // Funkcja ruchu
+        const move = () => {
+            const progress = Math.random(); 
+            
+            // Obliczenia
+            const targetY = startY + (progress * (endY - startY));
+            const targetX = 35 + (Math.random() * 30); // Meandrowanie 35% - 65%
+            const targetScale = baseScale + (progress * (maxScale - baseScale));
+            
+            const duration = 4000 + Math.random() * 3000;
+            
+            // Aplikacja stylów
+            char.style.transition = `all ${duration}ms ease-in-out`;
+            char.style.top = `${targetY}%`;
+            char.style.left = `${targetX}%`;
+            // translateX(-50%) centruje postać, translateY(20%) to Twoje obniżenie o 1/5
+            char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${targetScale})`;
+
+            // Kolejny ruch po zakończeniu obecnego
+            setTimeout(move, duration + 500);
+        };
+
+        // USTAWIENIA STARTOWE (WYMAGANE DLA PŁYNNOŚCI)
+        char.style.top = `${startY}%`;
+        char.style.left = `50%`;
+        char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${baseScale})`;
+        char.style.transformOrigin = "bottom center";
+
+        // Odpalamy ruch po krótkiej chwili
+        setTimeout(move, 100);
+    });
+}
