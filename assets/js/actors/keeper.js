@@ -1,61 +1,45 @@
-export function initKeepers() {
-    const actors = document.querySelectorAll('.char-keeper');
-    
-    actors.forEach(char => {
-        // KONFIGURACJA ZAKRESU PIONOWEGO:
-        const startY = 50;  
-        const endY = 75;    
-        const offsetV = 20; 
-
-        // KONFIGURACJA SKALI:
-        const baseScale = 2.0; 
-        const maxScale = 5.0;  
-
-        // KONFIGURACJA MEANDROWANIA (POZIOM):
-        const centerX = 50;   // Środek ekranu
-        const drift = 15;     // Maksymalne wychylenie w lewo/prawo (w %)
-        let currentX = 50;    // Zapamiętujemy obecną pozycję X do sterowania kierunkiem
-
-        const wander = () => {
-            const progress = Math.random(); 
-            
-            // 1. Obliczamy Y i Skalę (bez zmian)
-            const targetY = startY + (progress * (endY - startY));
-            const targetScale = baseScale + (progress * (maxScale - baseScale));
-            
-            // 2. Obliczamy X (meandrowanie)
-            // Losujemy nową pozycję w zakresie (50 - 15) do (50 + 15)
-            const targetX = (centerX - drift) + (Math.random() * drift * 2);
-            
-            // 3. Ustalamy kierunek patrzenia (scaleX)
-            // Jeśli idzie w prawo (targetX > currentX), patrz w prawo, jeśli w lewo, patrz w lewo
-            const direction = targetX > currentX ? 1 : -1;
-            currentX = targetX;
-
-            const duration = 4000 + Math.random() * 3000;
-            
-            // Dodajemy 'left' do przejścia, aby postać płynnie meandrowała
-            char.style.transition = `top ${duration}ms ease-in-out, left ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
-            
-            // Aplikujemy ruch
-            char.style.top = `${targetY}%`;
-            char.style.left = `${targetX}%`;
-            
-            // Ważne: translateX(-50%) musi zostać, by postać była centrowana względem swojego punktu 'left'
-            char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${targetScale}) scaleX(${direction})`;
-
-            setTimeout(wander, duration + 1000);
-        };
-
-        // USTAWIENIA STARTOWE
-        char.style.position = "absolute";
-        char.style.left = "50%";
-        char.style.top = `${startY}%`;
-        char.style.width = "150px"; 
-        char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${baseScale}) scaleX(1)`;
-        char.style.transformOrigin = "bottom center";
-        char.style.marginTop = "0px";
-
-        setTimeout(wander, 2000);
-    });
-}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wnętrze – Infohouse</title>
+    <style>
+        :root { --gold: #c5a059; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
+            overflow: hidden; position: relative;
+        }
+        .character-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none;
+        }
+        .character { 
+            position: absolute;
+            left: 50%;
+            top: 50%; 
+            width: 150px; 
+            /* Start: Środek, Obniżenie 1/5, Skala 2.0 */
+            transform: translateX(-50%) translateY(20%) scale(2.0);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+        }
+        .exit-btn { 
+            position: fixed; top: 30px; left: 30px; padding: 12px 35px; 
+            background: rgba(0,0,0,0.85); border: 1px solid var(--gold); 
+            color: var(--gold); text-decoration: none; text-transform: uppercase; 
+            letter-spacing: 3px; font-size: 0.85rem; z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">‹ Powrót na plac</a>
+    <div class="character-container">
+        <img src="../../assets/img/001_winered.png" class="character char-keeper">
+    </div>
+    <script type="module">
+        import { initKeepers } from '../../assets/js/actors/keeper.js';
+        window.onload = () => { initKeepers(); };
+    </script>
+</body>
+</html>
+                
