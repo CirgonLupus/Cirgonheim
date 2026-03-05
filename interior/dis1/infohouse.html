@@ -39,5 +39,109 @@
             font-size: 0.9rem; z-index: 1000;
         }
 
-        /*
-        
+        /* UI KSIĄŻKI */
+        .book-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 10000;
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .book-container { position: relative; width: 90%; max-width: 900px; }
+        .book-bg { width: 100%; filter: drop-shadow(0 0 50px #000); }
+        .book-content {
+            position: absolute; top: 15%; left: 15%; width: 70%; height: 65%;
+            color: #2a1b0a; overflow-y: auto; padding: 10px; text-align: center;
+        }
+        .close-book-btn {
+            position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+            background: #000; border: 2px solid var(--gold); color: var(--gold);
+            padding: 10px 40px; cursor: pointer; font-weight: bold;
+        }
+
+        /* POSTAĆ */
+        .character-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        .character { position: absolute; width: 150px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); transition: all 4s ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <a href="../../district/dis1/dis1_gatesquare.html" class="exit-btn">Wyjście</a>
+
+    <div class="info-header-container">
+        <h1 class="info-title">Dom Informacyjny</h1>
+        <div class="info-box">
+            <p style="margin:0; letter-spacing: 1px;">Wybierz temat z paneli bocznych.</p>
+        </div>
+    </div>
+
+    <div class="side-menu menu-left">
+        <div class="info-rect" id="btn-me">O Mnie</div>
+    </div>
+
+    <div class="side-menu menu-right">
+        <div class="info-rect" id="btn-city">O Cirgonheim'ie</div>
+    </div>
+
+    <div id="book-overlay" class="book-overlay">
+        <div class="book-container">
+            <img src="../../assets/img/book.png" class="book-bg">
+            <div class="book-content">
+                <h2 id="book-title" style="text-transform: uppercase;"></h2>
+                <p id="book-text" style="font-size: 1.2rem; line-height: 1.6;"></p>
+            </div>
+            <button class="close-book-btn" id="close-book">ZAMKNIJ (X)</button>
+        </div>
+    </div>
+
+    <div class="character-container">
+        <img src="../../assets/img/001_winered.png" id="keeper" class="character" style="top: 50%; left: 50%;">
+    </div>
+
+    <script>
+        // Logika treści
+        const data = {
+            me: { title: "O Autorze", text: "Witaj! Jestem twórcą tego świata. Cirgonheim powstało z pasji do detali i starych opowieści." },
+            city: { title: "O Cirgonheim'ie", text: "To miasto to serce krainy, miejsce gdzie historia spotyka się z magią w każdym kamieniu." }
+        };
+
+        // Funkcje UI
+        function openBook(id) {
+            const book = document.getElementById('book-overlay');
+            document.getElementById('book-title').innerText = data[id].title;
+            document.getElementById('book-text').innerText = data[id].text;
+            book.style.display = 'flex';
+            setTimeout(() => { book.style.opacity = '1'; }, 10);
+        }
+
+        function closeBook() {
+            const book = document.getElementById('book-overlay');
+            book.style.opacity = '0';
+            setTimeout(() => { book.style.display = 'none'; }, 300);
+        }
+
+        // Ruch postaci (uproszczony keeper)
+        function moveKeeper() {
+            const keeper = document.getElementById('keeper');
+            if(!keeper) return;
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 250);
+            keeper.style.left = x + "px";
+            keeper.style.top = y + "px";
+        }
+
+        window.onload = () => {
+            // Podpięcie przycisków
+            document.getElementById('btn-me').onclick = () => openBook('me');
+            document.getElementById('btn-city').onclick = () => openBook('city');
+            document.getElementById('close-book').onclick = closeBook;
+
+            // Start ruchu
+            moveKeeper();
+            setInterval(moveKeeper, 5000);
+
+            // Blokada prawego kliku
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        };
+    </script>
+</body>
+</html>
