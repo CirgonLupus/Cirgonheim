@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Wnętrze – Infohouse</title>
+    <title>Wnętrze – Dom Informacyjny</title>
     <style>
         :root { --gold: #c5a059; }
         body, html { 
@@ -12,72 +12,83 @@
             font-family: 'Georgia', serif;
         }
         
-        /* PRZYCISK WYJŚCIA - Poprawiona ścieżka (małe d) i wysoki priorytet */
-        .exit-btn { 
-            position: fixed; 
-            top: 40px; 
-            left: 40px; 
-            padding: 18px 50px;
-            background: rgba(0,0,0,0.95); 
-            border: 3px solid var(--gold);
-            color: var(--gold); 
-            text-decoration: none; 
-            text-transform: uppercase; 
-            letter-spacing: 5px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            z-index: 9999; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .exit-btn:hover {
-            background: var(--gold);
-            color: black;
-            box-shadow: 0 0 25px var(--gold);
-        }
-
-        /* NAGŁÓWEK I RAMKA - OBNIŻONE */
+        /* GŁÓWNY NAGŁÓWEK I RAMKA */
         .info-header-container {
             position: absolute;
-            top: 100px; 
+            top: 60px; 
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
             color: var(--gold);
-            width: 70%;
+            width: 50%;
             pointer-events: none; 
         }
-
         .info-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 10px;
-            margin: 0 0 20px 0;
+            letter-spacing: 8px;
+            margin: 0 0 15px 0;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 1);
         }
-
         .info-box {
             border: 1px solid var(--gold);
-            background: rgba(0, 0, 0, 0.85);
-            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
             display: inline-block;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
-        .info-text { font-size: 1.2rem; letter-spacing: 2px; margin: 0; line-height: 1.6; }
+        /* BOCZNE MENU - KONTENERY */
+        .side-menu {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        .menu-left { left: 40px; }
+        .menu-right { right: 40px; }
+
+        /* STYL BOKSÓW (PROSTOKĄTÓW) */
+        .info-rect {
+            width: 220px; /* Stała szerokość */
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        .info-rect:hover {
+            background: var(--gold);
+            color: black;
+            box-shadow: 0 0 15px var(--gold);
+            transform: scale(1.05);
+        }
+
+        /* PRZYCISK WYJŚCIA */
+        .exit-btn { 
+            position: fixed; top: 20px; left: 20px; 
+            padding: 10px 30px;
+            background: rgba(0,0,0,0.9); border: 1px solid var(--gold);
+            color: var(--gold); text-decoration: none; text-transform: uppercase;
+            font-size: 0.9rem; z-index: 1000;
+        }
 
         .character-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 10; pointer-events: none;
         }
-        
-        .character { 
-            position: absolute; width: 150px; 
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
-        }
+        .character { position: absolute; width: 150px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); }
     </style>
 </head>
 <body>
@@ -87,8 +98,16 @@
     <div class="info-header-container">
         <h1 class="info-title">Dom Informacyjny</h1>
         <div class="info-box">
-            <p class="info-text">Witaj! Tutaj zawarte są informacje na temat tego miasta i jego twórcy.</p>
+            <p style="margin:0; letter-spacing: 1px;">Wybierz temat z paneli bocznych.</p>
         </div>
+    </div>
+
+    <div class="side-menu menu-left">
+        <a href="#" class="info-rect">O Mnie</a>
+        </div>
+
+    <div class="side-menu menu-right">
+        <a href="#" class="info-rect">O Cirgonheim'ie</a>
     </div>
 
     <div class="character-container">
