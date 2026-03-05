@@ -9,46 +9,10 @@
             margin: 0; padding: 0; width: 100%; height: 100%; 
             background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
             overflow: hidden; position: relative;
-            font-family: 'Georgia', serif; /* Elegancki, klasyczny krój */
+            font-family: 'Georgia', serif;
         }
         
-        /* NAGŁÓWEK I RAMKA INFORMACYJNA */
-        .info-header-container {
-            position: absolute;
-            top: 40px; /* Ta sama wysokość co przycisk wyjścia */
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 5;
-            color: var(--gold);
-            width: 50%; /* Ograniczenie szerokości, by nie nachodziło na przycisk */
-        }
-
-        .info-title {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            margin: 0 0 15px 0;
-            text-shadow: 0 0 15px rgba(197, 160, 89, 0.6);
-        }
-
-        .info-box {
-            border: 1px solid var(--gold);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 25px;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            box-shadow: inset 0 0 15px rgba(197, 160, 89, 0.2);
-        }
-
-        .info-text {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* PRZYCISK WYJŚCIA */
+        /* PRZYCISK WYJŚCIA - MA PRIORYTET KLIKNIĘCIA */
         .exit-btn { 
             position: fixed; 
             top: 40px; 
@@ -62,26 +26,71 @@
             letter-spacing: 5px;
             font-size: 1.2rem;
             font-weight: bold;
-            z-index: 1000;
+            z-index: 9999; /* Musi być nad wszystkimi kontenerami */
             transition: all 0.3s ease;
+            display: block;
+            cursor: pointer;
         }
 
         .exit-btn:hover {
             background: var(--gold);
             color: black;
+            box-shadow: 0 0 20px var(--gold);
         }
 
-        /* KONTENER LUDZIKA */
+        /* NAGŁÓWKI - WYŁĄCZONE REAGOWANIE NA MYSZKĘ (żeby nie zasłaniały klikania) */
+        .info-header-container {
+            position: absolute;
+            top: 100px; 
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
+            color: var(--gold);
+            width: 70%;
+            pointer-events: none; 
+        }
+
+        .info-title {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin: 0 0 20px 0;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 1);
+        }
+
+        .info-box {
+            border: 1px solid var(--gold);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+
+        .info-text {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* LUDZIK - RÓWNIEŻ NIE BLOKUJE KLIKNIĘĆ */
         .character-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; pointer-events: none;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 10; 
+            pointer-events: none;
         }
         
         .character { 
             position: absolute;
             width: 150px; 
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
-            transition: all 5000ms ease-in-out; 
+            /* transition jest sterowane przez JS */
         }
     </style>
 </head>
@@ -102,8 +111,10 @@
 
     <script type="module">
         import { initKeepers } from '../../assets/js/actors/keeper.js';
+        
         window.onload = () => {
             initKeepers();
+            // Blokujemy prawy przycisk, ale pozwalamy na normalne działanie linków
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
