@@ -12,33 +12,33 @@
             font-family: 'Georgia', serif;
         }
         
-        /* PRZYCISK WYJŚCIA - MA PRIORYTET KLIKNIĘCIA */
+        /* PRZYCISK WYJŚCIA - Poprawiona ścieżka (małe d) i wysoki priorytet */
         .exit-btn { 
             position: fixed; 
             top: 40px; 
             left: 40px; 
             padding: 18px 50px;
-            background: rgba(0,0,0,0.9); 
-            border: 2px solid var(--gold);
+            background: rgba(0,0,0,0.95); 
+            border: 3px solid var(--gold);
             color: var(--gold); 
             text-decoration: none; 
             text-transform: uppercase; 
             letter-spacing: 5px;
             font-size: 1.2rem;
             font-weight: bold;
-            z-index: 9999; /* Musi być nad wszystkimi kontenerami */
+            z-index: 9999; 
+            cursor: pointer;
             transition: all 0.3s ease;
             display: block;
-            cursor: pointer;
         }
 
         .exit-btn:hover {
             background: var(--gold);
             color: black;
-            box-shadow: 0 0 20px var(--gold);
+            box-shadow: 0 0 25px var(--gold);
         }
 
-        /* NAGŁÓWKI - WYŁĄCZONE REAGOWANIE NA MYSZKĘ (żeby nie zasłaniały klikania) */
+        /* NAGŁÓWEK I RAMKA - OBNIŻONE */
         .info-header-container {
             position: absolute;
             top: 100px; 
@@ -61,42 +61,28 @@
 
         .info-box {
             border: 1px solid var(--gold);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             padding: 20px 40px;
             display: inline-block;
             backdrop-filter: blur(10px);
-            pointer-events: none;
         }
 
-        .info-text {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin: 0;
-            line-height: 1.6;
-        }
+        .info-text { font-size: 1.2rem; letter-spacing: 2px; margin: 0; line-height: 1.6; }
 
-        /* LUDZIK - RÓWNIEŻ NIE BLOKUJE KLIKNIĘĆ */
         .character-container {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            z-index: 10; 
-            pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none;
         }
         
         .character { 
-            position: absolute;
-            width: 150px; 
+            position: absolute; width: 150px; 
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
-            /* transition jest sterowane przez JS */
         }
     </style>
 </head>
 <body>
 
-    <a href="../../District/dis1/dis1_gatesquare.html" class="exit-btn">Wyjście</a>
+    <a href="../../district/dis1/dis1_gatesquare.html" class="exit-btn">Wyjście</a>
 
     <div class="info-header-container">
         <h1 class="info-title">Dom Informacyjny</h1>
@@ -111,10 +97,8 @@
 
     <script type="module">
         import { initKeepers } from '../../assets/js/actors/keeper.js';
-        
         window.onload = () => {
             initKeepers();
-            // Blokujemy prawy przycisk, ale pozwalamy na normalne działanie linków
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
