@@ -29,7 +29,7 @@
             color: var(--gold); text-align: center; text-transform: uppercase; letter-spacing: 2px;
             font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: block;
         }
-        .info-rect:hover { background: var(--gold); color: black; box-shadow: 0 0 15px var(--gold); transform: scale(1.05); }
+        .info-rect:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); transform: scale(1.05); }
 
         /* WYJŚCIE */
         .exit-btn { 
@@ -39,33 +39,34 @@
             font-size: 0.9rem; z-index: 1000;
         }
 
-        /* UI KSIĄŻKI */
-        .book-overlay {
+        /* KSIĄŻKA UI */
+        #book-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 10000;
+            background: rgba(0,0,0,0.9); z-index: 10000;
             display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.5s ease;
+            opacity: 0; transition: opacity 0.4s ease;
         }
-        .book-container { position: relative; width: 90%; max-width: 900px; }
+        .book-container { position: relative; width: 85%; max-width: 900px; display: flex; flex-direction: column; align-items: center; }
         .book-bg { width: 100%; filter: drop-shadow(0 0 50px #000); }
         .book-content {
-            position: absolute; top: 15%; left: 15%; width: 70%; height: 65%;
-            color: #2a1b0a; overflow-y: auto; padding: 10px; text-align: center;
+            position: absolute; top: 15%; left: 15%; width: 70%; height: 60%;
+            color: #2a1b0a; overflow-y: auto; padding: 20px; text-align: center;
         }
         .close-book-btn {
-            position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
-            background: #000; border: 2px solid var(--gold); color: var(--gold);
-            padding: 10px 40px; cursor: pointer; font-weight: bold;
+            margin-top: 20px; background: #000; border: 2px solid var(--gold); color: var(--gold);
+            padding: 10px 50px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-transform: uppercase;
+            transition: 0.3s;
         }
+        .close-book-btn:hover { background: var(--gold); color: #000; }
 
-        /* POSTAĆ - NAPRAWIONA PŁYNNOŚĆ */
+        /* LUDZIK - PRZYWRÓCONA LOGIKA RUCHU */
         .character-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
         .character { 
             position: absolute; 
             width: 150px; 
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); 
-            /* Transition ustawiona na 4 sekundy sprawia, że postać płynnie "idzie" a nie skacze */
-            transition: left 4s ease-in-out, top 4s ease-in-out; 
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+            /* Klucz do płynności: */
+            transition: left 5s ease-in-out, top 5s ease-in-out, transform 0.6s ease-in-out;
             will-change: left, top;
         }
     </style>
@@ -76,27 +77,20 @@
 
     <div class="info-header-container">
         <h1 class="info-title">Dom Informacyjny</h1>
-        <div class="info-box">
-            <p style="margin:0; letter-spacing: 1px;">Wybierz temat z paneli bocznych.</p>
-        </div>
+        <div class="info-box"><p style="margin:0;">Wybierz temat z paneli bocznych.</p></div>
     </div>
 
-    <div class="side-menu menu-left">
-        <div class="info-rect" id="btn-me">O Mnie</div>
-    </div>
+    <div class="side-menu menu-left"><div class="info-rect" id="btn-me">O Mnie</div></div>
+    <div class="side-menu menu-right"><div class="info-rect" id="btn-city">O Cirgonheim'ie</div></div>
 
-    <div class="side-menu menu-right">
-        <div class="info-rect" id="btn-city">O Cirgonheim'ie</div>
-    </div>
-
-    <div id="book-overlay" class="book-overlay">
+    <div id="book-overlay">
         <div class="book-container">
             <img src="../../assets/img/book.png" class="book-bg">
             <div class="book-content">
-                <h2 id="book-title" style="text-transform: uppercase;"></h2>
-                <p id="book-text" style="font-size: 1.2rem; line-height: 1.6;"></p>
+                <h2 id="book-title" style="text-transform: uppercase; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;"></h2>
+                <p id="book-text" style="font-size: 1.3rem; line-height: 1.6; font-style: italic;"></p>
             </div>
-            <button class="close-book-btn" id="close-book">ZAMKNIJ (X)</button>
+            <button class="close-book-btn" id="close-book">ZAMKNIJ X</button>
         </div>
     </div>
 
@@ -105,59 +99,60 @@
     </div>
 
     <script>
-        // Treści książki
         const data = {
-            me: { title: "O Autorze", text: "Witaj! Jestem twórcą tego świata. Cirgonheim powstało z pasji do detali i starych opowieści." },
-            city: { title: "O Cirgonheim'ie", text: "To miasto to serce krainy, miejsce gdzie historia spotyka się z magią w każdym kamieniu." }
+            me: { title: "O Autorze", text: "Jestem twórcą tej krainy. Każdy skrypt tutaj to fragment opowieści, którą chcę się z Wami podzielić." },
+            city: { title: "Historia", text: "Cirgonheim to miasto, które nie zna granic między magią a technologią. Tutaj każda ściana ma swoją pamięć." }
         };
 
-        // --- NAPRAWIONY RUCH POSTACI ---
-        function initKeeperMovement() {
+        let lastX = window.innerWidth / 2;
+
+        function walk() {
             const keeper = document.getElementById('keeper');
-            if (!keeper) return;
+            if(!keeper) return;
 
-            function move() {
-                // Określamy bezpieczny obszar chodzenia (np. dolna połowa ekranu)
-                const minX = 100;
-                const maxX = window.innerWidth - 250;
-                const minY = window.innerHeight * 0.4; // Chodzi tylko w dolnych 60% pokoju
-                const maxY = window.innerHeight - 200;
+            // PRECYZYJNA STREFA PODŁOGI
+            const minX = 100;
+            const maxX = window.innerWidth - 200;
+            const minY = window.innerHeight * 0.65; // Ludzik stoi nisko na podłodze
+            const maxY = window.innerHeight - 180;
 
-                const nextX = Math.floor(Math.random() * (maxX - minX)) + minX;
-                const nextY = Math.floor(Math.random() * (maxY - minY)) + minY;
+            const nextX = Math.random() * (maxX - minX) + minX;
+            const nextY = Math.random() * (maxY - minY) + minY;
 
-                keeper.style.left = nextX + 'px';
-                keeper.style.top = nextY + 'px';
+            // Logika obracania (Lustrzane odbicie)
+            if (nextX > lastX) {
+                keeper.style.transform = "scaleX(-1)"; // Patrzy w prawo
+            } else {
+                keeper.style.transform = "scaleX(1)";  // Patrzy w lewo
             }
 
-            // Pierwszy krok i powtarzanie
-            move();
-            setInterval(move, 5000); // Nowy cel co 5 sekund
+            keeper.style.left = nextX + 'px';
+            keeper.style.top = nextY + 'px';
+            
+            lastX = nextX;
         }
 
-        // Funkcje Książki
         function openBook(id) {
-            const book = document.getElementById('book-overlay');
+            const overlay = document.getElementById('book-overlay');
             document.getElementById('book-title').innerText = data[id].title;
             document.getElementById('book-text').innerText = data[id].text;
-            book.style.display = 'flex';
-            setTimeout(() => { book.style.opacity = '1'; }, 10);
+            overlay.style.display = 'flex';
+            setTimeout(() => overlay.style.opacity = '1', 10);
         }
 
         function closeBook() {
-            const book = document.getElementById('book-overlay');
-            book.style.opacity = '0';
-            setTimeout(() => { book.style.display = 'none'; }, 500);
+            const overlay = document.getElementById('book-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 400);
         }
 
-        // Inicjalizacja wszystkiego
         window.onload = () => {
-            initKeeperMovement();
+            walk(); // Pierwszy krok
+            setInterval(walk, 6000); // Spokojny spacer
 
             document.getElementById('btn-me').onclick = () => openBook('me');
             document.getElementById('btn-city').onclick = () => openBook('city');
             document.getElementById('close-book').onclick = closeBook;
-
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
