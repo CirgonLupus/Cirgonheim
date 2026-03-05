@@ -12,7 +12,7 @@
             font-family: 'Georgia', serif;
         }
         
-        /* NAGŁÓWEK GŁÓWNY */
+        /* NAGŁÓWEK */
         .info-header-container {
             position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
             text-align: center; z-index: 5; color: var(--gold); width: 50%; pointer-events: none; 
@@ -31,7 +31,7 @@
         }
         .info-rect:hover { background: var(--gold); color: black; box-shadow: 0 0 15px var(--gold); transform: scale(1.05); }
 
-        /* PRZYCISK WYJŚCIA */
+        /* WYJŚCIE */
         .exit-btn { 
             position: fixed; top: 20px; left: 20px; padding: 10px 30px;
             background: rgba(0,0,0,0.9); border: 1px solid var(--gold);
@@ -44,7 +44,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 10000;
             display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease;
+            opacity: 0; transition: opacity 0.5s ease;
         }
         .book-container { position: relative; width: 90%; max-width: 900px; }
         .book-bg { width: 100%; filter: drop-shadow(0 0 50px #000); }
@@ -58,9 +58,16 @@
             padding: 10px 40px; cursor: pointer; font-weight: bold;
         }
 
-        /* POSTAĆ */
+        /* POSTAĆ - NAPRAWIONA PŁYNNOŚĆ */
         .character-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
-        .character { position: absolute; width: 150px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); transition: all 4s ease-in-out; }
+        .character { 
+            position: absolute; 
+            width: 150px; 
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); 
+            /* Transition ustawiona na 4 sekundy sprawia, że postać płynnie "idzie" a nie skacze */
+            transition: left 4s ease-in-out, top 4s ease-in-out; 
+            will-change: left, top;
+        }
     </style>
 </head>
 <body>
@@ -94,17 +101,41 @@
     </div>
 
     <div class="character-container">
-        <img src="../../assets/img/001_winered.png" id="keeper" class="character" style="top: 50%; left: 50%;">
+        <img src="../../assets/img/001_winered.png" id="keeper" class="character">
     </div>
 
     <script>
-        // Logika treści
+        // Treści książki
         const data = {
             me: { title: "O Autorze", text: "Witaj! Jestem twórcą tego świata. Cirgonheim powstało z pasji do detali i starych opowieści." },
             city: { title: "O Cirgonheim'ie", text: "To miasto to serce krainy, miejsce gdzie historia spotyka się z magią w każdym kamieniu." }
         };
 
-        // Funkcje UI
+        // --- NAPRAWIONY RUCH POSTACI ---
+        function initKeeperMovement() {
+            const keeper = document.getElementById('keeper');
+            if (!keeper) return;
+
+            function move() {
+                // Określamy bezpieczny obszar chodzenia (np. dolna połowa ekranu)
+                const minX = 100;
+                const maxX = window.innerWidth - 250;
+                const minY = window.innerHeight * 0.4; // Chodzi tylko w dolnych 60% pokoju
+                const maxY = window.innerHeight - 200;
+
+                const nextX = Math.floor(Math.random() * (maxX - minX)) + minX;
+                const nextY = Math.floor(Math.random() * (maxY - minY)) + minY;
+
+                keeper.style.left = nextX + 'px';
+                keeper.style.top = nextY + 'px';
+            }
+
+            // Pierwszy krok i powtarzanie
+            move();
+            setInterval(move, 5000); // Nowy cel co 5 sekund
+        }
+
+        // Funkcje Książki
         function openBook(id) {
             const book = document.getElementById('book-overlay');
             document.getElementById('book-title').innerText = data[id].title;
@@ -116,30 +147,17 @@
         function closeBook() {
             const book = document.getElementById('book-overlay');
             book.style.opacity = '0';
-            setTimeout(() => { book.style.display = 'none'; }, 300);
+            setTimeout(() => { book.style.display = 'none'; }, 500);
         }
 
-        // Ruch postaci (uproszczony keeper)
-        function moveKeeper() {
-            const keeper = document.getElementById('keeper');
-            if(!keeper) return;
-            const x = Math.random() * (window.innerWidth - 200);
-            const y = Math.random() * (window.innerHeight - 250);
-            keeper.style.left = x + "px";
-            keeper.style.top = y + "px";
-        }
-
+        // Inicjalizacja wszystkiego
         window.onload = () => {
-            // Podpięcie przycisków
+            initKeeperMovement();
+
             document.getElementById('btn-me').onclick = () => openBook('me');
             document.getElementById('btn-city').onclick = () => openBook('city');
             document.getElementById('close-book').onclick = closeBook;
 
-            // Start ruchu
-            moveKeeper();
-            setInterval(moveKeeper, 5000);
-
-            // Blokada prawego kliku
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
