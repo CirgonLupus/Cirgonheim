@@ -12,7 +12,7 @@
             font-family: 'Georgia', serif;
         }
         
-        /* Stylistyka menu i nagłówka pozostaje bez zmian */
+        /* Stylistyka menu i nagłówka */
         .info-header-container { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; color: var(--gold); pointer-events: none; }
         .info-title { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 8px; text-shadow: 0 5px 15px #000; }
         .info-box { border: 1px solid var(--gold); background: rgba(0, 0, 0, 0.8); padding: 15px 30px; display: inline-block; backdrop-filter: blur(8px); }
@@ -37,10 +37,16 @@
         }
         .book-container { position: relative; width: 85%; max-width: 900px; display: flex; flex-direction: column; align-items: center; }
         .book-bg { width: 100%; filter: drop-shadow(0 0 50px #000); }
-        .book-content { position: absolute; top: 15%; left: 15%; width: 70%; height: 60%; color: #2a1b0a; overflow-y: auto; text-align: center; }
-        .close-book-btn { margin-top: 20px; background: #000; border: 2px solid var(--gold); color: var(--gold); padding: 10px 50px; cursor: pointer; font-weight: bold; }
+        .book-content { 
+            position: absolute; top: 18%; left: 15%; width: 70%; height: 55%; 
+            color: #2a1b0a; overflow-y: auto; text-align: center; padding: 10px;
+        }
+        .book-content h2 { font-variant: small-caps; margin-bottom: 15px; border-bottom: 1px solid rgba(42, 27, 10, 0.3); padding-bottom: 5px; }
+        .book-content p { line-height: 1.6; font-size: 1.1rem; }
+        .close-book-btn { margin-top: 20px; background: #000; border: 2px solid var(--gold); color: var(--gold); padding: 10px 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .close-book-btn:hover { background: var(--gold); color: #000; }
 
-        /* POSTAĆ - Kontener zgodny z Twoim oryginalnym keeper.js */
+        /* POSTAĆ */
         .character-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
         .character { position: absolute; width: 150px; } 
     </style>
@@ -73,13 +79,19 @@
     </div>
 
     <script type="module">
-        // 1. IMPORTUJEMY TWOJĄ ORYGINALNĄ LOGIKĘ (Tę, która działała dobrze)
+        // 1. IMPORT LOGIKI KEEPERA
         import { initKeepers } from '../../assets/js/actors/keeper.js';
 
-        // 2. LOGIKA KSIĄŻKI
+        // 2. LOGIKA KSIĄŻKI - Nowe teksty odzwierciedlające Twój styl
         const data = {
-            me: { title: "O Autorze", text: "Twórca krainy Cirgonheim." },
-            city: { title: "O Mieście", text: "Bastion wiedzy i magii." }
+            me: { 
+                title: "Cirgon Tyberius Marcus Lupus", 
+                text: "Twórca krainy Cirgonheim i jej onirycznych struktur. W mojej sztuce, geoorganice ornamentalnej, matematyczna dyscyplina cienkopisu splata się z nieprzewidywalną naturą snów. Każda praca to rytuał nadawania formy temu, co nienazywalne, poprzez geometrię, głębię markera i jubilerską precyzję detalu." 
+            },
+            city: { 
+                title: "O Cirgonheim'ie", 
+                text: "To bastion zrodzony ze splotu linii i cieni. Miejsce, gdzie architektura styka się z biologią neuronów, a każde spojrzenie odkrywa nowy poziom ukrytych znaczeń. Cirgonheim nie daje gotowych odpowiedzi – budzi ciekawość i zaprasza do zajrzenia głębiej w labirynt snów." 
+            }
         };
 
         function openBook(id) {
@@ -91,11 +103,11 @@
         }
 
         window.onload = () => {
-            // URUCHAMIAMY TWOJEGO ORYGINALNEGO KEEPERA
+            // URUCHOMIENIE KEEPERA
             try {
                 initKeepers(); 
             } catch(e) {
-                console.error("Keeper nie mógł ruszyć. Sprawdź ścieżkę do keeper.js");
+                console.error("Keeper nie mógł ruszyć. Sprawdź ścieżkę do keeper.js", e);
             }
 
             document.getElementById('btn-me').onclick = () => openBook('me');
