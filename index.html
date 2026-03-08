@@ -8,146 +8,81 @@
         :root {
             --gold: #c5a059;
             --gate-speed: 2s;
-            --gate-width: 600px; 
-            --gate-height: 80vh;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('assets/img/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            font-family: 'Georgia', serif;
-            background-color: #1a1a1a;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #000;
+            overflow: hidden; font-family: 'Georgia', serif;
         }
 
         .gate-area {
             position: relative;
-            width: var(--gate-width);
-            height: var(--gate-height);
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            width: 100vw; height: 100vh;
+            background: url('assets/img/background.jpg') center/cover;
+            display: flex; justify-content: center; align-items: center;
         }
 
         .gate-viewport {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute; width: 100%; height: 100%;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
 
         .gate {
-            position: absolute;
-            top: 0;
-            width: 50.5%;
-            height: 100%;
-            z-index: 2;
-            background-size: cover;
-            background-repeat: no-repeat;
+            position: absolute; top: 0; width: 50.5%; height: 100%; z-index: 2;
+            background-size: cover; background-repeat: no-repeat;
             transition: transform var(--gate-speed) ease-in-out;
-            /* OCHRONA: Brama nie reaguje na mysz */
             pointer-events: none;
-            user-select: none;
         }
 
-        .gate-left {
-            left: 0;
-            background-image: url('assets/img/gate_left.jpg');
-            background-position: right center;
-        }
-
-        .gate-right {
-            right: 0;
-            background-image: url('assets/img/gate_right.jpg');
-            background-position: left center;
-        }
-
+        .gate-left { left: 0; background-image: url('assets/img/gate_left.jpg'); background-position: right center; }
+        .gate-right { right: 0; background-image: url('assets/img/gate_right.jpg'); background-position: left center; }
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
+        /* --- KLUCZOWA POPRAWKA TREŚCI --- */
         .gate-content {
-            position: absolute;
+            position: relative; /* Zmienione z absolute, by lepiej zarządzać rozmiarem */
             z-index: 10;
-            width: 80%;
-            max-width: 350px;
-            padding: 25px;
-            background: rgba(15, 15, 15, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--gold);
+            width: 90%;
+            max-width: 450px;
+            min-height: min-content; /* Pozwala ramce rosnąć */
+            padding: 40px 30px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--gold);
             text-align: center;
             color: white;
-            transition: opacity 0.8s;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
+            box-sizing: border-box; /* Ważne dla paddingu */
         }
 
-        .lang-switch {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .lang-btn {
-            width: 20px;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: 0.3s;
-            pointer-events: auto !important; /* Flagi muszą być klikalne */
-        }
-
+        .lang-switch { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .lang-btn { width: 25px; height: auto; cursor: pointer; opacity: 0.5; transition: 0.3s; pointer-events: auto !important; }
         .lang-btn.active { opacity: 1; transform: scale(1.1); }
 
-        #welcome-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
+        #welcome-text { 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+            margin-bottom: 30px;
+            display: block; /* Gwarantuje, że tekst nie "płynie" obok przycisku */
         }
-
+        
         #enter-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 10px 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Georgia', serif;
-            cursor: pointer;
-            transition: 0.4s;
-            pointer-events: auto !important; /* Przycisk musi być klikalny */
+            background: none; border: 1px solid var(--gold); color: var(--gold);
+            padding: 12px 40px; text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Georgia', serif; cursor: pointer; transition: 0.4s;
+            pointer-events: auto !important;
+            margin-top: 10px;
         }
-
-        #enter-btn:hover {
-            background: var(--gold);
-            color: black;
-        }
+        #enter-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
 
         #transition-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: black;
-            opacity: 0;
-            z-index: 100;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: black; opacity: 0; z-index: 100; pointer-events: none;
             transition: opacity 1s;
         }
         #transition-overlay.active { opacity: 1; }
-
-        /* OCHRONA: Globalne wyłączenie przeciągania wszystkich obrazków */
-        img {
-            -webkit-user-drag: none;
-            user-select: none;
-        }
     </style>
 </head>
 <body>
@@ -167,7 +102,7 @@
                 
                 <div id="welcome-text">
                     Znajdujesz się u wrót Cirgonheimu.<br><br>
-                    Jeśli to Twoja pierwsza wizyta, skieruj się do Domu Informacyjnego.
+                    Jeśli to Twoja pierwsza wizyta, skieruj się do Domu Informacyjnego.<br><br>
                     Jeśli to Twoja kolejna wizyta, miło Cię znów gościć w moich progach!
                 </div>
                 
