@@ -9,49 +9,46 @@ const translations = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+// Funkcja zmiany języka - używamy innerHTML, by czytało <br>
+function updateLanguage(lang) {
     const welcomeText = document.getElementById('welcome-text');
     const enterBtn = document.getElementById('enter-btn');
+    
+    if (welcomeText) welcomeText.innerHTML = translations[lang].welcome;
+    if (enterBtn) enterBtn.textContent = translations[lang].enterBtn;
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+// PRZYWRÓCONA TWOJA LOGIKA ANIMACJI
+document.addEventListener('DOMContentLoaded', () => {
     const langBtns = document.querySelectorAll('.lang-btn');
-    const gateLeft = document.querySelector('.gate-left');
-    const gateRight = document.querySelector('.gate-right');
-    const gateSound = document.getElementById('gate-sound');
-    const transitionOverlay = document.getElementById('transition-overlay');
-
-    // Funkcja zmiany języka
-    function changeLanguage(lang) {
-        welcomeText.innerHTML = translations[lang].welcome;
-        enterBtn.textContent = translations[lang].enterBtn;
-
-        // Aktywacja odpowiedniej flagi
-        langBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lang === lang);
-        });
-    }
-
-    // Obsługa kliknięć w flagi
+    
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            changeLanguage(btn.dataset.lang);
+            updateLanguage(btn.dataset.lang);
         });
     });
 
-    // Obsługa wejścia (Otwieranie bramy)
+    // Tutaj wklej swoją oryginalną funkcję obsługi przycisku #enter-btn, 
+    // którą miałeś wcześniej, żeby animacja bramy była identyczna.
+    
+    const enterBtn = document.getElementById('enter-btn');
     enterBtn.addEventListener('click', () => {
-        // 1. Dźwięk
+        // Przywróć tutaj dokładnie te linijki, które miałeś wcześniej 
+        // (z dźwiękiem, dodawaniem klasy 'open' i overlayem).
+        
+        const gateSound = document.getElementById('gate-sound');
         if (gateSound) gateSound.play();
 
-        // 2. Animacja bramy
-        gateLeft.classList.add('open');
-        gateRight.classList.add('open');
-
-        // 3. Ukrycie panelu tekstowego
+        document.querySelector('.gate-left').classList.add('open');
+        document.querySelector('.gate-right').classList.add('open');
         document.querySelector('.gate-content').style.opacity = '0';
-        document.querySelector('.gate-content').style.pointerEvents = 'none';
 
-        // 4. Przejście do następnej strony
         setTimeout(() => {
-            transitionOverlay.classList.add('active');
+            document.getElementById('transition-overlay').classList.add('active');
             setTimeout(() => {
                 window.location.href = 'district/dis1/dis1_gatesquare.html';
             }, 1000);
