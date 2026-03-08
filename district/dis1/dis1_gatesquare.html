@@ -28,6 +28,7 @@
             background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
         }
 
+        /* PANEL JĘZYKÓW */
         .lang-switch {
             position: fixed; top: 20px; right: 20px; z-index: 2000;
             display: flex; gap: 10px; background: rgba(0,0,0,0.8); padding: 10px; border: 1px solid var(--gold);
@@ -55,46 +56,29 @@
 
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
-        .house-description-box {
-            width: 85%; padding: 15px; margin-top: 10px;
-            background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
-            color: white; text-align: center; font-size: 0.95rem; line-height: 1.4;
-            opacity: 0; transition: 0.5s; backdrop-filter: blur(5px);
-            z-index: 5;
-        }
-        .active .house-description-box { opacity: 1; }
-
-        /* KLUCZOWA POPRAWKA LUDZIKÓW */
         .character-zone { 
-            position: absolute; 
-            /* Pozycjonowanie od góry karty, ignorując to co dzieje się na dole (box) */
-            top: 60px; 
-            width: 100%; 
-            height: 400px; 
-            pointer-events: none; 
-            overflow: visible; 
-            z-index: 20;
+            position: absolute; bottom: 0; width: 100%; height: 40%; 
+            pointer-events: none; overflow: visible; 
         }
         
         .character {
             position: absolute; 
-            bottom: 45px; /* Podnosimy ludziki tak, by stały na grafice domku */
+            bottom: 10px; 
             width: 125px; 
             height: auto;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
             pointer-events: none; 
+            z-index: 20;
             transform: scaleX(var(--dir, 1));
         }
 
-        /* Poprawka dla Pinakoteki - ludziki niżej na grafice */
-        .pinakotheka-card .character { bottom: -20px; }
+        .pinakotheka-card .character { bottom: -65px !important; }
 
         .house-title-frame {
             border: 2px solid var(--gold); padding: 10px 25px;
             background: rgba(10, 10, 10, 0.9); color: var(--gold);
             text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
             opacity: 0; transition: 0.5s;
-            z-index: 10;
         }
         .active .house-title-frame { opacity: 1; }
 
@@ -121,30 +105,18 @@
             
             <div class="house-card active" data-url="../../interior/dis1/infohouse.html">
                 <div class="house-title-frame" data-key="title-info">Dom Informacyjny</div>
-                
+                <img src="../../assets/img/infohouse.png" class="house-img">
                 <div class="character-zone">
                     <img src="../../assets/img/172_spectrumgreen.png" class="character char-wanderer" style="left: 20%">
                     <img src="../../assets/img/007_cosmos.png" class="character char-phaser" style="left: 60%">
-                </div>
-
-                <img src="../../assets/img/infohouse.png" class="house-img">
-                
-                <div class="house-description-box" data-key="desc-info">
-                    Miejsce, w którym poznasz historię Cirgonheimu oraz znajdziesz wskazówki dotyczące Twojej podróży.
                 </div>
             </div>
 
             <div class="house-card pinakotheka-card" data-url="pinakotheka.html">
                 <div class="house-title-frame" data-key="title-pina">Pinakoteka</div>
-                
+                <img src="../../assets/img/pinakotheka.png" class="house-img">
                 <div class="character-zone">
                     <img src="../../assets/img/023_orange.png" class="character char-twister" style="left: 50%">
-                </div>
-
-                <img src="../../assets/img/pinakotheka.png" class="house-img">
-                
-                <div class="house-description-box" data-key="desc-pina">
-                    Wspaniała galeria sztuki prezentująca dzieła i artefakty zebrane z najdalszych zakątków krainy.
                 </div>
             </div>
 
@@ -162,15 +134,11 @@
         const translations = {
             pl: {
                 "title-info": "Dom Informacyjny",
-                "desc-info": "Miejsce, w którym poznasz historię Cirgonheimu oraz znajdziesz wskazówki dotyczące Twojej podróży.",
-                "title-pina": "Pinakoteka",
-                "desc-pina": "Wspaniała galeria sztuki prezentująca dzieła i artefakty zebrane z najdalszych zakątków krainy."
+                "title-pina": "Pinakoteka"
             },
             en: {
                 "title-info": "Information House",
-                "desc-info": "A place where you will learn the history of Cirgonheim and find guidance for your journey.",
-                "title-pina": "Pinacotheca",
-                "desc-pina": "A magnificent art gallery showcasing works and artifacts gathered from the furthest reaches of the realm."
+                "title-pina": "Pinacotheca"
             }
         };
 
@@ -200,17 +168,24 @@
                     document.getElementById('btn-prev').onclick = engine.movePrev;
                 }
             } catch(e) { console.error(e); }
-
+            
             document.querySelectorAll('.house-card').forEach(card => {
-                card.onclick = function() {
+                card.addEventListener('click', function() {
                     if (this.classList.contains('active')) {
-                        const url = this.getAttribute('data-url');
-                        if(url) window.location.href = url;
+                        const targetUrl = this.getAttribute('data-url');
+                        if (targetUrl && targetUrl !== "#") {
+                            window.location.href = targetUrl;
+                        }
                     }
-                };
+                });
             });
 
-            try { initWanderers(); initPhasers(); initCalmTwisters(); } catch(e) { console.error(e); }
+            try {
+                initWanderers();
+                initPhasers();
+                initCalmTwisters();
+            } catch(e) { console.error(e); }
+
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
