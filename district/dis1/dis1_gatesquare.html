@@ -60,34 +60,41 @@
             background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
             color: white; text-align: center; font-size: 0.95rem; line-height: 1.4;
             opacity: 0; transition: 0.5s; backdrop-filter: blur(5px);
+            z-index: 5;
         }
         .active .house-description-box { opacity: 1; }
 
-        /* NAPRAWA LUDZIKÓW: position absolute względem house-card, ale ignorują flexbox */
+        /* KLUCZOWA POPRAWKA LUDZIKÓW */
         .character-zone { 
             position: absolute; 
-            top: 0; /* Zaczynamy od góry karty */
-            left: 0;
+            /* Pozycjonowanie od góry karty, ignorując to co dzieje się na dole (box) */
+            top: 60px; 
             width: 100%; 
-            height: 440px; /* Wysokość dopasowana do obszaru grafik, by ludziki stały na dole obrazka */
+            height: 400px; 
             pointer-events: none; 
             overflow: visible; 
             z-index: 20;
         }
         
         .character {
-            position: absolute; bottom: 0; width: 125px; height: auto;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); pointer-events: none; 
+            position: absolute; 
+            bottom: 45px; /* Podnosimy ludziki tak, by stały na grafice domku */
+            width: 125px; 
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
+            pointer-events: none; 
             transform: scaleX(var(--dir, 1));
         }
 
-        .pinakotheka-card .character { bottom: -75px !important; }
+        /* Poprawka dla Pinakoteki - ludziki niżej na grafice */
+        .pinakotheka-card .character { bottom: -20px; }
 
         .house-title-frame {
             border: 2px solid var(--gold); padding: 10px 25px;
             background: rgba(10, 10, 10, 0.9); color: var(--gold);
             text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
             opacity: 0; transition: 0.5s;
+            z-index: 10;
         }
         .active .house-title-frame { opacity: 1; }
 
