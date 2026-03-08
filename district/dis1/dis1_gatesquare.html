@@ -53,14 +53,6 @@
             cursor: pointer;
         }
 
-        /* Kontener obrazka dla poprawnego pozycjonowania postaci */
-        .img-container {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
         .house-description-box {
@@ -71,19 +63,25 @@
         }
         .active .house-description-box { opacity: 1; }
 
-        /* Poprawiona strefa postaci - przypięta do obrazka */
+        /* NAPRAWA LUDZIKÓW: position absolute względem house-card, ale ignorują flexbox */
         .character-zone { 
-            position: absolute; bottom: 0; width: 100%; height: 100%; 
-            pointer-events: none; overflow: visible; z-index: 20;
+            position: absolute; 
+            top: 0; /* Zaczynamy od góry karty */
+            left: 0;
+            width: 100%; 
+            height: 440px; /* Wysokość dopasowana do obszaru grafik, by ludziki stały na dole obrazka */
+            pointer-events: none; 
+            overflow: visible; 
+            z-index: 20;
         }
         
         .character {
-            position: absolute; bottom: 10px; width: 125px; height: auto;
+            position: absolute; bottom: 0; width: 125px; height: auto;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); pointer-events: none; 
             transform: scaleX(var(--dir, 1));
         }
 
-        .pinakotheka-card .character { bottom: -65px !important; }
+        .pinakotheka-card .character { bottom: -75px !important; }
 
         .house-title-frame {
             border: 2px solid var(--gold); padding: 10px 25px;
@@ -114,5 +112,100 @@
     <div class="carousel-container">
         <div class="carousel-track" id="main-carousel-track">
             
-            <div class="house-card active" data-url="../../interior/dis1
+            <div class="house-card active" data-url="../../interior/dis1/infohouse.html">
+                <div class="house-title-frame" data-key="title-info">Dom Informacyjny</div>
                 
+                <div class="character-zone">
+                    <img src="../../assets/img/172_spectrumgreen.png" class="character char-wanderer" style="left: 20%">
+                    <img src="../../assets/img/007_cosmos.png" class="character char-phaser" style="left: 60%">
+                </div>
+
+                <img src="../../assets/img/infohouse.png" class="house-img">
+                
+                <div class="house-description-box" data-key="desc-info">
+                    Miejsce, w którym poznasz historię Cirgonheimu oraz znajdziesz wskazówki dotyczące Twojej podróży.
+                </div>
+            </div>
+
+            <div class="house-card pinakotheka-card" data-url="pinakotheka.html">
+                <div class="house-title-frame" data-key="title-pina">Pinakoteka</div>
+                
+                <div class="character-zone">
+                    <img src="../../assets/img/023_orange.png" class="character char-twister" style="left: 50%">
+                </div>
+
+                <img src="../../assets/img/pinakotheka.png" class="house-img">
+                
+                <div class="house-description-box" data-key="desc-pina">
+                    Wspaniała galeria sztuki prezentująca dzieła i artefakty zebrane z najdalszych zakątków krainy.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="nav-btn next" id="btn-next">›</button>
+
+    <script type="module">
+        import { initCarousel } from '../../assets/js/engine/carousel.js';
+        import { initWanderers } from '../../assets/js/actors/wanderer.js';
+        import { initPhasers } from '../../assets/js/actors/phaser.js';
+        import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
+
+        const translations = {
+            pl: {
+                "title-info": "Dom Informacyjny",
+                "desc-info": "Miejsce, w którym poznasz historię Cirgonheimu oraz znajdziesz wskazówki dotyczące Twojej podróży.",
+                "title-pina": "Pinakoteka",
+                "desc-pina": "Wspaniała galeria sztuki prezentująca dzieła i artefakty zebrane z najdalszych zakątków krainy."
+            },
+            en: {
+                "title-info": "Information House",
+                "desc-info": "A place where you will learn the history of Cirgonheim and find guidance for your journey.",
+                "title-pina": "Pinacotheca",
+                "desc-pina": "A magnificent art gallery showcasing works and artifacts gathered from the furthest reaches of the realm."
+            }
+        };
+
+        function updateLanguage(lang) {
+            localStorage.setItem('cirgon_lang', lang);
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                el.innerHTML = translations[lang][key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        window.onload = () => {
+            const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
+            updateLanguage(savedLang);
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.onclick = () => updateLanguage(btn.dataset.lang);
+            });
+
+            try {
+                const engine = initCarousel(0);
+                if (engine) {
+                    document.getElementById('btn-next').onclick = engine.moveNext;
+                    document.getElementById('btn-prev').onclick = engine.movePrev;
+                }
+            } catch(e) { console.error(e); }
+
+            document.querySelectorAll('.house-card').forEach(card => {
+                card.onclick = function() {
+                    if (this.classList.contains('active')) {
+                        const url = this.getAttribute('data-url');
+                        if(url) window.location.href = url;
+                    }
+                };
+            });
+
+            try { initWanderers(); initPhasers(); initCalmTwisters(); } catch(e) { console.error(e); }
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        };
+    </script>
+</body>
+</html>
