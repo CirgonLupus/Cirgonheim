@@ -53,7 +53,6 @@
             cursor: pointer;
         }
 
-        /* NOWY KONTENER: Grupuje budynek i ludziki w jedną nierozerwalną całość */
         .house-visual {
             position: relative;
             width: 100%;
@@ -64,7 +63,6 @@
 
         .house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
         
-        /* BOX Z OPISEM: Teraz jest pod .house-visual i nikomu nie przeszkadza */
         .house-description-box {
             width: 85%; padding: 15px; margin-top: 15px;
             background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
@@ -88,7 +86,8 @@
             transform: scaleX(var(--dir, 1));
         }
 
-        .pinakotheka-card .character { bottom: -65px !important; }
+        /* POPRAWKA: Podniesienie ludzika o połowę wysokości (z -65px na ok. -3px) */
+        .pinakotheka-card .character { bottom: -3px !important; }
 
         .house-title-frame {
             border: 2px solid var(--gold); padding: 10px 25px;
