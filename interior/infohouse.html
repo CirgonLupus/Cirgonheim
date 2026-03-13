@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wnętrze – Dom Informacyjny</title>
+    <style>
+        :root { --gold: #c5a059; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
+            overflow: hidden; position: relative;
+            font-family: 'Georgia', serif;
+        }
+        
+        .info-header-container { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; color: var(--gold); pointer-events: none; }
+        .info-title { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 8px; text-shadow: 0 5px 15px #000; }
+        .info-box { border: 1px solid var(--gold); background: rgba(0, 0, 0, 0.8); padding: 15px 30px; display: inline-block; backdrop-filter: blur(8px); }
+
+        .side-menu { position: absolute; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .menu-left { left: 40px; }
+        .menu-right { right: 40px; }
+        .info-rect {
+            width: 220px; padding: 15px; background: rgba(0, 0, 0, 0.85); border: 1px solid var(--gold);
+            color: var(--gold); text-align: center; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+        }
+        .info-rect:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
+
+        .exit-btn { position: fixed; top: 20px; left: 20px; padding: 10px 30px; background: rgba(0,0,0,0.9); border: 1px solid var(--gold); color: var(--gold); text-decoration: none; z-index: 1000; }
+
+        /* KSIĄŻKA */
+        #book-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 10000;
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .book-container { position: relative; width: 85%; max-width: 900px; display: flex; flex-direction: column; align-items: center; }
+        .book-bg { width: 100%; filter: drop-shadow(0 0 50px #000); }
+        .book-content { 
+            position: absolute; top: 15%; left: 15%; width: 70%; height: 60%; 
+            color: #2a1b0a; overflow-y: auto; text-align: left; padding: 20px;
+            font-size: 1.05rem; line-height: 1.5;
+        }
+        .book-content h2 { text-align: center; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .close-book-btn { margin-top: 20px; background: #000; border: 2px solid var(--gold); color: var(--gold); padding: 10px 50px; cursor: pointer; font-weight: bold; }
+
+        .character-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+        .character { position: absolute; width: 150px; } 
+    </style>
+</head>
+<body>
+
+    <a href="../../district/dis1/dis1_gatesquare.html" class="exit-btn">Wyjście</a>
+
+    <div class="info-header-container">
+        <h1 class="info-title">Dom Informacyjny</h1>
+        <div class="info-box"><p>Wybierz temat z paneli bocznych.</p></div>
+    </div>
+
+    <div class="side-menu menu-left"><div class="info-rect" id="btn-me">O Mnie</div></div>
+    <div class="side-menu menu-right"><div class="info-rect" id="btn-city">O Cirgonheim'ie</div></div>
+
+    <div id="book-overlay">
+        <div class="book-container">
+            <img src="../../assets/img/book.png" class="book-bg">
+            <div class="book-content">
+                <h2 id="book-title"></h2>
+                <div id="book-text"></div>
+            </div>
+            <button class="close-book-btn" id="close-book">ZAMKNIJ X</button>
+        </div>
+    </div>
+
+    <div class="character-container">
+        <img src="../../assets/img/001_winered.png" class="character char-keeper">
+    </div>
+
+    <script type="module">
+        import { initKeepers } from '../../assets/js/actors/keeper.js';
+
+        const data = {
+            me: { 
+                title: "Cirgon Tyberius Marcus Lupus", 
+                text: `Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
+                <b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach. Tu nie ma miejsca na błędy.<br>
+                <b>Głębia:</b> Markery alkoholowe, dzięki którym bawię się cieniem i nasyceniem, nadając płaskiej kartce trzeci wymiar.<br>
+                <b>Ornament:</b> Finałowa zabawa detalem, która potrafi całkowicie przekształcić pierwotne elementy, nadając im biżuteryjny charakter.<br><br>
+                Inspiracją jest dla mnie wszystko, co dostrzeże moja świadomość – od skomplikowanej struktury neuronu po surowość architektury. Nie chcę jednak dawać Ci gotowych odpowiedzi. Moim celem jest rozbudzenie w Tobie ciekawości. Chcę, abyś patrząc na moje prace, poczuł chęć zajrzenia głębiej, odkrycia ukrytego splotu linii i zadania sobie pytania: „Co widzę tym razem?”.<br><br>
+                Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się językiem snów.`
+            },
+            city: { 
+                title: "O Cirgonheim'ie", 
+                text: "To bastion wiedzy i magii, kraina zrodzona w moich snach, gdzie linie i cienie tworzą fundamenty rzeczywistości." 
+            }
+        };
+
+        function openBook(id) {
+            const overlay = document.getElementById('book-overlay');
+            document.getElementById('book-title').innerText = data[id].title;
+            // Używamy innerHTML, aby znaczniki <br> i <b> zadziałały
+            document.getElementById('book-text').innerHTML = data[id].text;
+            overlay.style.display = 'flex';
+            setTimeout(() => overlay.style.opacity = '1', 10);
+        }
+
+        window.onload = () => {
+            try {
+                initKeepers(); 
+            } catch(e) {
+                console.error("Keeper błąd:", e);
+            }
+
+            document.getElementById('btn-me').onclick = () => openBook('me');
+            document.getElementById('btn-city').onclick = () => openBook('city');
+            document.getElementById('close-book').onclick = () => {
+                const ov = document.getElementById('book-overlay');
+                ov.style.opacity = '0';
+                setTimeout(() => ov.style.display = 'none', 400);
+            };
+        };
+    </script>
+</body>
+</html>
