@@ -12,20 +12,76 @@
             font-family: 'Georgia', serif;
         }
         
-        .info-header-container { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; color: var(--gold); pointer-events: none; }
-        .info-title { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 8px; text-shadow: 0 5px 15px #000; }
-        .info-box { border: 1px solid var(--gold); background: rgba(0, 0, 0, 0.8); padding: 15px 30px; display: inline-block; backdrop-filter: blur(8px); }
+        /* 🔽 OBNIŻONY NAGŁÓWEK */
+        .info-header-container { 
+            position: absolute; 
+            top: 120px; /* było 60px */ 
+            left: 50%; 
+            transform: translateX(-50%); 
+            text-align: center; 
+            z-index: 5; 
+            color: var(--gold); 
+            pointer-events: none; 
+        }
 
-        .side-menu { position: absolute; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .info-title { 
+            font-size: 2.5rem; 
+            text-transform: uppercase; 
+            letter-spacing: 8px; 
+            text-shadow: 0 5px 15px #000; 
+        }
+
+        /* 🔽 OBNIŻONY BOX */
+        .info-box { 
+            border: 1px solid var(--gold); 
+            background: rgba(0, 0, 0, 0.8); 
+            padding: 15px 30px; 
+            display: inline-block; 
+            backdrop-filter: blur(8px);
+            margin-top: 25px; /* NOWE – obniżenie boxa */
+        }
+
+        .side-menu { 
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            z-index: 100; 
+        }
         .menu-left { left: 40px; }
         .menu-right { right: 40px; }
-        .info-rect {
-            width: 220px; padding: 15px; background: rgba(0, 0, 0, 0.85); border: 1px solid var(--gold);
-            color: var(--gold); text-align: center; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
-        }
-        .info-rect:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
 
-        .exit-btn { position: fixed; top: 20px; left: 20px; padding: 10px 30px; background: rgba(0,0,0,0.9); border: 1px solid var(--gold); color: var(--gold); text-decoration: none; z-index: 1000; }
+        .info-rect {
+            width: 220px; padding: 15px; 
+            background: rgba(0, 0, 0, 0.85); 
+            border: 1px solid var(--gold);
+            color: var(--gold); 
+            text-align: center; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        .info-rect:hover { 
+            background: var(--gold); 
+            color: black; 
+            box-shadow: 0 0 20px var(--gold); 
+        }
+
+        /* ⬆️ POWIĘKSZONY PRZYCISK WYJŚCIA */
+        .exit-btn { 
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            padding: 15px 40px; /* większy box */
+            font-size: 1.1rem; /* większy tekst */
+            background: rgba(0,0,0,0.9); 
+            border: 1px solid var(--gold); 
+            color: var(--gold); 
+            text-decoration: none; 
+            z-index: 1000; 
+        }
 
         /* KSIĄŻKA */
         #book-overlay {
@@ -97,7 +153,6 @@
         function openBook(id) {
             const overlay = document.getElementById('book-overlay');
             document.getElementById('book-title').innerText = data[id].title;
-            // Używamy innerHTML, aby znaczniki <br> i <b> zadziałały
             document.getElementById('book-text').innerHTML = data[id].text;
             overlay.style.display = 'flex';
             setTimeout(() => overlay.style.opacity = '1', 10);
