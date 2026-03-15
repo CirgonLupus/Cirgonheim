@@ -4,7 +4,7 @@ export function initKeepers() {
     actors.forEach(char => {
         // Parametry zgodne z Twoją instrukcją:
         const startY = 50;  // Środek
-        const endY = 75;    // Skrócona droga (75%)
+        const endY = 70;    // Skrócona droga (75%)
         const baseScale = 2.0; 
         const maxScale = 5.0;  // Rośnie do 5x
         const offsetV = 20; // Obniżenie o 1/5 wysokości
