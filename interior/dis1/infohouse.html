@@ -7,7 +7,13 @@
         :root { --gold: #c5a059; }
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000 url('../../assets/img/indoor.png') no-repeat center center / cover;
+
+            /* 🔥 DWA TŁA – indoor.png na górze, background_interior.jpg pod spodem */
+            background:
+                url('../../assets/img/indoor.png') no-repeat center center / cover,
+                url('../../assets/img/background_interior.jpg') no-repeat center center / cover,
+                #000;
+
             overflow: hidden; position: relative;
             font-family: 'Georgia', serif;
         }
@@ -15,7 +21,7 @@
         /* 🔽 OBNIŻONY NAGŁÓWEK */
         .info-header-container { 
             position: absolute; 
-            top: 120px; /* było 60px */ 
+            top: 120px; 
             left: 50%; 
             transform: translateX(-50%); 
             text-align: center; 
@@ -38,7 +44,7 @@
             padding: 15px 30px; 
             display: inline-block; 
             backdrop-filter: blur(8px);
-            margin-top: 25px; /* NOWE – obniżenie boxa */
+            margin-top: 25px;
         }
 
         .side-menu { 
@@ -74,8 +80,8 @@
             position: fixed; 
             top: 20px; 
             left: 20px; 
-            padding: 15px 40px; /* większy box */
-            font-size: 1.1rem; /* większy tekst */
+            padding: 15px 40px;
+            font-size: 1.1rem;
             background: rgba(0,0,0,0.9); 
             border: 1px solid var(--gold); 
             color: var(--gold); 
@@ -114,65 +120,4 @@
     </div>
 
     <div class="side-menu menu-left"><div class="info-rect" id="btn-me">O Mnie</div></div>
-    <div class="side-menu menu-right"><div class="info-rect" id="btn-city">O Cirgonheim'ie</div></div>
-
-    <div id="book-overlay">
-        <div class="book-container">
-            <img src="../../assets/img/book.png" class="book-bg">
-            <div class="book-content">
-                <h2 id="book-title"></h2>
-                <div id="book-text"></div>
-            </div>
-            <button class="close-book-btn" id="close-book">ZAMKNIJ X</button>
-        </div>
-    </div>
-
-    <div class="character-container">
-        <img src="../../assets/img/001_winered.png" class="character char-keeper">
-    </div>
-
-    <script type="module">
-        import { initKeepers } from '../../assets/js/actors/keeper.js';
-
-        const data = {
-            me: { 
-                title: "Cirgon Tyberius Marcus Lupus", 
-                text: `Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
-                <b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach. Tu nie ma miejsca na błędy.<br>
-                <b>Głębia:</b> Markery alkoholowe, dzięki którym bawię się cieniem i nasyceniem, nadając płaskiej kartce trzeci wymiar.<br>
-                <b>Ornament:</b> Finałowa zabawa detalem, która potrafi całkowicie przekształcić pierwotne elementy, nadając im biżuteryjny charakter.<br><br>
-                Inspiracją jest dla mnie wszystko, co dostrzeże moja świadomość – od skomplikowanej struktury neuronu po surowość architektury. Nie chcę jednak dawać Ci gotowych odpowiedzi. Moim celem jest rozbudzenie w Tobie ciekawości. Chcę, abyś patrząc na moje prace, poczuł chęć zajrzenia głębiej, odkrycia ukrytego splotu linii i zadania sobie pytania: „Co widzę tym razem?”.<br><br>
-                Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się językiem snów.`
-            },
-            city: { 
-                title: "O Cirgonheim'ie", 
-                text: "To bastion wiedzy i magii, kraina zrodzona w moich snach, gdzie linie i cienie tworzą fundamenty rzeczywistości." 
-            }
-        };
-
-        function openBook(id) {
-            const overlay = document.getElementById('book-overlay');
-            document.getElementById('book-title').innerText = data[id].title;
-            document.getElementById('book-text').innerHTML = data[id].text;
-            overlay.style.display = 'flex';
-            setTimeout(() => overlay.style.opacity = '1', 10);
-        }
-
-        window.onload = () => {
-            try {
-                initKeepers(); 
-            } catch(e) {
-                console.error("Keeper błąd:", e);
-            }
-
-            document.getElementById('btn-me').onclick = () => openBook('me');
-            document.getElementById('btn-city').onclick = () => openBook('city');
-            document.getElementById('close-book').onclick = () => {
-                const ov = document.getElementById('book-overlay');
-                ov.style.opacity = '0';
-                setTimeout(() => ov.style.display = 'none', 400);
-            };
-        };
-    </script>
-</body>
-</html>
+    <div class="side-menu menu-right"><div class="info-rect" id="btn-city">
