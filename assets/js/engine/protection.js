@@ -1,25 +1,14 @@
-/* Globalne utrudnienia kopiowania */
-.protected-image, 
-.protected-image * {
-    -webkit-user-drag: none;
-    user-select: none;
-}
+// Automatyczne nakładanie obrazów na elementy .protected-image
+document.querySelectorAll('.protected-image').forEach(el => {
+    const url = el.dataset.img;
+    if (url) {
+        el.style.backgroundImage = `url('${url}')`;
+    }
+});
 
-/* Kontener chronionego obrazka */
-.protected-image {
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Niewidzialna folia blokująca interakcje */
-.protected-image::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: transparent;
-    z-index: 10;
-    pointer-events: all;
-}
+// Blokada prawego przycisku myszy tylko na chronionych obrazach
+document.addEventListener('contextmenu', e => {
+    if (e.target.closest('.protected-image')) {
+        e.preventDefault();
+    }
+});
