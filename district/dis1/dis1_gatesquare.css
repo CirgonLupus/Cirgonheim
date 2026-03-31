@@ -55,7 +55,12 @@ body::after {
     align-items: flex-end;
 }
 
-.house-img { width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); pointer-events: none; }
+.house-img { 
+    width: 100%; 
+    height: auto; 
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
+    pointer-events: none; 
+}
 
 .house-description-box {
     width: 85%; padding: 15px; margin-top: 15px;
@@ -83,10 +88,15 @@ body::after {
 .pinakotheka-card .character { bottom: -20px !important; }
 
 .house-title-frame {
-    border: 2px solid var(--gold); padding: 10px 25px;
-    background: rgba(10, 10, 10, 0.9); color: var(--gold);
-    text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
-    opacity: 0; transition: 0.5s;
+    border: 2px solid var(--gold); 
+    padding: 10px 25px;
+    background: rgba(10, 10, 10, 0.9); 
+    color: var(--gold);
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    margin-bottom: 15px;
+    opacity: 0; 
+    transition: 0.5s;
 }
 .active .house-title-frame { opacity: 1; }
 
@@ -98,3 +108,23 @@ body::after {
 }
 .prev { left: 20px; } 
 .next { right: 20px; }
+
+
+/* ============================================================
+   DESKTOP — ulepszone nagłówki domów (tylko powyżej 900px)
+   ============================================================ */
+@media (min-width: 900px) {
+
+    .house-title-frame {
+        font-size: 2rem;              /* większy tekst */
+        padding: 14px 32px;           /* większa ramka */
+        margin-bottom: 5px;           /* bliżej grafiki */
+        transform: translateY(-25px); /* przesunięcie do góry */
+        border-width: 3px;            /* mocniejsza ramka */
+        letter-spacing: 4px;          /* bardziej eleganckie */
+    }
+
+    .house-card .house-visual {
+        margin-top: -10px;            /* wyrównanie proporcji */
+    }
+}
