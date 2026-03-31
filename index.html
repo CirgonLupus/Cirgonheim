@@ -14,7 +14,6 @@
             --gate-speed: 2s;
         }
 
-        /* RESET */
         * { box-sizing: border-box; }
 
         body, html {
@@ -29,7 +28,7 @@
             font-family: 'Georgia', serif;
         }
 
-        /* KONTENER BRAMY */
+        /* CZARNY PROSTOKĄT Z BRAMĄ */
         .gate-container {
             position: relative;
             width: 100%;
@@ -42,20 +41,20 @@
             overflow: hidden;
         }
 
-        /* ✨ GRADIENTOWA ZŁOTA RAMA ✨ */
+        /* ✨ MAGICZNA ZŁOTA RAMA WOKÓŁ CZARNEGO PROSTOKĄTA ✨ */
         .gate-container::before {
             content: "";
             position: absolute;
-            inset: -40px; /* grubość ramy na zewnątrz */
-            pointer-events: none;
+            inset: -35px; /* grubość ramy NA ZEWNĄTRZ */
             z-index: 5;
+            pointer-events: none;
 
             background: radial-gradient(
                 closest-side,
-                rgba(197, 160, 89, 1) 0%,      /* pełne złoto */
-                rgba(197, 160, 89, 0.6) 40%,   /* półprzezroczyste */
-                rgba(197, 160, 89, 0.25) 70%,  /* delikatne */
-                rgba(197, 160, 89, 0) 100%     /* całkowicie znika */
+                rgba(197, 160, 89, 1) 0%,      /* pełne złoto przy krawędzi prostokąta */
+                rgba(197, 160, 89, 0.5) 40%,   /* półprzezroczyste */
+                rgba(197, 160, 89, 0.15) 70%,  /* delikatne */
+                rgba(197, 160, 89, 0) 100%     /* znika na zewnątrz */
             );
         }
 
@@ -87,7 +86,6 @@
             background-position: left center;
         }
 
-        /* ANIMACJA OTWARCIA */
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
@@ -97,8 +95,8 @@
             z-index: 10;
             background: rgba(0, 0, 0, 0.85);
             color: white;
-            padding: 30px 25px; /* więcej miejsca */
-            width: 360px;       /* szerszy panel */
+            padding: 30px 25px;
+            width: 360px;
             border: 1px solid var(--gold);
             text-align: center;
             pointer-events: auto;
@@ -106,7 +104,7 @@
         }
 
         #welcome-text {
-            margin-bottom: 25px; /* odstęp od przycisku */
+            margin-bottom: 25px;
         }
 
         .lang-switch {
@@ -146,7 +144,6 @@
             color: black;
         }
 
-        /* OVERLAY PRZEJŚCIA */
         #transition-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -162,14 +159,12 @@
             opacity: 1;
         }
 
-        /* GLOBALNA OCHRONA GRAFIK */
         img {
             pointer-events: none !important;
             user-select: none !important;
             -webkit-user-drag: none !important;
         }
 
-        /* WYJĄTKI – FLAGI I PRZYCISK */
         .lang-btn, #enter-btn {
             pointer-events: auto !important;
         }
@@ -201,10 +196,7 @@
 
     <div id="transition-overlay"></div>
 
-    <!-- FOLIA OCHRONNA -->
     <script src="assets/js/engine/protection.js" defer></script>
-
-    <!-- TWÓJ SKRYPT -->
     <script src="script.js" defer></script>
 
 </body>
