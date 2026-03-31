@@ -5,162 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cirgonheim – Wrota</title>
 
-    <!-- FOLIA OCHRONNA -->
-    <link rel="stylesheet" href="assets/css/engine/protection.css">
-
-    <style>
-        :root {
-            --gold: #c5a059;
-            --gate-speed: 2s;
-        }
-
-        * { box-sizing: border-box; }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100vh;
-            background: #000 url('assets/img/background.jpg') no-repeat center center / cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Georgia', serif;
-        }
-
-        /* CZARNY PROSTOKĄT Z BRAMĄ */
-        .gate-container {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
-            height: 80vh;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        
-        /* SKRZYDŁA BRAMY */
-        .gate {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            z-index: 2;
-            background-size: cover;
-            background-repeat: no-repeat;
-            transition: transform var(--gate-speed) ease-in-out;
-
-            pointer-events: none;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        .gate-left {
-            left: 0;
-            background-image: url('assets/img/gate_left.jpg');
-            background-position: right center;
-        }
-
-        .gate-right {
-            right: 0;
-            background-image: url('assets/img/gate_right.jpg');
-            background-position: left center;
-        }
-
-        .gate-left.open { transform: translateX(-100%); }
-        .gate-right.open { transform: translateX(100%); }
-
-        /* PANEL TEKSTOWY — POPRAWIONY */
-        .gate-content {
-            position: absolute;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 30px 25px;
-            width: 360px;
-            border: 1px solid var(--gold);
-            text-align: center;
-            pointer-events: auto;
-            transition: opacity 0.8s;
-        }
-
-        #welcome-text {
-            margin-bottom: 25px;
-        }
-
-        .lang-switch {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .lang-btn {
-            width: 20px;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: 0.3s;
-            pointer-events: auto !important;
-        }
-
-        .lang-btn.active {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        #enter-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 10px 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: 0.4s;
-            pointer-events: auto !important;
-        }
-
-        #enter-btn:hover {
-            background: var(--gold);
-            color: black;
-        }
-
-        #transition-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: black;
-            opacity: 0;
-            z-index: 100;
-            pointer-events: none;
-            transition: opacity 1s;
-        }
-
-        #transition-overlay.active {
-            opacity: 1;
-        }
-
-        img {
-            pointer-events: none !important;
-            user-select: none !important;
-            -webkit-user-drag: none !important;
-        }
-
-        .lang-btn, #enter-btn {
-            pointer-events: auto !important;
-        }
-    </style>
+    <!-- ŁADOWANIE CSS Z TEGO SAMEGO FOLDERU -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="gate-container">
+
         <audio id="gate-sound" src="assets/sound/open_gate.mp3" preload="auto"></audio>
 
+        <!-- Skrzydła bramy -->
         <div class="gate gate-left"></div>
         <div class="gate gate-right"></div>
 
+        <!-- Panel tekstowy -->
         <div class="gate-content">
             <div class="lang-switch">
                 <img src="https://flagcdn.com/w20/pl.png" class="lang-btn active" data-lang="pl" alt="PL">
@@ -175,11 +34,12 @@
 
             <button id="enter-btn">Wejdź</button>
         </div>
+
     </div>
 
     <div id="transition-overlay"></div>
 
-    <script src="assets/js/engine/protection.js" defer></script>
+    <!-- ŁADOWANIE JS Z TEGO SAMEGO FOLDERU -->
     <script src="script.js" defer></script>
 
 </body>
