@@ -1,43 +1,63 @@
 /* RESET */
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
+/* TŁO STRONY */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100vh;
-    /* TŁO GŁÓWNE - TWOJE ORYGINALNE USTAWIENIE */
-    background: red url('assets/img/background.jpg') no-repeat center center / cover;
+    background: #000 url('assets/img/background.jpg') no-repeat center center / cover;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Georgia', serif;
 }
 
-/* KONTENER WRÓT */
-.gate-container {
+/* OBSZAR BRAMY */
+.gate-area {
     position: relative;
-    width: 100%;
-    max-width: 1200px; /* Szerokość maksymalna dla trybu contain */
-    height: 80vh;      /* Wysokość bramy */
-    background: black; /* TWOJA CIEMNOŚĆ ZA WROTAMI */
+    width: 600px;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    border: 2px solid gold; /* Widoczna ramka */
 }
 
+/* CZARNY PROSTOKĄT POD BRAMĄ — WŁAŚCIWY CEL RAMKI */
+.gate-viewport {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* GRUBA ZŁOTA RAMA */
+    border: 12px solid #c5a059;
+
+    /* ZANIKAJĄCA POŚWIATA NA ZEWNĄTRZ */
+    box-shadow:
+        0 0 20px rgba(197, 160, 89, 0.7),
+        0 0 40px rgba(197, 160, 89, 0.4),
+        0 0 70px rgba(197, 160, 89, 0.15);
+}
+
+/* SKRZYDŁA BRAMY */
 .gate {
     position: absolute;
     top: 0;
     width: 50%;
     height: 100%;
     z-index: 2;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     transition: transform 2s ease-in-out;
-    
-    /* DODANA OCHRONA: Wyłączenie interakcji myszką ze skrzydłami bramy */
+
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
@@ -47,19 +67,22 @@ body, html {
     left: 0;
     background-image: url('assets/img/gate_left.jpg');
     background-position: right center;
-    background-color: #222; /* Kolor testowy wrót */
 }
 
 .gate-right {
     right: 0;
     background-image: url('assets/img/gate_right.jpg');
     background-position: left center;
-    background-color: #222; /* Kolor testowy wrót */
 }
 
-/* Animacja otwarcia */
-.gate-left.open { transform: translateX(-100%); }
-.gate-right.open { transform: translateX(100%); }
+/* ANIMACJA OTWARCIA */
+.gate-left.open {
+    transform: translateX(-100%);
+}
+
+.gate-right.open {
+    transform: translateX(100%);
+}
 
 /* PANEL TEKSTOWY */
 .gate-content {
@@ -67,22 +90,84 @@ body, html {
     z-index: 10;
     background: rgba(0, 0, 0, 0.85);
     color: white;
-    padding: 20px;
-    width: 300px;
+    padding: 30px 25px;
+    width: 360px;
     border: 1px solid #c5a059;
     text-align: center;
-    /* Panel musi być klikalny, żeby przycisk działał */
     pointer-events: auto;
+    transition: opacity 0.8s;
 }
 
-/* --- DODATKOWA GLOBALNA OCHRONA GRAFIK --- */
+#welcome-text {
+    margin-bottom: 25px;
+}
+
+/* PRZEŁĄCZNIK JĘZYKÓW */
+.lang-switch {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.lang-btn {
+    width: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s;
+    pointer-events: auto !important;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* PRZYCISK WEJŚCIA */
+#enter-btn {
+    background: none;
+    border: 1px solid #c5a059;
+    color: #c5a059;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.4s;
+    pointer-events: auto !important;
+}
+
+#enter-btn:hover {
+    background: #c5a059;
+    color: black;
+}
+
+/* OVERLAY PRZEJŚCIA */
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+
+#transition-overlay.active {
+    opacity: 1;
+}
+
+/* GLOBALNA OCHRONA GRAFIK */
 img {
     pointer-events: none !important;
     user-select: none !important;
     -webkit-user-drag: none !important;
 }
 
-/* Przyciski muszą ignorować powyższą blokadę, żeby można było w nie klikać */
-.lang-btn, #enter-btn {
+/* WYJĄTKI – FLAGI I PRZYCISK */
+.lang-btn,
+#enter-btn {
     pointer-events: auto !important;
 }
