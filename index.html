@@ -29,7 +29,7 @@
             font-family: 'Georgia', serif;
         }
 
-        /* KONTENER BRAMY Z GRUBĄ ZŁOTĄ RAMĄ */
+        /* KONTENER BRAMY */
         .gate-container {
             position: relative;
             width: 100%;
@@ -40,10 +40,23 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+        }
 
-            /* GRUBA ZŁOTA RAMA */
-            border: 14px solid #c5a059;
-            box-shadow: 0 0 35px rgba(197, 160, 89, 0.7);
+        /* ✨ GRADIENTOWA ZŁOTA RAMA ✨ */
+        .gate-container::before {
+            content: "";
+            position: absolute;
+            inset: -40px; /* grubość ramy na zewnątrz */
+            pointer-events: none;
+            z-index: 5;
+
+            background: radial-gradient(
+                closest-side,
+                rgba(197, 160, 89, 1) 0%,      /* pełne złoto */
+                rgba(197, 160, 89, 0.6) 40%,   /* półprzezroczyste */
+                rgba(197, 160, 89, 0.25) 70%,  /* delikatne */
+                rgba(197, 160, 89, 0) 100%     /* całkowicie znika */
+            );
         }
 
         /* SKRZYDŁA BRAMY */
@@ -78,18 +91,22 @@
         .gate-left.open { transform: translateX(-100%); }
         .gate-right.open { transform: translateX(100%); }
 
-        /* PANEL TEKSTOWY */
+        /* PANEL TEKSTOWY — POPRAWIONY */
         .gate-content {
             position: absolute;
             z-index: 10;
             background: rgba(0, 0, 0, 0.85);
             color: white;
-            padding: 20px;
-            width: 300px;
+            padding: 30px 25px; /* więcej miejsca */
+            width: 360px;       /* szerszy panel */
             border: 1px solid var(--gold);
             text-align: center;
             pointer-events: auto;
             transition: opacity 0.8s;
+        }
+
+        #welcome-text {
+            margin-bottom: 25px; /* odstęp od przycisku */
         }
 
         .lang-switch {
