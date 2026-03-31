@@ -1,6 +1,8 @@
-* {
-    outline: 3px solid red !important;
-}
+<style>
+    body {
+        background: red !important;
+    }
+</style>
 
 /* RESET */
 * {
