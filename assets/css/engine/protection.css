@@ -1,8 +1,9 @@
-/* Globalne utrudnienia kopiowania */
+/* Blokada zaznaczania i przeciągania */
+img, 
 .protected-image, 
 .protected-image * {
-    -webkit-user-drag: none;
-    user-select: none;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
 }
 
 /* Kontener chronionego obrazka */
