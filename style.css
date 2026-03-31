@@ -16,35 +16,24 @@ body, html {
     font-family: 'Georgia', serif;
 }
 
-/* OBSZAR BRAMY */
-.gate-area {
+/* GŁÓWNY CZARNY PROSTOKĄT BRAMY — CEL RAMKI */
+.gate-container {
     position: relative;
-    width: 600px;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* CZARNY PROSTOKĄT POD BRAMĄ — WŁAŚCIWY CEL RAMKI */
-.gate-viewport {
-    position: absolute;
     width: 100%;
-    height: 100%;
-    background-color: #000;
-    overflow: hidden;
+    max-width: 1200px;
+    height: 80vh;
+    background: black;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 
-    /* GRUBA ZŁOTA RAMA */
+    /* ✨ GRADIENTOWA ZŁOTA RAMA NA ZEWNĄTRZ ✨ */
     border: 12px solid #c5a059;
-
-    /* ZANIKAJĄCA POŚWIATA NA ZEWNĄTRZ */
     box-shadow:
-        0 0 20px rgba(197, 160, 89, 0.7),
-        0 0 40px rgba(197, 160, 89, 0.4),
-        0 0 70px rgba(197, 160, 89, 0.15);
+        0 0 25px rgba(197, 160, 89, 0.7),
+        0 0 55px rgba(197, 160, 89, 0.4),
+        0 0 90px rgba(197, 160, 89, 0.15);
 }
 
 /* SKRZYDŁA BRAMY */
@@ -84,7 +73,7 @@ body, html {
     transform: translateX(100%);
 }
 
-/* PANEL TEKSTOWY */
+/* PANEL TEKSTOWY — BEZ RAMKI */
 .gate-content {
     position: absolute;
     z-index: 10;
@@ -92,7 +81,8 @@ body, html {
     color: white;
     padding: 30px 25px;
     width: 360px;
-    border: 1px solid #c5a059;
+    /* USUNIĘTA RAMKA */
+    border: none;
     text-align: center;
     pointer-events: auto;
     transition: opacity 0.8s;
