@@ -65,6 +65,8 @@ body::after {
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 20px;
+    border: 2px solid var(--gold); /* ← OBRAMOWANIE */
+    box-sizing: border-box;
 }
 
 .house-img { 
