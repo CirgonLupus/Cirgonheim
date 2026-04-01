@@ -1,118 +1,3 @@
-:root { 
-    --gold: #c5a059; 
-    --card-width: 450px;
-}
-
-@media (max-width: 768px) {
-    :root { --card-width: 280px; }
-    .character { width: 80px !important; }
-}
-
-body, html {
-    margin: 0; padding: 0; width: 100%; height: 100%;
-    background: #050505 url('../../assets/img/background-city.png') no-repeat center center;
-    background-size: 600% 400%;
-    color: white; font-family: 'Georgia', serif; overflow: hidden;
-    display: flex; justify-content: center; align-items: center;
-}
-
-body::after {
-    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 1; pointer-events: none;
-    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
-}
-
-.lang-switch {
-    position: fixed; top: 20px; right: 20px; z-index: 2000;
-    display: flex; gap: 10px; background: rgba(0,0,0,0.8); padding: 10px; border: 1px solid var(--gold);
-}
-.lang-btn { width: 25px; cursor: pointer; opacity: 0.5; transition: 0.3s; }
-.lang-btn.active { opacity: 1; transform: scale(1.1); }
-
-.carousel-container {
-    position: relative; width: 100%; height: 100vh;
-    display: flex; justify-content: center; align-items: center;
-    perspective: 2000px; z-index: 5;
-}
-
-.carousel-track { 
-    position: relative; width: var(--card-width); height: 600px; 
-    transform-style: preserve-3d;
-}
-
-.house-card {
-    position: absolute; top: 0; left: 0; width: var(--card-width);
-    display: flex; flex-direction: column; align-items: center;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}
-
-.house-visual {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.house-img { 
-    width: 100%; 
-    height: auto; 
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
-    pointer-events: none; 
-}
-
-.house-description-box {
-    width: 85%; padding: 15px; margin-top: 15px;
-    background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
-    color: white; text-align: center; font-size: 0.95rem; line-height: 1.4;
-    opacity: 0; transition: 0.5s; backdrop-filter: blur(5px);
-}
-.active .house-description-box { opacity: 1; }
-
-.character-zone { 
-    position: absolute; bottom: 0; width: 100%; height: 100%; 
-    pointer-events: none; overflow: visible; z-index: 20;
-}
-
-.character {
-    position: absolute; 
-    bottom: 10px; 
-    width: 125px; 
-    height: auto;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
-    pointer-events: none; 
-    transform: scaleX(var(--dir, 1));
-}
-
-.pinakotheka-card .character { bottom: -20px !important; }
-
-.house-title-frame {
-    border: 2px solid var(--gold); 
-    padding: 10px 25px;
-    background: rgba(10, 10, 10, 0.9); 
-    color: var(--gold);
-    text-transform: uppercase; 
-    letter-spacing: 3px; 
-    margin-bottom: 15px;
-    opacity: 0; 
-    transition: 0.5s;
-}
-.active .house-title-frame { opacity: 1; }
-
-.nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
-    font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
-    z-index: 1000; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-}
-.prev { left: 20px; } 
-.next { right: 20px; }
-
-
-/* ============================================================
-   DESKTOP — wyrównanie tytułu + stała wysokość grafiki + opis niżej
-   ============================================================ */
 @media (min-width: 900px) {
 
     /* Tytuł wyrównany do górnej krawędzi flag */
@@ -131,17 +16,17 @@ body::after {
         height: 380px;              /* stabilizuje layout */
         display: flex;
         justify-content: center;
-        align-items: flex-end;      /* budynek stoi na dole kontenera */
-        margin-bottom: 20px;        /* odstęp nad opisem */
+        align-items: flex-end;
+        margin-bottom: 20px;
     }
 
     .house-img {
-        max-height: 100%;           /* dopasowanie do kontenera */
+        max-height: 100%;
         width: auto;
         object-fit: contain;
     }
 
-    /* Opis – teraz równo i niżej */
+    /* OPIS – stała wysokość + obniżenie o 60px */
     .house-description-box {
         width: 95%;
         font-size: 1.25rem;
@@ -149,10 +34,10 @@ body::after {
         padding: 20px 25px;
 
         height: 200px;              /* wszystkie opisy mają tę samą wysokość */
-        margin-top: 40px;           /* obniżenie opisu */
+        margin-top: 60px !important;/* obniżenie o 60px – wymuszone */
         display: flex;
         justify-content: center;
-        align-items: center;        /* tekst wyśrodkowany pionowo */
+        align-items: center;
         text-align: center;
     }
 }
