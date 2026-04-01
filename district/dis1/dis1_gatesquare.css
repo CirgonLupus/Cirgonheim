@@ -111,47 +111,40 @@ body::after {
 
 
 /* ============================================================
-   DESKTOP — ulepszenia BEZ niszczenia karuzeli
+   DESKTOP — Twoje ulepszenia, ale zgodne z karuzelą
    ============================================================ */
 @media (min-width: 900px) {
 
-    /* Przywracamy stabilną wysokość kart */
-    .house-card {
-        height: 100%;
-        min-height: unset;
-    }
-
-    /* Tytuł wyżej + wyśrodkowany */
+    /* 1. Tytuł wyżej + wyśrodkowany */
     .house-title-frame {
         text-align: center;
         font-size: 2rem;
         padding: 14px 32px;
-        margin-bottom: 10px;
-        transform: translateY(-25px);
+        margin-bottom: 5px;
+        transform: translateY(-30px);
         border-width: 3px;
         letter-spacing: 4px;
     }
 
-    /* Grafika — powrót do stabilnego skalowania */
+    /* 2. Grafika dopasowana wizualnie (bez flex:1) */
     .house-visual {
-        flex: unset;
-        min-height: unset;
-        align-items: flex-end;
+        align-items: center;
+        margin-top: -10px;
+        margin-bottom: 10px;
     }
 
     .house-img {
-        width: 100%;
+        width: 90%;
         height: auto;
-        max-height: unset;
         object-fit: contain;
     }
 
-    /* Szerszy opis + większa czcionka */
+    /* 3. Szerszy opis + większa czcionka */
     .house-description-box {
         width: 95%;
         font-size: 1.25rem;
         line-height: 1.5;
         padding: 20px 25px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 }
