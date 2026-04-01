@@ -115,10 +115,9 @@ body::after {
    ============================================================ */
 @media (min-width: 900px) {
 
-    /* Tytuł wyrównany do wysokości flag */
     .house-title-frame {
-        margin-top: -120px;   /* podnosi tytuł do poziomu flag */
-        margin-bottom: 40px;  /* kompensuje, żeby grafika nie zjechała */
+        margin-top: -120px;   /* górna krawędź tytułu = górna krawędź boxa z flagami */
+        margin-bottom: 75px;  /* kompensacja, żeby grafika nie zjechała */
         text-align: center;
         font-size: 2rem;
         padding: 14px 32px;
@@ -126,7 +125,6 @@ body::after {
         letter-spacing: 4px;
     }
 
-    /* Grafika — dopasowana wizualnie */
     .house-visual {
         align-items: center;
         margin-top: -10px;
@@ -139,7 +137,6 @@ body::after {
         object-fit: contain;
     }
 
-    /* Szerszy opis + większa czcionka */
     .house-description-box {
         width: 95%;
         font-size: 1.25rem;
