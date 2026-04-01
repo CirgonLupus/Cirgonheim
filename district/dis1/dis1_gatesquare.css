@@ -111,22 +111,24 @@ body::after {
 
 
 /* ============================================================
-   DESKTOP — Twoje ulepszenia, ale zgodne z karuzelą
+   DESKTOP — Twoje ulepszenia + wyrównanie tytułu do flag
    ============================================================ */
 @media (min-width: 900px) {
 
-    /* 1. Tytuł wyżej + wyśrodkowany */
+    /* 1. Tytuł wyżej — wyrównany do górnej krawędzi flag */
     .house-title-frame {
         text-align: center;
         font-size: 2rem;
         padding: 14px 32px;
-        margin-bottom: 5px;
-        transform: translateY(-30px);
         border-width: 3px;
         letter-spacing: 4px;
+
+        /* kluczowe wyrównanie */
+        transform: translateY(-120px);
+        margin-bottom: -80px;
     }
 
-    /* 2. Grafika dopasowana wizualnie (bez flex:1) */
+    /* 2. Grafika — dopasowana wizualnie */
     .house-visual {
         align-items: center;
         margin-top: -10px;
