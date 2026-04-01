@@ -157,8 +157,8 @@ body::after {
         line-height: 1.5;
         padding: 20px 25px;
 
-        height: 200px;
-        margin-top: 60px !important;
+        height: 150px;
+        margin-top: 110px !important;
         display: flex;
         justify-content: center;
         align-items: center;
