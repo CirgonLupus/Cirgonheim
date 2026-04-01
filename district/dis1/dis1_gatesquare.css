@@ -111,17 +111,14 @@ body::after {
 
 
 /* ============================================================
-   DESKTOP — ulepszona struktura kart budynków
+   DESKTOP — ulepszenia BEZ niszczenia karuzeli
    ============================================================ */
 @media (min-width: 900px) {
 
-    /* Karta elastyczna, nie sztywna */
+    /* Przywracamy stabilną wysokość kart */
     .house-card {
-        height: auto;
-        min-height: 600px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        height: 100%;
+        min-height: unset;
     }
 
     /* Tytuł wyżej + wyśrodkowany */
@@ -130,24 +127,22 @@ body::after {
         font-size: 2rem;
         padding: 14px 32px;
         margin-bottom: 10px;
-        transform: translateY(-35px);
+        transform: translateY(-25px);
         border-width: 3px;
         letter-spacing: 4px;
     }
 
-    /* Grafika dopasowana do przestrzeni */
+    /* Grafika — powrót do stabilnego skalowania */
     .house-visual {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 250px;
-        margin: 0;
+        flex: unset;
+        min-height: unset;
+        align-items: flex-end;
     }
 
     .house-img {
-        max-height: 100%;
-        width: auto;
+        width: 100%;
+        height: auto;
+        max-height: unset;
         object-fit: contain;
     }
 
