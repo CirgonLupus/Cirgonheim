@@ -150,3 +150,38 @@ body::after {
         margin-top: 10px;
     }
 }
+@media (min-width: 900px) {
+
+    /* Tytuł wyrównany do wysokości flag */
+    .house-title-frame {
+        margin-top: -120px;   /* podnosi tytuł do poziomu flag */
+        margin-bottom: 40px;  /* kompensuje, żeby grafika nie zjechała */
+        text-align: center;
+        font-size: 2rem;
+        padding: 14px 32px;
+        border-width: 3px;
+        letter-spacing: 4px;
+    }
+
+    /* Grafika — dopasowana wizualnie */
+    .house-visual {
+        align-items: center;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+
+    .house-img {
+        width: 90%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Szerszy opis + większa czcionka */
+    .house-description-box {
+        width: 95%;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        padding: 20px 25px;
+        margin-top: 10px;
+    }
+}
