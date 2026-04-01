@@ -115,9 +115,10 @@ body::after {
    ============================================================ */
 @media (min-width: 900px) {
 
+    /* Tytuł – zostaje jak jest */
     .house-title-frame {
-        margin-top: -120px;   /* górna krawędź tytułu = górna krawędź boxa z flagami */
-        margin-bottom: 75px;  /* kompensacja, żeby grafika nie zjechała */
+        margin-top: -120px;
+        margin-bottom: 75px;
         text-align: center;
         font-size: 2rem;
         padding: 14px 32px;
@@ -125,6 +126,22 @@ body::after {
         letter-spacing: 4px;
     }
 
+    /* OPIS – stała wysokość + obniżenie */
+    .house-description-box {
+        width: 95%;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        padding: 20px 25px;
+
+        height: 200px;          /* wszystkie opisy mają tę samą wysokość */
+        margin-top: 40px;       /* obniżenie opisu */
+        display: flex;
+        justify-content: center;
+        align-items: center;    /* tekst ładnie wyśrodkowany pionowo */
+        text-align: center;
+    }
+
+    /* Grafika – zostaje jak była */
     .house-visual {
         align-items: center;
         margin-top: -10px;
@@ -135,13 +152,5 @@ body::after {
         width: 90%;
         height: auto;
         object-fit: contain;
-    }
-
-    .house-description-box {
-        width: 95%;
-        font-size: 1.25rem;
-        line-height: 1.5;
-        padding: 20px 25px;
-        margin-top: 10px;
     }
 }
