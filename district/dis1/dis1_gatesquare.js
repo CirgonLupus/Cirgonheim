@@ -29,11 +29,21 @@ function updateLanguage(lang) {
     });
 }
 
-window.addEventListener('load', () => {
+function setupFadeOnEnter(fade) {
+    if (!fade) return;
 
-    /* ============================
-       JĘZYK
-    ============================ */
+    // reset stanu przy wejściu / powrocie
+    fade.classList.remove('hidden');
+
+    // czarny -> scena
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            fade.classList.add('hidden');
+        });
+    });
+}
+
+function setupPage() {
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
 
@@ -41,9 +51,6 @@ window.addEventListener('load', () => {
         btn.onclick = () => updateLanguage(btn.dataset.lang);
     });
 
-    /* ============================
-       KARUZELA
-    ============================ */
     try {
         const engine = initCarousel(0);
         if (engine) {
@@ -52,21 +59,10 @@ window.addEventListener('load', () => {
         }
     } catch (e) { console.error(e); }
 
-    /* ============================
-       FADE
-    ============================ */
     const fade = document.getElementById('enter-fade');
 
-    // FADE-OUT przy wejściu (czarny → scena)
-    if (fade) {
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                fade.classList.add('hidden');
-            });
-        });
-    }
+    setupFadeOnEnter(fade);
 
-    // FADE-IN przy kliknięciu aktywnego domu
     document.querySelectorAll('.house-card').forEach(card => {
         card.addEventListener('click', function () {
             if (!this.classList.contains('active')) return;
@@ -79,17 +75,15 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            fade.classList.remove('hidden'); // scena → czarny
+            // scena -> czarny
+            fade.classList.remove('hidden');
 
             setTimeout(() => {
                 window.location.href = targetUrl;
-            }, 650); // dopasowane do CSS
+            }, 650);
         });
     });
 
-    /* ============================
-       AKTORZY
-    ============================ */
     try {
         initWanderers();
         initPhasers();
@@ -97,4 +91,15 @@ window.addEventListener('load', () => {
     } catch (e) { console.error(e); }
 
     document.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+window.addEventListener('load', () => {
+    setupPage();
+});
+
+// obsługa powrotu z cache (np. z domu z powrotem na plac)
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+        setupPage();
+    }
 });
