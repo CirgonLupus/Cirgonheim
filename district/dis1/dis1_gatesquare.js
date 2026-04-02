@@ -88,3 +88,5 @@ window.addEventListener('load', () => {
 
     document.addEventListener('contextmenu', e => e.preventDefault());
 });
+
+console.log("FADE ELEMENT:", document.getElementById('enter-fade'));
