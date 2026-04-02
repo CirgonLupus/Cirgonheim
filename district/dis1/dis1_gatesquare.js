@@ -30,6 +30,10 @@ function updateLanguage(lang) {
 }
 
 window.addEventListener('load', () => {
+
+    /* ============================
+       JĘZYK
+    ============================ */
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
 
@@ -37,6 +41,9 @@ window.addEventListener('load', () => {
         btn.onclick = () => updateLanguage(btn.dataset.lang);
     });
 
+    /* ============================
+       KARUZELA
+    ============================ */
     try {
         const engine = initCarousel(0);
         if (engine) {
@@ -45,22 +52,21 @@ window.addEventListener('load', () => {
         }
     } catch (e) { console.error(e); }
 
+    /* ============================
+       FADE
+    ============================ */
     const fade = document.getElementById('enter-fade');
 
-    /* ============================
-       FADE-OUT PRZY WEJŚCIU NA PLAC
-       ============================ */
+    // FADE-OUT przy wejściu (czarny → scena)
     if (fade) {
-        // start: czarny (opacity: 1)
-        // po chwili: scena widoczna
-        setTimeout(() => {
-            fade.classList.add('fade-hidden');
-        }, 50); // małe opóźnienie, żeby transition zaskoczył
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                fade.classList.add('hidden');
+            });
+        });
     }
 
-    /* ============================
-       FADE-IN PRZY KLIKNIĘCIU DOMU
-       ============================ */
+    // FADE-IN przy kliknięciu aktywnego domu
     document.querySelectorAll('.house-card').forEach(card => {
         card.addEventListener('click', function () {
             if (!this.classList.contains('active')) return;
@@ -68,18 +74,22 @@ window.addEventListener('load', () => {
             const targetUrl = this.getAttribute('data-url');
             if (!targetUrl || targetUrl === "#") return;
 
-            if (fade) {
-                // z widocznej sceny → czarny
-                fade.classList.remove('fade-hidden');
-                setTimeout(() => {
-                    window.location.href = targetUrl;
-                }, 650); // dopasowane do 0.6s z CSS
-            } else {
+            if (!fade) {
                 window.location.href = targetUrl;
+                return;
             }
+
+            fade.classList.remove('hidden'); // scena → czarny
+
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 650); // dopasowane do CSS
         });
     });
 
+    /* ============================
+       AKTORZY
+    ============================ */
     try {
         initWanderers();
         initPhasers();
