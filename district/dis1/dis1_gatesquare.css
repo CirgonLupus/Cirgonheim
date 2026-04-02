@@ -45,6 +45,9 @@ body::after {
     display: flex; justify-content: center;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+
+    /* domyślna wysokość grafiki — można nadpisać inline */
+    --visual-height: 430px;
 }
 
 /* KLUCZOWE — izolacja layoutu od transformacji 3D */
@@ -56,16 +59,18 @@ body::after {
 
     transform: none !important;
     transform-style: flat !important;
+
+    position: relative; /* potrzebne dla character-zone */
 }
 
 .house-visual {
     width: 100%;
-    height: 430px; /* wysokość grafiki */
+    height: var(--visual-height); /* dynamiczna wysokość grafiki */
     display: flex;
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 20px;
-    box-sizing: border-box; /* obramowanie usunięte */
+    box-sizing: border-box;
 }
 
 .house-img { 
@@ -84,22 +89,28 @@ body::after {
 }
 .active .house-description-box { opacity: 1; }
 
+/* NOWA LOGIKA — strefa postaci zaczyna się pod grafiką */
 .character-zone { 
-    position: absolute; bottom: 0; width: 100%; height: 100%; 
-    pointer-events: none; overflow: visible; z-index: 20;
+    position: absolute;
+    top: var(--visual-height); /* zaczyna się pod grafiką */
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--visual-height));
+    pointer-events: none;
+    overflow: visible;
+    z-index: 20;
 }
 
+/* Ludzik zawsze stoi przy podstawie budynku */
 .character {
     position: absolute; 
-    bottom: 10px; 
+    bottom: 0; 
     width: 125px; 
     height: auto;
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
     pointer-events: none; 
     transform: scaleX(var(--dir, 1));
 }
-
-.pinakotheka-card .character { bottom: -20px !important; }
 
 .house-title-frame {
     border: 2px solid var(--gold); 
@@ -142,12 +153,12 @@ body::after {
 
     .house-visual {
         width: 100%;
-        height: 500px; /* wysokość grafiki na desktopie */
+        height: var(--visual-height); /* dynamiczna wysokość grafiki */
         display: flex;
         justify-content: center;
         align-items: flex-end;
         margin-bottom: 20px;
-        box-sizing: border-box; /* obramowanie usunięte */
+        box-sizing: border-box;
     }
 
     .house-img { 
