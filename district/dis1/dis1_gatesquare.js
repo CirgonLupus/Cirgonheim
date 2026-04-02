@@ -30,10 +30,6 @@ function updateLanguage(lang) {
 }
 
 window.addEventListener('load', () => {
-
-    /* ============================
-       JĘZYK
-    ============================ */
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
 
@@ -41,9 +37,6 @@ window.addEventListener('load', () => {
         btn.onclick = () => updateLanguage(btn.dataset.lang);
     });
 
-    /* ============================
-       KARUZELA
-    ============================ */
     try {
         const engine = initCarousel(0);
         if (engine) {
@@ -52,20 +45,22 @@ window.addEventListener('load', () => {
         }
     } catch (e) { console.error(e); }
 
-    /* ============================
-       FADE
-    ============================ */
     const fade = document.getElementById('enter-fade');
 
+    /* ============================
+       FADE-OUT PRZY WEJŚCIU NA PLAC
+       ============================ */
     if (fade) {
-        // FADE-OUT przy wejściu
-        fade.classList.add('active');
+        // start: czarny (opacity: 1)
+        // po chwili: scena widoczna
         setTimeout(() => {
-            fade.classList.remove('active');
-        }, 650); // dopasowane do CSS: 0.6s
+            fade.classList.add('fade-hidden');
+        }, 50); // małe opóźnienie, żeby transition zaskoczył
     }
 
-    // FADE-IN przy kliknięciu budynku
+    /* ============================
+       FADE-IN PRZY KLIKNIĘCIU DOMU
+       ============================ */
     document.querySelectorAll('.house-card').forEach(card => {
         card.addEventListener('click', function () {
             if (!this.classList.contains('active')) return;
@@ -74,19 +69,17 @@ window.addEventListener('load', () => {
             if (!targetUrl || targetUrl === "#") return;
 
             if (fade) {
-                fade.classList.add('active');
+                // z widocznej sceny → czarny
+                fade.classList.remove('fade-hidden');
                 setTimeout(() => {
                     window.location.href = targetUrl;
-                }, 650); // dopasowane do CSS
+                }, 650); // dopasowane do 0.6s z CSS
             } else {
                 window.location.href = targetUrl;
             }
         });
     });
 
-    /* ============================
-       AKTORZY
-    ============================ */
     try {
         initWanderers();
         initPhasers();
