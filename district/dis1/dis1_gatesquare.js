@@ -45,15 +45,46 @@ window.onload = () => {
         }
     } catch(e) { console.error(e); }
     
+
+    /* ============================================================
+       FADE-IN PRZY KLIKNIĘCIU BUDYNKU
+       ============================================================ */
+    const fade = document.getElementById('enter-fade');
+
     document.querySelectorAll('.house-card').forEach(card => {
         card.addEventListener('click', function() {
             if (this.classList.contains('active')) {
                 const targetUrl = this.getAttribute('data-url');
-                if (targetUrl && targetUrl !== "#") window.location.href = targetUrl;
+                if (targetUrl && targetUrl !== "#") {
+
+                    // uruchamiamy fade-in
+                    fade.classList.add('active');
+
+                    // przejście po 0.5 sekundy
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                }
             }
         });
     });
 
+
+    /* ============================================================
+       FADE-OUT PRZY WEJŚCIU NA STRONĘ
+       ============================================================ */
+    // zaczynamy od czarnego ekranu
+    fade.classList.add('active');
+
+    // po chwili rozjaśniamy
+    setTimeout(() => {
+        fade.classList.remove('active');
+    }, 200);
+
+
+    /* ============================================================
+       AKTORZY
+       ============================================================ */
     try { 
         initWanderers(); 
         initPhasers(); 
