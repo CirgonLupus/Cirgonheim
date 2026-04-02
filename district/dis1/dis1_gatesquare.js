@@ -29,7 +29,11 @@ function updateLanguage(lang) {
     });
 }
 
-window.onload = () => {
+window.addEventListener('load', () => {
+
+    /* ============================
+       JĘZYK
+    ============================ */
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
 
@@ -37,59 +41,57 @@ window.onload = () => {
         btn.onclick = () => updateLanguage(btn.dataset.lang);
     });
 
+    /* ============================
+       KARUZELA
+    ============================ */
     try {
         const engine = initCarousel(0);
         if (engine) {
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
         }
-    } catch(e) { console.error(e); }
-    
+    } catch (e) { console.error(e); }
 
-    /* ============================================================
-       FADE-IN PRZY KLIKNIĘCIU BUDYNKU
-       ============================================================ */
+    /* ============================
+       FADE
+    ============================ */
     const fade = document.getElementById('enter-fade');
 
+    if (fade) {
+        // FADE-OUT przy wejściu
+        fade.classList.add('active');
+        setTimeout(() => {
+            fade.classList.remove('active');
+        }, 650); // dopasowane do CSS: 0.6s
+    }
+
+    // FADE-IN przy kliknięciu budynku
     document.querySelectorAll('.house-card').forEach(card => {
-        card.addEventListener('click', function() {
-            if (this.classList.contains('active')) {
-                const targetUrl = this.getAttribute('data-url');
-                if (targetUrl && targetUrl !== "#") {
+        card.addEventListener('click', function () {
+            if (!this.classList.contains('active')) return;
 
-                    // uruchamiamy fade-in
-                    fade.classList.add('active');
+            const targetUrl = this.getAttribute('data-url');
+            if (!targetUrl || targetUrl === "#") return;
 
-                    // przejście po 0.5 sekundy
-                    setTimeout(() => {
-                        window.location.href = targetUrl;
-                    }, 500);
-                }
+            if (fade) {
+                fade.classList.add('active');
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 650); // dopasowane do CSS
+            } else {
+                window.location.href = targetUrl;
             }
         });
     });
 
-
-    /* ============================================================
-       FADE-OUT PRZY WEJŚCIU NA STRONĘ
-       ============================================================ */
-    // zaczynamy od czarnego ekranu
-    fade.classList.add('active');
-
-    // po chwili rozjaśniamy
-    setTimeout(() => {
-        fade.classList.remove('active');
-    }, 200);
-
-
-    /* ============================================================
+    /* ============================
        AKTORZY
-       ============================================================ */
-    try { 
-        initWanderers(); 
-        initPhasers(); 
-        initCalmTwisters(); 
-    } catch(e) { console.error(e); }
+    ============================ */
+    try {
+        initWanderers();
+        initPhasers();
+        initCalmTwisters();
+    } catch (e) { console.error(e); }
 
     document.addEventListener('contextmenu', e => e.preventDefault());
-};
+});
