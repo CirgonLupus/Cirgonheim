@@ -29,32 +29,31 @@ function updateLanguage(lang) {
     });
 }
 
-function fadeReset(fade) {
-    fade.classList.remove('hidden');   // czarny
-    fade.style.transition = 'none';
-    fade.offsetHeight;                 // reflow
-    fade.style.transition = '';
-}
-
 function fadeOutOnEnter(fade) {
-    fadeReset(fade);
-    requestAnimationFrame(() => fade.classList.add('hidden'));
+    // start: czarny
+    fade.classList.remove('hidden');
+
+    // fade-out: czarny → scena
+    requestAnimationFrame(() => {
+        fade.classList.add('hidden');
+    });
 }
 
 function fadeInAndGo(fade, url) {
-    fadeReset(fade); // czarny, gotowy do animacji
+    // 1. Ustaw overlay na stan początkowy animacji: opacity 0
+    fade.classList.add('hidden'); // scena → czarny (start animacji)
 
+    // 2. Wymuś reflow
+    fade.style.transition = 'none';
+    fade.offsetHeight;
+    fade.style.transition = '';
+
+    // 3. Odpal animację fade-in: opacity 0 → 1
     requestAnimationFrame(() => {
-        fade.classList.remove('hidden'); // czarny → czarny (nic)
-        fade.offsetHeight;               // reflow
-        fade.classList.remove('hidden'); // upewniamy się, że jest czarny
+        fade.classList.remove('hidden'); // animacja do czerni
     });
 
-    // właściwa animacja
-    setTimeout(() => {
-        fade.classList.remove('hidden'); // upewnienie
-    }, 10);
-
+    // 4. Przejście po animacji
     setTimeout(() => {
         window.location.href = url;
     }, 650);
