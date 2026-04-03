@@ -1,203 +1,105 @@
-:root { 
-    --gold: #c5a059; 
-    --card-width: 450px;
-}
+import { initCarousel } from '../../assets/js/engine/carousel.js';
+import { initWanderers } from '../../assets/js/actors/wanderer.js';
+import { initPhasers } from '../../assets/js/actors/phaser.js';
+import { initCalmTwisters } from '../../assets/js/actors/calm_twister.js';
 
-@media (max-width: 768px) {
-    :root { --card-width: 280px; }
-    .character { width: 80px !important; }
-
-    .pinakotheka-card .char-twister {
-        bottom: -40px;
+const translations = {
+    pl: {
+        "title-info": "Dom Informacyjny",
+        "desc-info": "Miejsce, w którym znajdziesz najważniejsze informacje na temat Cirgona i Cirgonheimu – od historii po aktualności.",
+        "title-pina": "Pinakoteka",
+        "desc-pina": "Galeria obrazów autorstwa założyciela miasta. W kolekcji znajdują się wyłącznie dzieła wykonane na płótnie."
+    },
+    en: {
+        "title-info": "Information House",
+        "desc-info": "A place where you will find the most important information about Cirgon and Cirgonheim – from history to latest news.",
+        "title-pina": "Pinacotheca",
+        "desc-pina": "A gallery of paintings by the city's founder. The collection features exclusively works created on canvas."
     }
+};
+
+function updateLanguage(lang) {
+    localStorage.setItem('cirgon_lang', lang);
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        el.innerHTML = translations[lang][key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
 }
 
-body, html {
-    margin: 0; padding: 0; width: 100%; height: 100%;
-    background: #050505 url('../../assets/img/background-city.png') no-repeat center center;
-    background-size: 600% 400%;
-    color: white; font-family: 'Georgia', serif; overflow: hidden;
-    display: flex; justify-content: center; align-items: center;
+function fadeOutOnEnter(fade) {
+    // ZAWSZE resetujemy stan
+    fade.classList.remove('hidden');
+
+    // ZAWSZE wymuszamy reflow
+    fade.style.transition = 'none';
+    fade.offsetHeight;
+    fade.style.transition = '';
+
+    // ZAWSZE odpalamy fade-out
+    setTimeout(() => {
+        fade.classList.add('hidden');
+    }, 30);
 }
 
-body::after {
-    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 1; pointer-events: none;
-    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.6) 100%);
+function fadeInAndGo(fade, url) {
+    // reset
+    fade.classList.remove('hidden');
+    fade.style.transition = 'none';
+    fade.offsetHeight;
+    fade.style.transition = '';
+
+    // fade-in
+    setTimeout(() => {
+        fade.classList.remove('hidden');
+    }, 10);
+
+    setTimeout(() => {
+        window.location.href = url;
+    }, 650);
 }
 
-.lang-switch {
-    position: fixed; top: 20px; right: 20px; z-index: 2000;
-    display: flex; gap: 10px; background: rgba(0,0,0,0.8); padding: 10px; border: 1px solid var(--gold);
-}
-.lang-btn { width: 25px; cursor: pointer; opacity: 0.5; transition: 0.3s; }
-.lang-btn.active { opacity: 1; transform: scale(1.1); }
+function initPage() {
+    const fade = document.getElementById('enter-fade');
 
-.carousel-container {
-    position: relative; width: 100%; height: 100vh;
-    display: flex; justify-content: center; align-items: center;
-    perspective: 2000px; z-index: 5;
-}
+    fadeOutOnEnter(fade);
 
-.carousel-track { 
-    position: relative; width: var(--card-width); height: 600px; 
-    transform-style: preserve-3d;
-}
+    const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
+    updateLanguage(savedLang);
 
-.house-card {
-    position: absolute; top: 0; left: 0; width: var(--card-width);
-    display: flex; justify-content: center;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.onclick = () => updateLanguage(btn.dataset.lang);
+    });
 
-    --visual-height: 430px;
-}
+    try {
+        const engine = initCarousel(0);
+        if (engine) {
+            document.getElementById('btn-next').onclick = engine.moveNext;
+            document.getElementById('btn-prev').onclick = engine.movePrev;
+        }
+    } catch (e) { console.error(e); }
 
-.house-card-inner {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    document.querySelectorAll('.house-card').forEach(card => {
+        card.addEventListener('click', function () {
+            if (!this.classList.contains('active')) return;
 
-    transform: none !important;
-    transform-style: flat !important;
+            const url = this.getAttribute('data-url');
+            if (!url || url === "#") return;
 
-    position: relative;
-}
+            fadeInAndGo(fade, url);
+        });
+    });
 
-.house-visual {
-    width: 100%;
-    height: var(--visual-height);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    box-sizing: border-box;
+    try {
+        initWanderers();
+        initPhasers();
+        initCalmTwisters();
+    } catch (e) { console.error(e); }
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
 }
 
-.house-img { 
-    max-height: 100%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
-    pointer-events: none; 
-}
-
-.character-zone { 
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 20;
-}
-
-.character {
-    position: absolute; 
-    bottom: 0;
-    width: 125px; 
-    height: auto;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7)); 
-    pointer-events: none; 
-    transform: scaleX(var(--dir, 1));
-}
-
-.house-title-frame {
-    border: 2px solid var(--gold); 
-    padding: 10px 25px;
-    background: rgba(10, 10, 10, 0.9); 
-    color: var(--gold);
-    text-transform: uppercase; 
-    letter-spacing: 3px; 
-    margin-bottom: 15px;
-    opacity: 0; 
-    transition: 0.5s;
-}
-.active .house-title-frame { opacity: 1; }
-
-.house-description-box {
-    width: 85%; padding: 15px; margin-top: 15px;
-    background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
-    color: white; text-align: center; font-size: 0.95rem; line-height: 1.4;
-    opacity: 0; transition: 0.5s; backdrop-filter: blur(5px);
-}
-.active .house-description-box { opacity: 1; }
-
-.nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: var(--gold);
-    font-size: 2.5rem; width: 65px; height: 65px; cursor: pointer;
-    z-index: 1000; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-}
-.prev { left: 20px; } 
-.next { right: 20px; }
-
-
-@media (min-width: 900px) {
-
-    .house-title-frame {
-        margin-top: -120px;
-        margin-bottom: 75px;
-        text-align: center;
-        font-size: 2rem;
-        padding: 14px 32px;
-        border-width: 3px;
-        letter-spacing: 4px;
-        white-space: nowrap;
-    }
-
-    .house-visual {
-        width: 100%;
-        height: var(--visual-height);
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-    }
-
-    .house-description-box {
-        width: 95%;
-        font-size: 1.25rem;
-        line-height: 1.5;
-        padding: 20px 25px;
-
-        height: 120px;
-        margin-top: 40px !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .pinakotheka-card .char-twister {
-        bottom: -70px;
-    }
-}
-
-
-/* ============================================================
-   FADE-IN / FADE-OUT OVERLAY (STABILNA WERSJA)
-   ============================================================ */
-
-#enter-fade {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 1;
-    pointer-events: all;
-    transition: opacity 0.6s ease;
-    z-index: 5000;
-}
-
-#enter-fade.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+window.addEventListener('load', initPage);
+window.addEventListener('pageshow', initPage);
