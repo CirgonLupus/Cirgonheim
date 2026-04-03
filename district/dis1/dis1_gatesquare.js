@@ -29,16 +29,40 @@ function updateLanguage(lang) {
     });
 }
 
-/* === FADE SYSTEM === */
+/* === FADE: TYLKO NA OPACITY, BEZ KLAS === */
 
 function fadeOutOnEnter() {
     const overlay = document.getElementById('transition-overlay');
-    overlay.classList.add('hidden'); // czarny → przezroczysty
+    if (!overlay) return;
+
+    // start: czarny
+    overlay.style.opacity = '1';
+
+    // upewniamy się, że transition działa
+    overlay.style.transition = 'opacity 1s ease';
+
+    // następna klatka → fade do 0
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '0';
+    });
 }
 
 function fadeInAndGo(url) {
     const overlay = document.getElementById('transition-overlay');
-    overlay.classList.remove('hidden'); // przezroczysty → czarny
+    if (!overlay) {
+        window.location.href = url;
+        return;
+    }
+
+    // start: przezroczysty
+    overlay.style.transition = 'opacity 1s ease';
+    overlay.style.opacity = '0';
+
+    // wymuszenie reflow, żeby przeglądarka „złapała” stan początkowy
+    overlay.offsetHeight;
+
+    // teraz dopiero fade do czerni
+    overlay.style.opacity = '1';
 
     setTimeout(() => {
         window.location.href = url;
@@ -46,11 +70,10 @@ function fadeInAndGo(url) {
 }
 
 /* === START STRONY === */
-window.addEventListener('load', fadeOutOnEnter);
-window.addEventListener('pageshow', fadeOutOnEnter);
 
-/* === LOGIKA STRONY === */
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    // fade-out przy wejściu (działa z bramy i z domku)
+    fadeOutOnEnter();
 
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
@@ -85,4 +108,10 @@ window.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
 
     document.addEventListener('contextmenu', e => e.preventDefault());
+});
+
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+        fadeOutOnEnter();
+    }
 });
