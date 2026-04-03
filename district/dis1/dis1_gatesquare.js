@@ -29,20 +29,20 @@ function updateLanguage(lang) {
     });
 }
 
-/* === FADE IDENTYCZNY JAK NA BRAMIE === */
+/* === FADE SYSTEM === */
+
 function fadeOutOnEnter() {
     const overlay = document.getElementById('transition-overlay');
-    overlay.classList.remove('active'); // czarny → scena
+    overlay.classList.add('hidden'); // czarny → przezroczysty
 }
 
 function fadeInAndGo(url) {
     const overlay = document.getElementById('transition-overlay');
-
-    overlay.classList.add('active'); // scena → czarny
+    overlay.classList.remove('hidden'); // przezroczysty → czarny
 
     setTimeout(() => {
         window.location.href = url;
-    }, 1000); // dopasowane do CSS
+    }, 1000);
 }
 
 /* === START STRONY === */
