@@ -29,40 +29,28 @@ function updateLanguage(lang) {
     });
 }
 
-function fadeOutOnEnter(fade) {
-    // start: czarny
-    fade.classList.remove('hidden');
-
-    // fade-out: czarny → scena
-    requestAnimationFrame(() => {
-        fade.classList.add('hidden');
-    });
+/* === FADE IDENTYCZNY JAK NA BRAMIE === */
+function fadeOutOnEnter() {
+    const overlay = document.getElementById('transition-overlay');
+    overlay.classList.remove('active'); // czarny → scena
 }
 
-function fadeInAndGo(fade, url) {
-    // 1. Ustaw overlay na stan początkowy animacji: opacity 0
-    fade.classList.add('hidden'); // scena → czarny (start animacji)
+function fadeInAndGo(url) {
+    const overlay = document.getElementById('transition-overlay');
 
-    // 2. Wymuś reflow
-    fade.style.transition = 'none';
-    fade.offsetHeight;
-    fade.style.transition = '';
+    overlay.classList.add('active'); // scena → czarny
 
-    // 3. Odpal animację fade-in: opacity 0 → 1
-    requestAnimationFrame(() => {
-        fade.classList.remove('hidden'); // animacja do czerni
-    });
-
-    // 4. Przejście po animacji
     setTimeout(() => {
         window.location.href = url;
-    }, 650);
+    }, 1000); // dopasowane do CSS
 }
 
-function initPage() {
-    const fade = document.getElementById('enter-fade');
+/* === START STRONY === */
+window.addEventListener('load', fadeOutOnEnter);
+window.addEventListener('pageshow', fadeOutOnEnter);
 
-    fadeOutOnEnter(fade);
+/* === LOGIKA STRONY === */
+window.addEventListener('DOMContentLoaded', () => {
 
     const savedLang = localStorage.getItem('cirgon_lang') || 'pl';
     updateLanguage(savedLang);
@@ -86,7 +74,7 @@ function initPage() {
             const url = this.getAttribute('data-url');
             if (!url || url === "#") return;
 
-            fadeInAndGo(fade, url);
+            fadeInAndGo(url);
         });
     });
 
@@ -97,7 +85,4 @@ function initPage() {
     } catch (e) {}
 
     document.addEventListener('contextmenu', e => e.preventDefault());
-}
-
-window.addEventListener('load', initPage);
-window.addEventListener('pageshow', initPage);
+});
