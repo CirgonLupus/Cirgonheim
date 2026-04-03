@@ -29,31 +29,30 @@ function updateLanguage(lang) {
     });
 }
 
-function fadeOutOnEnter(fade) {
-    // ZAWSZE resetujemy stan
-    fade.classList.remove('hidden');
-
-    // ZAWSZE wymuszamy reflow
+function fadeReset(fade) {
+    fade.classList.remove('hidden');   // czarny
     fade.style.transition = 'none';
-    fade.offsetHeight;
+    fade.offsetHeight;                 // reflow
     fade.style.transition = '';
+}
 
-    // ZAWSZE odpalamy fade-out
-    setTimeout(() => {
-        fade.classList.add('hidden');
-    }, 30);
+function fadeOutOnEnter(fade) {
+    fadeReset(fade);
+    requestAnimationFrame(() => fade.classList.add('hidden'));
 }
 
 function fadeInAndGo(fade, url) {
-    // reset
-    fade.classList.remove('hidden');
-    fade.style.transition = 'none';
-    fade.offsetHeight;
-    fade.style.transition = '';
+    fadeReset(fade); // czarny, gotowy do animacji
 
-    // fade-in
+    requestAnimationFrame(() => {
+        fade.classList.remove('hidden'); // czarny → czarny (nic)
+        fade.offsetHeight;               // reflow
+        fade.classList.remove('hidden'); // upewniamy się, że jest czarny
+    });
+
+    // właściwa animacja
     setTimeout(() => {
-        fade.classList.remove('hidden');
+        fade.classList.remove('hidden'); // upewnienie
     }, 10);
 
     setTimeout(() => {
@@ -79,7 +78,7 @@ function initPage() {
             document.getElementById('btn-next').onclick = engine.moveNext;
             document.getElementById('btn-prev').onclick = engine.movePrev;
         }
-    } catch (e) { console.error(e); }
+    } catch (e) {}
 
     document.querySelectorAll('.house-card').forEach(card => {
         card.addEventListener('click', function () {
@@ -96,7 +95,7 @@ function initPage() {
         initWanderers();
         initPhasers();
         initCalmTwisters();
-    } catch (e) { console.error(e); }
+    } catch (e) {}
 
     document.addEventListener('contextmenu', e => e.preventDefault());
 }
