@@ -139,8 +139,15 @@ body {
     z-index: 100;
 }
 
-.menu-left { left: 40px; }
-.menu-right { right: 40px; }
+/* 🔥 PRZESUNIĘCIE O 25px BLIŻEJ KRAWĘDZI */
+
+.menu-left {
+    left: 15px;
+}
+
+.menu-right {
+    right: 15px;
+}
 
 .info-rect {
     width: 220px;
