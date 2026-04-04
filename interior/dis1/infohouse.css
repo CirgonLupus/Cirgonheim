@@ -127,7 +127,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* MENU BOCZNE */
+/* MENU BOCZNE — DOMYŚLNIE (MOBILE / TABLET) */
 
 .side-menu {
     position: absolute;
@@ -139,14 +139,19 @@ body {
     z-index: 100;
 }
 
-/* 🔥 PRZESUNIĘCIE O 25px BLIŻEJ KRAWĘDZI */
+.menu-left { left: 40px; }
+.menu-right { right: 40px; }
 
-.menu-left {
-    left: 15px;
-}
+/* 🔥 DESKTOP: przesunięcie paneli o 25px bliżej krawędzi */
 
-.menu-right {
-    right: 15px;
+@media (min-width: 900px) {
+    .menu-left {
+        left: 15px;
+    }
+
+    .menu-right {
+        right: 15px;
+    }
 }
 
 .info-rect {
