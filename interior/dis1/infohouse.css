@@ -26,7 +26,7 @@ body {
         var(--bg-dark);
 }
 
-/* 🔥 DESKTOP: indoor.png dopasowany do pełnej wysokości monitora */
+/* DESKTOP: indoor.png dopasowany do pełnej wysokości monitora */
 
 @media (min-width: 900px) {
     body {
@@ -66,7 +66,7 @@ body {
     letter-spacing: 2px;
 }
 
-/* PRZEŁĄCZNIK JĘZYKA */
+/* PRZEŁĄCZNIK JĘZYKA (flagi jak na placu) */
 
 .lang-switch {
     position: fixed;
@@ -74,27 +74,22 @@ body {
     right: 20px;
     z-index: 1000;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     background: rgba(0, 0, 0, 0.85);
     border: 1px solid var(--gold);
-    padding: 6px 10px;
+    padding: 10px;
 }
 
 .lang-btn {
-    background: transparent;
-    border: none;
-    color: var(--gold);
+    width: 25px;
     cursor: pointer;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     opacity: 0.5;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: 0.3s;
 }
 
 .lang-btn.active {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 /* NAGŁÓWEK */
@@ -144,13 +139,8 @@ body {
     z-index: 100;
 }
 
-.menu-left {
-    left: 40px;
-}
-
-.menu-right {
-    right: 40px;
-}
+.menu-left { left: 40px; }
+.menu-right { right: 40px; }
 
 .info-rect {
     width: 220px;
@@ -172,7 +162,7 @@ body {
     box-shadow: 0 0 20px var(--gold);
 }
 
-/* KSIĄŻKA / OVERLAY */
+/* KSIĄŻKA */
 
 #book-overlay {
     position: fixed;
@@ -212,7 +202,6 @@ body {
     padding: 20px;
     font-size: 1.02rem;
     line-height: 1.55;
-    background: rgba(255, 255, 255, 0.02);
 }
 
 .book-content h2 {
