@@ -22,8 +22,19 @@ html, body {
 body {
     background:
         url("../../assets/img/indoor.png") no-repeat center center / cover,
-        url("../../assets/img/background_interior.jpg") no-repeat center center / cover,
+        url("../../assets/img/background.jpg") no-repeat center center / cover,
         var(--bg-dark);
+}
+
+/* 🔥 DESKTOP: indoor.png dopasowany do pełnej wysokości monitora */
+
+@media (min-width: 900px) {
+    body {
+        background:
+            url("../../assets/img/indoor.png") no-repeat center center / auto 100%,
+            url("../../assets/img/background.jpg") no-repeat center center / cover,
+            var(--bg-dark);
+    }
 }
 
 /* FADE OVERLAY */
