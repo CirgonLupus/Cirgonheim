@@ -36,8 +36,10 @@ export function initKeepers() {
 
             const duration = 2000 + Math.random() * 2000;
 
+            // JEDEN transition dla wszystkiego
             char.style.transition = `
                 top ${duration}ms ease-in-out,
+                left ${duration}ms ease-in-out,
                 transform ${duration}ms ease-in-out
             `;
 
@@ -56,8 +58,11 @@ export function initKeepers() {
 
             const duration = 1500 + Math.random() * 2000;
 
+            // JEDEN transition dla wszystkiego
             char.style.transition = `
-                left ${duration}ms ease-in-out
+                top ${duration}ms ease-in-out,
+                left ${duration}ms ease-in-out,
+                transform ${duration}ms ease-in-out
             `;
 
             char.style.left = `${targetX}px`;
