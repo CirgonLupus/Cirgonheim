@@ -15,6 +15,10 @@ export function initKeepers() {
         const minY = 600;   // najwyżej
         const maxY = 950;   // najniżej
 
+        // Zakres ruchu lewo/prawo
+        const minX = 900;   // najbardziej w lewo
+        const maxX = 1000;  // najbardziej w prawo
+
         // Ustawienia startowe
         char.style.position = "absolute";
         char.style.left = `${posX}px`;
@@ -43,6 +47,26 @@ export function initKeepers() {
             setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
 
+        // --- FUNKCJA RUCHU LEWO/PRAWO ---
+        const moveHorizontal = () => {
+
+            const goingRight = Math.random() > 0.5;
+
+            const targetX = goingRight ? maxX : minX;
+
+            const duration = 1500 + Math.random() * 2000;
+
+            char.style.transition = `
+                left ${duration}ms ease-in-out
+            `;
+
+            char.style.left = `${targetX}px`;
+
+            setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
+        };
+
+        // start ruchów
         setTimeout(moveVertical, 500);
+        setTimeout(moveHorizontal, 800);
     });
 }
