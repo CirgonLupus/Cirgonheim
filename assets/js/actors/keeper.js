@@ -13,14 +13,16 @@ export function initKeepers() {
         // Pozycja "głęboka" (25px od dołu)
         const deepY = window.innerHeight - 25 - rawHeight;
 
-        // Skalowanie zależne od pionu
+        // Skalowanie zależne od pionu (powiększony 2.3×)
         const scaleBase = 2.3;
-        const scaleDeep = 4.1; // możesz dopasować
+        const scaleDeep = 4.1;
 
-        // Ustawienia startowe
+        // Ustawienia startowe — obniżenie o wysokość po skalowaniu
+        const startOffset = rawHeight * (scaleBase - 1);
+
         char.style.position = "absolute";
         char.style.left = `${baseX}px`;
-        char.style.top = `${baseY}px`;
+        char.style.top = `${baseY + startOffset}px`;
         char.style.transformOrigin = "bottom center";
         char.style.transform = `translateX(-50%) scale(${scaleBase})`;
 
@@ -31,10 +33,17 @@ export function initKeepers() {
             const targetY = goingDown ? deepY : baseY;
             const targetScale = goingDown ? scaleDeep : scaleBase;
 
+            // obniżenie o wysokość po skalowaniu
+            const offsetY = rawHeight * (targetScale - 1);
+
             const duration = 2000 + Math.random() * 2000;
 
-            char.style.transition = `top ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
-            char.style.top = `${targetY}px`;
+            char.style.transition = `
+                top ${duration}ms ease-in-out,
+                transform ${duration}ms ease-in-out
+            `;
+
+            char.style.top = `${targetY + offsetY}px`;
             char.style.transform = `translateX(-50%) scale(${targetScale})`;
 
             setTimeout(moveVertical, duration + 800 + Math.random() * 1200);
