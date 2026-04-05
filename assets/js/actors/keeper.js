@@ -5,7 +5,7 @@ export function initKeepers() {
 
         // Skala minimalna i maksymalna (możesz zmieniać)
         const scaleMin = 3.0;   // skala u góry
-        const scaleMax = 4.5;   // skala na dole
+        const scaleMax = 5.0;   // skala na dole
 
         // Pozycja startowa
         let posX = 950;
