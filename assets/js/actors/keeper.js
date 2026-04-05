@@ -3,43 +3,46 @@ export function initKeepers() {
 
     actors.forEach(char => {
 
-        // Skala ludzika
-        const scale = 3.0;
+        // Skala minimalna i maksymalna (możesz zmieniać)
+        const scaleMin = 3.0;   // skala u góry
+        const scaleMax = 4.5;   // skala na dole
 
-        // Pozycja startowa (Twoje wartości)
-        let posX = 950;   // możesz zmieniać ręcznie
-        let posY = 600;   // startowa wysokość
+        // Pozycja startowa
+        let posX = 950;
+        let posY = 600;
 
         // Zakres ruchu góra/dół
         const minY = 600;   // najwyżej
-        const maxY = 850;  // najniżej
+        const maxY = 850;   // najniżej
 
         // Ustawienia startowe
         char.style.position = "absolute";
         char.style.left = `${posX}px`;
         char.style.top = `${posY}px`;
         char.style.transformOrigin = "bottom center";
-        char.style.transform = `translateX(-50%) scale(${scale})`;
+        char.style.transform = `translateX(-50%) scale(${scaleMin})`;
 
-        // --- FUNKCJA RUCHU GÓRA/DÓŁ ---
+        // --- FUNKCJA RUCHU GÓRA/DÓŁ + SKALA ---
         const moveVertical = () => {
 
-            // losowy wybór: góra albo dół
             const goingDown = Math.random() > 0.5;
 
             const targetY = goingDown ? maxY : minY;
+            const targetScale = goingDown ? scaleMax : scaleMin;
 
-            // losowy czas trwania ruchu
             const duration = 2000 + Math.random() * 2000;
 
-            char.style.transition = `top ${duration}ms ease-in-out`;
-            char.style.top = `${targetY}px`;
+            char.style.transition = `
+                top ${duration}ms ease-in-out,
+                transform ${duration}ms ease-in-out
+            `;
 
-            // po zakończeniu ruchu — kolejny
+            char.style.top = `${targetY}px`;
+            char.style.transform = `translateX(-50%) scale(${targetScale})`;
+
             setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
 
-        // start ruchu
         setTimeout(moveVertical, 500);
     });
 }
