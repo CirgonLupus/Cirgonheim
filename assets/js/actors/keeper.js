@@ -8,7 +8,7 @@ export function initKeepers() {
 
         // Ustawienia pozycji w pikselach — możesz zmieniać jak chcesz
         const posX = 500;  // <-- tu ustawiasz pozycję poziomą
-        const posY = 300;  // <-- tu ustawiasz pozycję pionową (podnieś/opuść)
+        const posY = 100;  // <-- tu ustawiasz pozycję pionową (podnieś/opuść)
 
         char.style.position = "absolute";
         char.style.left = `${posX}px`;
