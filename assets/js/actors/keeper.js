@@ -4,11 +4,11 @@ export function initKeepers() {
     actors.forEach(char => {
 
         // Skala ludzika
-        const scale = 1.5;
+        const scale = 3.0;
 
         // Ustawienia pozycji w pikselach — możesz zmieniać jak chcesz
-        const posX = 500;  // <-- tu ustawiasz pozycję poziomą
-        const posY = 100;  // <-- tu ustawiasz pozycję pionową (podnieś/opuść)
+        const posX = 1000;  // <-- tu ustawiasz pozycję poziomą
+        const posY = 300;  // <-- tu ustawiasz pozycję pionową (podnieś/opuść)
 
         char.style.position = "absolute";
         char.style.left = `${posX}px`;
