@@ -5,7 +5,12 @@ export function initKeepers() {
 
         // --- POZYCJE W PIKSELACH ---
         const startY = (window.innerHeight * 0.50) + 15; 
-        const endY = window.innerHeight - 25 - char.offsetHeight;
+
+        // wysokość PRZED skalowaniem (kluczowa poprawka!)
+        const rawHeight = char.offsetHeight;
+
+        // koniec ruchu 25px od dołu
+        const endY = window.innerHeight - 25 - rawHeight;
 
         // --- SKALOWANIE (ORYGINALNE) ---
         const baseScale = 2.0; 
