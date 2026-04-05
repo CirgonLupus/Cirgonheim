@@ -1,52 +1,60 @@
 export function initKeepers() {
     const actors = document.querySelectorAll('.char-keeper');
-    
+
     actors.forEach(char => {
 
-        // --- POZYCJE W PIKSELACH ---
-        const startY = (window.innerHeight * 0.50) + 15; 
-
-        // wysokość PRZED skalowaniem (kluczowa poprawka!)
+        // --- PODSTAWOWE PARAMETRY ---
         const rawHeight = char.offsetHeight;
 
-        // koniec ruchu 25px od dołu
-        const endY = window.innerHeight - 25 - rawHeight;
+        // Pozycja bazowa (środek obrazka)
+        const baseY = (window.innerHeight * 0.50) - (rawHeight / 2);
+        const baseX = window.innerWidth * 0.50;
 
-        // --- SKALOWANIE (ORYGINALNE) ---
-        const baseScale = 2.0; 
-        const maxScale = 5.0;
+        // Pozycja "głęboka" (25px od dołu)
+        const deepY = window.innerHeight - 25 - rawHeight;
 
-        // --- PRZESUNIĘCIE W DÓŁ (TAK JAK MIAŁEŚ) ---
-        const offsetV = 20;
+        // Skalowanie zależne od pionu
+        const scaleBase = 1.0;
+        const scaleDeep = 1.8; // możesz dopasować
 
-        const move = () => {
-            const progress = Math.random();
+        // Ustawienia startowe
+        char.style.position = "absolute";
+        char.style.left = `${baseX}px`;
+        char.style.top = `${baseY}px`;
+        char.style.transformOrigin = "bottom center";
+        char.style.transform = `translateX(-50%) scale(${scaleBase})`;
 
-            // pion: interpolacja między startY a endY
-            const targetY = startY + (progress * (endY - startY));
+        // --- FUNKCJA RUCHU PIONOWEGO ---
+        const moveVertical = () => {
+            const goingDown = Math.random() > 0.5;
 
-            // poziom: bez zmian
-            const targetX = 35 + (Math.random() * 30);
+            const targetY = goingDown ? deepY : baseY;
+            const targetScale = goingDown ? scaleDeep : scaleBase;
 
-            // skala: bez zmian
-            const targetScale = baseScale + (progress * (maxScale - baseScale));
+            const duration = 2000 + Math.random() * 2000;
 
-            const duration = 4000 + Math.random() * 3000;
+            char.style.transition = `top ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
+            char.style.top = `${targetY}px`;
+            char.style.transform = `translateX(-50%) scale(${targetScale})`;
 
-            char.style.transition = `all ${duration}ms ease-in-out`;
-            char.style.top = `${targetY}px`;      // <-- PIKSELE
-            char.style.left = `${targetX}%`;
-            char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${targetScale})`;
-
-            setTimeout(move, duration + 500);
+            setTimeout(moveVertical, duration + 800 + Math.random() * 1200);
         };
 
-        // --- USTAWIENIA STARTOWE ---
-        char.style.top = `${startY}px`;          // <-- PIKSELE
-        char.style.left = `50%`;
-        char.style.transform = `translateX(-50%) translateY(${offsetV}%) scale(${baseScale})`;
-        char.style.transformOrigin = "bottom center";
+        // --- FUNKCJA RUCHU POZIOMEGO ---
+        const moveHorizontal = () => {
+            const offset = (Math.random() * 16) - 8; // -8% do +8%
+            const targetX = baseX + (window.innerWidth * (offset / 100));
 
-        setTimeout(move, 100);
+            const duration = 1500 + Math.random() * 2000;
+
+            char.style.transition = `left ${duration}ms ease-in-out`;
+            char.style.left = `${targetX}px`;
+
+            setTimeout(moveHorizontal, duration + 600 + Math.random() * 1200);
+        };
+
+        // Start obu pętli
+        setTimeout(moveVertical, 300);
+        setTimeout(moveHorizontal, 600);
     });
 }
