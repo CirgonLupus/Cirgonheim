@@ -14,8 +14,8 @@ export function initKeepers() {
         const deepY = window.innerHeight - 25 - rawHeight;
 
         // Skalowanie zależne od pionu
-        const scaleBase = 1.0;
-        const scaleDeep = 1.8; // możesz dopasować
+        const scaleBase = 2.3;
+        const scaleDeep = 4.1; // możesz dopasować
 
         // Ustawienia startowe
         char.style.position = "absolute";
