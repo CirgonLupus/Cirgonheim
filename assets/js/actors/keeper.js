@@ -3,67 +3,24 @@ export function initKeepers() {
 
     actors.forEach(char => {
 
-        // --- PODSTAWOWE PARAMETRY ---
+        // Pobieramy naturalną wysokość grafiki
         const rawHeight = char.offsetHeight;
 
-        // Pozycja bazowa (środek obrazka)
-        const baseY = (window.innerHeight * 0.50) - (rawHeight / 2);
-        const baseX = window.innerWidth * 0.50;
+        // Skala podstawowa
+        const scale = 2.5;
 
-        // Pozycja "głęboka" (25px od dołu)
-        const deepY = window.innerHeight - 25 - rawHeight;
+        // Obniżenie o wysokość po skalowaniu
+        const offsetY = rawHeight * (scale - 1);
 
-        // Skalowanie zależne od pionu (powiększony 2.3×)
-        const scaleBase = 2.3;
-        const scaleDeep = 4.1;
+        // Pozycja środkowa
+        const centerX = window.innerWidth * 0.5;
+        const centerY = (window.innerHeight * 0.5) - (rawHeight / 2);
 
-        // Ustawienia startowe — obniżenie o wysokość po skalowaniu
-        const startOffset = rawHeight * (scaleBase - 1);
-
+        // Ustawienia startowe
         char.style.position = "absolute";
-        char.style.left = `${baseX}px`;
-        char.style.top = `${baseY + startOffset}px`;
+        char.style.left = `${centerX}px`;
+        char.style.top = `${centerY + offsetY}px`;
         char.style.transformOrigin = "bottom center";
-        char.style.transform = `translateX(-50%) scale(${scaleBase})`;
-
-        // --- FUNKCJA RUCHU PIONOWEGO ---
-        const moveVertical = () => {
-            const goingDown = Math.random() > 0.5;
-
-            const targetY = goingDown ? deepY : baseY;
-            const targetScale = goingDown ? scaleDeep : scaleBase;
-
-            // obniżenie o wysokość po skalowaniu
-            const offsetY = rawHeight * (targetScale - 1);
-
-            const duration = 2000 + Math.random() * 2000;
-
-            char.style.transition = `
-                top ${duration}ms ease-in-out,
-                transform ${duration}ms ease-in-out
-            `;
-
-            char.style.top = `${targetY + offsetY}px`;
-            char.style.transform = `translateX(-50%) scale(${targetScale})`;
-
-            setTimeout(moveVertical, duration + 800 + Math.random() * 1200);
-        };
-
-        // --- FUNKCJA RUCHU POZIOMEGO ---
-        const moveHorizontal = () => {
-            const offset = (Math.random() * 16) - 8; // -8% do +8%
-            const targetX = baseX + (window.innerWidth * (offset / 100));
-
-            const duration = 1500 + Math.random() * 2000;
-
-            char.style.transition = `left ${duration}ms ease-in-out`;
-            char.style.left = `${targetX}px`;
-
-            setTimeout(moveHorizontal, duration + 600 + Math.random() * 1200);
-        };
-
-        // Start obu pętli
-        setTimeout(moveVertical, 300);
-        setTimeout(moveHorizontal, 600);
+        char.style.transform = `translateX(-50%) scale(${scale})`;
     });
 }
