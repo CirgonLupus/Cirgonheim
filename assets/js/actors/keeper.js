@@ -13,7 +13,7 @@ export function initKeepers() {
 
         // Zakres ruchu góra/dół
         const minY = 600;   // najwyżej
-        const maxY = 850;   // najniżej
+        const maxY = 950;   // najniżej
 
         // Ustawienia startowe
         char.style.position = "absolute";
