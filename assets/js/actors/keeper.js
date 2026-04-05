@@ -7,12 +7,12 @@ export function initKeepers() {
         const scale = 3.0;
 
         // Pozycja startowa (Twoje wartości)
-        let posX = 500;   // możesz zmieniać ręcznie
+        let posX = 950;   // możesz zmieniać ręcznie
         let posY = 600;   // startowa wysokość
 
         // Zakres ruchu góra/dół
         const minY = 600;   // najwyżej
-        const maxY = 1000;  // najniżej
+        const maxY = 850;  // najniżej
 
         // Ustawienia startowe
         char.style.position = "absolute";
