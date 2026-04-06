@@ -90,6 +90,16 @@ function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
     `;
 }
 
+/* STEROWANIE ZASŁONĄ (pseudo-maska) — wysokość + szerokość */
+
+function setCornuaCover({ height = 140, width = '80%' } = {}) {
+    const cover = document.getElementById('cornua-cover');
+    if (!cover) return;
+
+    cover.style.height = typeof height === 'number' ? `${height}px` : height;
+    cover.style.width = typeof width === 'number' ? `${width}px` : width;
+}
+
 /* NOWA KSIĄŻKA */
 
 function openBook(id, lang) {
@@ -100,6 +110,9 @@ function openBook(id, lang) {
     /* OGÓLNE ustawienia */
     setUmbilicus({ scale: 2, x: 0, y: 0 });
     setCornua({ scale: 2, x: 0, y: 0 });
+
+    /* Zasłona – obszar od umbilicusa w górę (i trochę niżej) */
+    setCornuaCover({ height: 140, width: '80%' });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
@@ -114,6 +127,7 @@ function openBook(id, lang) {
 
     void cornua.offsetWidth;
 
+    /* Cornua wjeżdża spod zasłony i umbilicusa */
     cornua.style.top = '10%';
 
     setTimeout(() => {
