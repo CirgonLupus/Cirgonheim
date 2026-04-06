@@ -157,12 +157,17 @@ body {
     align-items: center;
 }
 
-/* MASKA */
-#book-mask {
-    position: relative;
+/* NOWA MASKA — OSOBNY ELEMENT */
+#cornua-mask {
+    position: absolute;
+    top: 0;          /* od samej góry ekranu */
+    left: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden; /* <<< MASKA DZIAŁA TUTAJ */
+    height: 40%;     /* zakrywa do połowy umbilicusa */
+    overflow: hidden;
+    background: transparent;
+    z-index: 2;      /* nad cornua, pod umbilicusem */
+    pointer-events: none;
 }
 
 #umbilicus {
@@ -180,7 +185,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     max-width: 80%;
-    z-index: 2;
+    z-index: 1;
     transition: top 1.2s ease-out;
 }
 
