@@ -84,14 +84,14 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    // domyślne ustawienie umbilicusa (możesz zmieniać)
-    setUmbilicus({ scale: 1, x: 0, y: -300 });
+    // domyślne ustawienie umbilicusa (x2)
+    setUmbilicus({ scale: 2, x: 0, y: -300 });
 
-    // różne ustawienia dla różnych książek (opcjonalnie)
+    // różne ustawienia dla różnych książek (x2)
     if (id === 'me') {
-        setUmbilicus({ scale: 1.2, y: -10 });
+        setUmbilicus({ scale: 2.4, y: -10 });
     } else if (id === 'city') {
-        setUmbilicus({ scale: 0.95, y: 5 });
+        setUmbilicus({ scale: 1.9, y: 5 });
     }
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
