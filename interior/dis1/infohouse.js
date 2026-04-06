@@ -66,11 +66,24 @@ function fadeInAndGo(url) {
 
 /* STEROWANIE UMBILICUSEM — skala + pozycja X/Y */
 
-function setUmbilicus({ scale = 1, x = 0, y = 0 } = {}) {
+function setUmbilicus({ scale = 2, x = 0, y = 0 } = {}) {
     const umb = document.getElementById('umbilicus');
     if (!umb) return;
 
     umb.style.transform = `
+        translateX(-50%)
+        translate(${x}px, ${y}px)
+        scale(${scale})
+    `;
+}
+
+/* STEROWANIE CORNUA — skala + pozycja X/Y */
+
+function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
+    const cor = document.getElementById('cornua');
+    if (!cor) return;
+
+    cor.style.transform = `
         translateX(-50%)
         translate(${x}px, ${y}px)
         scale(${scale})
@@ -84,10 +97,9 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    // OGÓLNE ustawienie umbilicusa x2
-    setUmbilicus({ scale: 2, x: 0, y: 0 });
-
-    // NADPISYWANIE USUNIĘTE
+    /* OGÓLNE ustawienia */
+    setUmbilicus({ scale: 2, x: 0, y: -300 });
+    setCornua({ scale: 1, x: 0, y: 0 });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
