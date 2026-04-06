@@ -157,6 +157,14 @@ body {
     align-items: center;
 }
 
+/* MASKA */
+#book-mask {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* <<< MASKA DZIAŁA TUTAJ */
+}
+
 #umbilicus {
     position: absolute;
     top: 0;
