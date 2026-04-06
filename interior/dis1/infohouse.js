@@ -90,6 +90,18 @@ function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
     `;
 }
 
+/* STEROWANIE MASKĄ CORNUA — pozycja + rozmiar */
+
+function setCornuaMask({ x = 0, y = 0, width = '100%', height = '40%' } = {}) {
+    const mask = document.getElementById('cornua-mask');
+    if (!mask) return;
+
+    mask.style.left = typeof x === 'number' ? `${x}px` : x;
+    mask.style.top = typeof y === 'number' ? `${y}px` : y;
+    mask.style.width = typeof width === 'number' ? `${width}px` : width;
+    mask.style.height = typeof height === 'number' ? `${height}px` : height;
+}
+
 /* NOWA KSIĄŻKA */
 
 function openBook(id, lang) {
@@ -100,6 +112,9 @@ function openBook(id, lang) {
     /* OGÓLNE ustawienia */
     setUmbilicus({ scale: 2, x: 0, y: 0 });
     setCornua({ scale: 2, x: 0, y: 0 });
+
+    /* MASKA — zakrywa przestrzeń od góry do połowy umbilicusa */
+    setCornuaMask({ height: '40%' });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
