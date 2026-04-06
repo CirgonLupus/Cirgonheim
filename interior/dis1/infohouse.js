@@ -66,7 +66,7 @@ function fadeInAndGo(url) {
 
 /* STEROWANIE UMBILICUSEM — skala + pozycja X/Y */
 
-function setUmbilicus({ scale = 2.5, x = 0, y = -200 } = {}) {
+function setUmbilicus({ scale = 4, x = 0, y = -1000 } = {}) {
     const umb = document.getElementById('umbilicus');
     if (!umb) return;
 
