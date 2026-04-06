@@ -79,26 +79,53 @@ function fadeInAndGo(url) {
     setTimeout(() => window.location.href = url, 1000);
 }
 
+// NOWA LOGIKA KSIĄŻKI: UMBILICUS + CORNUA + TEKST
+
 function openBook(id, lang) {
     const overlay = document.getElementById('book-overlay');
-    const title = document.getElementById('book-title');
-    const text = document.getElementById('book-text');
+    const imgCornua = document.getElementById('book-cornua');
+    const cornuaText = document.getElementById('book-cornua-text');
 
-    title.innerHTML = translations[lang][`book-${id}-title`];
-    text.innerHTML = translations[lang][`book-${id}-text`];
+    // tekst na cornua z tłumaczeń
+    cornuaText.innerHTML = translations[lang][`book-${id}-text`] || '';
 
+    // reset stanu
     overlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    overlay.style.opacity = '0';
 
-    requestAnimationFrame(() => overlay.style.opacity = '1');
+    imgCornua.style.top = '-100%';
+    cornuaText.style.opacity = '0';
+
+    // fade-in overlay
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+    });
+
+    // wymuszenie reflow, żeby transition top zadziałał
+    void imgCornua.offsetWidth;
+
+    // 1. Cornua wjeżdża od góry
+    imgCornua.style.top = '0';
+
+    // 2. Po zakończeniu animacji pojawia się tekst
+    setTimeout(() => {
+        cornuaText.style.opacity = '1';
+    }, 1200); // tyle samo co transition top w CSS
 }
 
 function closeBook() {
     const overlay = document.getElementById('book-overlay');
+    const imgCornua = document.getElementById('book-cornua');
+    const cornuaText = document.getElementById('book-cornua-text');
+
     overlay.style.opacity = '0';
+
     setTimeout(() => {
         overlay.style.display = 'none';
         document.body.style.overflow = 'auto';
+        imgCornua.style.top = '-100%';
+        cornuaText.style.opacity = '0';
     }, 400);
 }
 
