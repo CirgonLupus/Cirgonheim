@@ -92,7 +92,7 @@ function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
 
 /* STEROWANIE MASKĄ CORNUA — pozycja + rozmiar */
 
-function setCornuaMask({ x = 0, y = 0, width = '300%', height = '100%' } = {}) {
+function setCornuaMask({ x = 0, y = 0, width = '100%', height = '100%' } = {}) {
     const mask = document.getElementById('cornua-mask');
     if (!mask) return;
 
