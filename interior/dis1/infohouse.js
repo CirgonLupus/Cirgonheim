@@ -98,8 +98,8 @@ function openBook(id, lang) {
     const text = document.getElementById('cornua-text');
 
     /* OGÓLNE ustawienia */
-    setUmbilicus({ scale: 2, x: 0, y: -300 });
-    setCornua({ scale: 1, x: 0, y: 0 });
+    setUmbilicus({ scale: 2, x: 0, y: 0 });
+    setCornua({ scale: 2, x: 0, y: 0 });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
