@@ -43,17 +43,14 @@
     <div id="book-overlay">
         <div class="book-new">
 
-            <!-- MASKA NAD CORNUA (osobny element) -->
-            <div id="cornua-mask"></div>
-
-            <!-- Umbilicus – statycznie na górze -->
+            <!-- Umbilicus — NIE maskowany -->
             <img id="umbilicus" src="../../assets/img/umbilicus.png" alt="Umbilicus">
 
-            <!-- Cornua – wjeżdża od góry -->
-            <img id="cornua" src="../../assets/img/cornua.png" alt="Cornua">
-
-            <!-- Tekst pojawiający się po animacji -->
-            <div id="cornua-text"></div>
+            <!-- MASKA — maskuje TYLKO cornua -->
+            <div id="cornua-mask">
+                <img id="cornua" src="../../assets/img/cornua.png" alt="Cornua">
+                <div id="cornua-text"></div>
+            </div>
 
             <button class="close-book-btn" id="close-book" data-key="close-book">Zamknij</button>
         </div>
