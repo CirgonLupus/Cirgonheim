@@ -64,6 +64,19 @@ function fadeInAndGo(url) {
     setTimeout(() => window.location.href = url, 1000);
 }
 
+/* STEROWANIE UMBILICUSEM — skala + pozycja X/Y */
+
+function setUmbilicus({ scale = 1, x = 0, y = 0 } = {}) {
+    const umb = document.getElementById('umbilicus');
+    if (!umb) return;
+
+    umb.style.transform = `
+        translateX(-50%)
+        translate(${x}px, ${y}px)
+        scale(${scale})
+    `;
+}
+
 /* NOWA KSIĄŻKA */
 
 function openBook(id, lang) {
@@ -71,10 +84,18 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    // tekst z tłumaczeń
+    // domyślne ustawienie umbilicusa (możesz zmieniać)
+    setUmbilicus({ scale: 1, x: 0, y: 0 });
+
+    // różne ustawienia dla różnych książek (opcjonalnie)
+    if (id === 'me') {
+        setUmbilicus({ scale: 1.2, y: -10 });
+    } else if (id === 'city') {
+        setUmbilicus({ scale: 0.95, y: 5 });
+    }
+
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
-    // reset
     overlay.style.display = 'flex';
     overlay.style.opacity = '0';
     document.body.style.overflow = 'hidden';
@@ -82,16 +103,12 @@ function openBook(id, lang) {
     cornua.style.top = '-120%';
     text.style.opacity = '0';
 
-    // fade-in overlay
     requestAnimationFrame(() => overlay.style.opacity = '1');
 
-    // wymuszenie reflow
     void cornua.offsetWidth;
 
-    // animacja cornua
     cornua.style.top = '10%';
 
-    // pojawienie tekstu
     setTimeout(() => {
         text.style.opacity = '1';
     }, 1200);
