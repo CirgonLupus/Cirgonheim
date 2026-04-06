@@ -142,7 +142,7 @@ body {
 .menu-left { left: 40px; }
 .menu-right { right: 40px; }
 
-/* 🔥 DESKTOP: przesunięcie paneli o 25px bliżej krawędzi */
+/* DESKTOP: przesunięcie paneli o 25px bliżej krawędzi */
 
 @media (min-width: 900px) {
     .menu-left {
@@ -202,27 +202,54 @@ body {
     filter: drop-shadow(0 0 50px #000);
 }
 
-.book-content {
+/* NOWY UKŁAD WNĘTRZA KSIĄŻKI */
+
+.book-graphics {
     position: absolute;
-    top: 15%;
-    left: 15%;
-    width: 70%;
-    height: 60%;
-    color: #2a1b0a;
-    overflow-y: auto;
-    text-align: left;
-    padding: 20px;
-    font-size: 1.02rem;
-    line-height: 1.55;
+    inset: 12% 12% 12% 12%;
+    pointer-events: none;
 }
 
-.book-content h2 {
-    text-align: center;
-    margin: 0 0 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1.1rem;
+/* Umbilicus – na górze, statycznie */
+
+#book-umbilicus {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    max-width: 100%;
 }
+
+/* Cornua – startuje spoza ekranu, pod umbilicusem */
+
+#book-cornua {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    max-width: 100%;
+    transition: top 1.2s ease-out;
+}
+
+/* Tekst na cornua – pojawia się po animacji */
+
+#book-cornua-text {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    color: #fff;
+    font-size: 1.05rem;
+    text-align: center;
+    text-shadow: 0 0 6px rgba(0,0,0,0.8);
+}
+
+/* PRZYCISK ZAMKNIĘCIA */
 
 .close-book-btn {
     margin-top: 20px;
@@ -287,10 +314,6 @@ body {
     .info-rect {
         width: 180px;
         font-size: 0.8rem;
-    }
-
-    .book-content {
-        font-size: 0.95rem;
     }
 
     .char-keeper {
