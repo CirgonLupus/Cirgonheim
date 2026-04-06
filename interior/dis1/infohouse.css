@@ -157,19 +157,19 @@ body {
     align-items: center;
 }
 
-/* NOWA MASKA — OSOBNY ELEMENT */
+/* MASKA — maskuje cornua */
 #cornua-mask {
     position: absolute;
-    top: 0;          /* od samej góry ekranu */
+    top: 0;
     left: 0;
     width: 100%;
-    height: 40%;     /* zakrywa do połowy umbilicusa */
+    height: 40%; /* możesz zmienić */
     overflow: hidden;
-    background: transparent;
-    z-index: 2;      /* nad cornua, pod umbilicusem */
+    z-index: 2;
     pointer-events: none;
 }
 
+/* Umbilicus — NIE maskowany */
 #umbilicus {
     position: absolute;
     top: 0;
@@ -179,6 +179,7 @@ body {
     z-index: 3;
 }
 
+/* Cornua — maskowana */
 #cornua {
     position: absolute;
     top: -120%;
