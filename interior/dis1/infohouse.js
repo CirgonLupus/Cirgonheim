@@ -71,8 +71,10 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
+    // tekst z tłumaczeń
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
+    // reset
     overlay.style.display = 'flex';
     overlay.style.opacity = '0';
     document.body.style.overflow = 'hidden';
@@ -80,12 +82,16 @@ function openBook(id, lang) {
     cornua.style.top = '-120%';
     text.style.opacity = '0';
 
+    // fade-in overlay
     requestAnimationFrame(() => overlay.style.opacity = '1');
 
+    // wymuszenie reflow
     void cornua.offsetWidth;
 
+    // animacja cornua
     cornua.style.top = '10%';
 
+    // pojawienie tekstu
     setTimeout(() => {
         text.style.opacity = '1';
     }, 1200);
