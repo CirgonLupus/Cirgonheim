@@ -85,7 +85,7 @@ function openBook(id, lang) {
     const text = document.getElementById('cornua-text');
 
     // domyślne ustawienie umbilicusa (możesz zmieniać)
-    setUmbilicus({ scale: 2, x: 0, y: -300 });
+    setUmbilicus({ scale: 1, x: 0, y: -300 });
 
     // różne ustawienia dla różnych książek (opcjonalnie)
     if (id === 'me') {
