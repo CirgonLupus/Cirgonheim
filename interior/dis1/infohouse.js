@@ -9,21 +9,15 @@ const translations = {
         'exit-label': 'Wyjście',
         'close-book': 'Zamknij',
 
-        'book-me-title': 'Cirgon Tyberius Marcus Lupus',
         'book-me-text': `
-Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
-<b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach.<br>
-<b>Głębia:</b> Markery alkoholowe, dzięki którym bawię się cieniem i nasyceniem.<br>
-<b>Ornament:</b> Finałowa zabawa detalem, która potrafi całkowicie przekształcić pierwotne elementy.<br><br>
-Inspiracją jest dla mnie wszystko, co dostrzeże moja świadomość – od struktury neuronu po architekturę.<br><br>
-Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się językiem snów.
+Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych.<br><br>
+<b>Forma:</b> Cienkopis, który dyscyplinuje myśl.<br>
+<b>Głębia:</b> Markery alkoholowe.<br>
+<b>Ornament:</b> Detal, który zmienia wszystko.
         `,
 
-        'book-city-title': "O Cirgonheim'ie",
         'book-city-text': `
-Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cienie tworzą fundamenty rzeczywistości.<br><br>
-Plac Bramny jest progiem, Dom Informacyjny – przewodnikiem, a kolejne miejsca odkrywają coraz głębsze warstwy tego świata.<br><br>
-Cirgonheim nie jest gotową opowieścią. To przestrzeń, w której Twoja wyobraźnia staje się współautorem.
+Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cienie tworzą fundamenty rzeczywistości.
         `
     },
 
@@ -35,21 +29,12 @@ Cirgonheim nie jest gotową opowieścią. To przestrzeń, w której Twoja wyobra
         'exit-label': 'Exit',
         'close-book': 'Close',
 
-        'book-me-title': 'Cirgon Tyberius Marcus Lupus',
         'book-me-text': `
-My style is ornamental geo-organics – where geometric precision meets organic unpredictability.<br><br>
-<b>Form:</b> Fineliner that disciplines thought.<br>
-<b>Depth:</b> Alcohol markers adding dimension.<br>
-<b>Ornament:</b> Final detailing that transforms the whole.<br><br>
-Inspiration comes from anything my awareness catches – from neurons to architecture.<br><br>
-Welcome to my world, where fineliner and colour become the language of dreams.
+My style is ornamental geo-organics – where geometric precision meets organic unpredictability.
         `,
 
-        'book-city-title': 'About Cirgonheim',
         'book-city-text': `
-Cirgonheim is a bastion of knowledge and magic, a realm born in dreams where lines and shadows shape reality.<br><br>
-The Gate Square is the threshold, the Information House – a guide, and further places reveal deeper layers.<br><br>
-Cirgonheim is not a finished story. It is a space where your imagination becomes a co-author.
+Cirgonheim is a bastion of knowledge and magic, a realm born in dreams.
         `
     }
 };
@@ -79,53 +64,45 @@ function fadeInAndGo(url) {
     setTimeout(() => window.location.href = url, 1000);
 }
 
-// NOWA LOGIKA KSIĄŻKI: UMBILICUS + CORNUA + TEKST
+/* NOWA KSIĄŻKA */
 
 function openBook(id, lang) {
     const overlay = document.getElementById('book-overlay');
-    const imgCornua = document.getElementById('book-cornua');
-    const cornuaText = document.getElementById('book-cornua-text');
+    const cornua = document.getElementById('cornua');
+    const text = document.getElementById('cornua-text');
 
-    // tekst na cornua z tłumaczeń
-    cornuaText.innerHTML = translations[lang][`book-${id}-text`] || '';
+    text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
-    // reset stanu
     overlay.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
     overlay.style.opacity = '0';
+    document.body.style.overflow = 'hidden';
 
-    imgCornua.style.top = '-100%';
-    cornuaText.style.opacity = '0';
+    cornua.style.top = '-120%';
+    text.style.opacity = '0';
 
-    // fade-in overlay
-    requestAnimationFrame(() => {
-        overlay.style.opacity = '1';
-    });
+    requestAnimationFrame(() => overlay.style.opacity = '1');
 
-    // wymuszenie reflow, żeby transition top zadziałał
-    void imgCornua.offsetWidth;
+    void cornua.offsetWidth;
 
-    // 1. Cornua wjeżdża od góry
-    imgCornua.style.top = '0';
+    cornua.style.top = '10%';
 
-    // 2. Po zakończeniu animacji pojawia się tekst
     setTimeout(() => {
-        cornuaText.style.opacity = '1';
-    }, 1200); // tyle samo co transition top w CSS
+        text.style.opacity = '1';
+    }, 1200);
 }
 
 function closeBook() {
     const overlay = document.getElementById('book-overlay');
-    const imgCornua = document.getElementById('book-cornua');
-    const cornuaText = document.getElementById('book-cornua-text');
+    const cornua = document.getElementById('cornua');
+    const text = document.getElementById('cornua-text');
 
     overlay.style.opacity = '0';
 
     setTimeout(() => {
         overlay.style.display = 'none';
         document.body.style.overflow = 'auto';
-        imgCornua.style.top = '-100%';
-        cornuaText.style.opacity = '0';
+        cornua.style.top = '-120%';
+        text.style.opacity = '0';
     }, 400);
 }
 
