@@ -85,7 +85,7 @@ function openBook(id, lang) {
     const text = document.getElementById('cornua-text');
 
     // OGÓLNE ustawienie umbilicusa x2
-    setUmbilicus({ scale: 3, x: 0, y: -300 });
+    setUmbilicus({ scale: 2, x: 0, y: 0 });
 
     // NADPISYWANIE USUNIĘTE
 
