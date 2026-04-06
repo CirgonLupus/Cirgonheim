@@ -89,7 +89,7 @@ function openBook(id, lang) {
 
     // różne ustawienia dla różnych książek (x2)
     if (id === 'me') {
-        setUmbilicus({ scale: 2.4, y: -10 });
+        setUmbilicus({ scale: 4, y: -10 });
     } else if (id === 'city') {
         setUmbilicus({ scale: 1.9, y: 5 });
     }
