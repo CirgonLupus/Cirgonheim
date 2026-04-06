@@ -15,7 +15,7 @@
     <!-- PRZYCISK WYJŚCIA -->
     <a href="#" id="exit-btn" class="exit-btn" data-key="exit-label">Wyjście</a>
 
-    <!-- PRZEŁĄCZNIK JĘZYKA (flagi jak na placu) -->
+    <!-- PRZEŁĄCZNIK JĘZYKA -->
     <div class="lang-switch">
         <img src="https://flagcdn.com/w20/pl.png" class="lang-btn" data-lang="pl" alt="PL">
         <img src="https://flagcdn.com/w20/gb.png" class="lang-btn" data-lang="en" alt="EN">
@@ -39,14 +39,16 @@
         <div class="info-rect" id="btn-city" data-key="btn-city">O Cirgonheim'ie</div>
     </div>
 
-    <!-- KSIĄŻKA -->
+    <!-- NOWA KSIĄŻKA -->
     <div id="book-overlay">
-        <div class="book-container">
-            <img src="../../assets/img/book.png" class="book-bg" alt="Księga">
-            <div class="book-content">
-                <h2 id="book-title"></h2>
-                <div id="book-text"></div>
-            </div>
+        <div class="book-new">
+
+            <img id="umbilicus" src="../../assets/img/umbilicus.png" alt="Umbilicus">
+
+            <img id="cornua" src="../../assets/img/cornua.png" alt="Cornua">
+
+            <div id="cornua-text"></div>
+
             <button class="close-book-btn" id="close-book" data-key="close-book">Zamknij</button>
         </div>
     </div>
