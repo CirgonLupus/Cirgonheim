@@ -66,7 +66,7 @@ function fadeInAndGo(url) {
 
 /* STEROWANIE UMBILICUSEM — skala + pozycja X/Y */
 
-function setUmbilicus({ scale = 4, x = 0, y = 0 } = {}) {
+function setUmbilicus({ scale = 1, x = 0, y = 0 } = {}) {
     const umb = document.getElementById('umbilicus');
     if (!umb) return;
 
@@ -85,7 +85,7 @@ function openBook(id, lang) {
     const text = document.getElementById('cornua-text');
 
     // domyślne ustawienie umbilicusa (możesz zmieniać)
-    setUmbilicus({ scale: 1, x: 0, y: 0 });
+    setUmbilicus({ scale: 2, x: 0, y: -300 });
 
     // różne ustawienia dla różnych książek (opcjonalnie)
     if (id === 'me') {
