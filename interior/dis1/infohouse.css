@@ -157,7 +157,7 @@ body {
     align-items: center;
 }
 
-/* Umbilicus – statycznie na górze */
+/* Umbilicus – na górze, nad wszystkim */
 #umbilicus {
     position: absolute;
     top: 0;
@@ -174,10 +174,24 @@ body {
     left: 50%;
     transform: translateX(-50%);
     max-width: 80%;
-    z-index: 2;
+    z-index: 1;
     transition: top 1.2s ease-out;
 }
 
+/* ZASŁONA (pseudo-maska) – pasek nad cornua */
+#cornua-cover {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 140px;              /* obszar od umbilicusa w górę / trochę niżej */
+    background: rgba(0,0,0,0.9); /* ten sam kolor co tło overlay */
+    z-index: 2;                  /* nad cornua, pod umbilicusem */
+    pointer-events: none;
+}
+
+/* Tekst w książce */
 #cornua-text {
     position: absolute;
     bottom: 10%;
