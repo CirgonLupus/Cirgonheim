@@ -84,15 +84,10 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    // domyślne ustawienie umbilicusa (x2)
+    // OGÓLNE ustawienie umbilicusa x2
     setUmbilicus({ scale: 2, x: 0, y: -300 });
 
-    // różne ustawienia dla różnych książek (x2)
-    if (id === 'me') {
-        setUmbilicus({ scale: 4, y: -10 });
-    } else if (id === 'city') {
-        setUmbilicus({ scale: 1.9, y: 5 });
-    }
+    // NADPISYWANIE USUNIĘTE
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
