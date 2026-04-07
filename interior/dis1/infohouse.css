@@ -183,7 +183,7 @@ body {
 
 #cornua {
     position: absolute;
-    top: -120%;         /* start spoza maski */
+    top: -100%;         /* start spoza maski */
     left: 50%;
     transform: translateX(-50%);
     max-width: 100%;
