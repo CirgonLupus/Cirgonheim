@@ -167,31 +167,32 @@ body {
     z-index: 1000;
 }
 
-/* 🔥 Shadowbox – POMIĘDZY umbilicus (3) a cornua (1) */
+/* Shadowbox – niewidzialny znacznik krawędzi */
 #shadowbox {
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: 150px;      /* wysokość maski */
-    overflow: hidden;   /* <<< KLUCZOWE */
-    background: transparent;
-    z-index: 999;
+    height: 140px;      /* wysokość „krawędzi książki” */
     pointer-events: none;
+    background: transparent;
+    z-index: 2;
 }
 
+/* Cornua – przycinana od góry clip-pathem */
 #cornua {
     position: absolute;
-    top: -100%;         /* start spoza maski */
+    top: -120%;         /* start wysoko nad książką */
     left: 50%;
     transform: translateX(-50%);
-    max-width: 100%;
+    max-width: 80%;
     transition: top 1.2s ease-out;
     z-index: 1;
+
+    /* Maska: ucinamy górne 140px */
+    clip-path: inset(140px 0 0 0);
 }
-
-
 
 /* Tekst w książce */
 #cornua-text {
