@@ -157,7 +157,7 @@ body {
     align-items: center;
 }
 
-/* Umbilicus – na górze, nad wszystkim */
+/* Umbilicus – na górze */
 #umbilicus {
     position: absolute;
     top: 0;
@@ -167,31 +167,28 @@ body {
     z-index: 1000;
 }
 
-/* Shadowbox – niewidzialny znacznik krawędzi */
+/* Shadowbox – zwykły czarny prostokąt między umbilicus a cornua */
 #shadowbox {
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: 140px;      /* wysokość „krawędzi książki” */
+    height: 140px;
+    background: #000;
+    z-index: 500;
     pointer-events: none;
-    background: transparent;
-    z-index: 2;
 }
 
-/* Cornua – przycinana od góry clip-pathem */
+/* Cornua – wjeżdża z góry */
 #cornua {
     position: absolute;
-    top: -120%;         /* start wysoko nad książką */
+    top: -120%;
     left: 50%;
     transform: translateX(-50%);
     max-width: 80%;
     transition: top 1.2s ease-out;
     z-index: 1;
-
-    /* Maska: ucinamy górne 140px */
-    clip-path: inset(140px 0 0 0);
 }
 
 /* Tekst w książce */
