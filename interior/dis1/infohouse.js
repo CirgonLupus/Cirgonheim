@@ -96,10 +96,10 @@ function setShadowbox({ x = '50%', y = 0, width = '80%', height = 140 } = {}) {
     const box = document.getElementById('shadowbox');
     if (!box) return;
 
-    // Pozycja w pionie
+    // pion
     box.style.top = typeof y === 'number' ? `${y}px` : y;
 
-    // Pozycja w poziomie – domyślnie center via translateX(-50%)
+    // poziom
     if (typeof x === 'number') {
         box.style.left = `${x}px`;
         box.style.transform = 'translateX(0)';
@@ -108,9 +108,27 @@ function setShadowbox({ x = '50%', y = 0, width = '80%', height = 140 } = {}) {
         box.style.transform = 'translateX(-50%)';
     }
 
-    // Rozmiar
+    // rozmiar
     box.style.width = typeof width === 'number' ? `${width}px` : width;
     box.style.height = typeof height === 'number' ? `${height}px` : height;
+}
+
+/* POWIĄZANIE SHADOWBOX → CORNUA (clip-path) */
+
+function applyShadowboxMask() {
+    const box = document.getElementById('shadowbox');
+    const cornua = document.getElementById('cornua');
+
+    if (!box || !cornua) return;
+
+    const boxRect = box.getBoundingClientRect();
+    const corRect = cornua.getBoundingClientRect();
+
+    // ile cornua ma być ukryte od góry
+    const cut = boxRect.bottom - corRect.top;
+    const topInset = Math.max(0, cut);
+
+    cornua.style.clipPath = `inset(${topInset}px 0 0 0)`;
 }
 
 /* OTWIERANIE KSIĄŻKI */
@@ -120,16 +138,14 @@ function openBook(id, lang) {
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    // Ustawienia startowe
     setUmbilicus({ scale: 2, x: 0, y: 0 });
     setCornua({ scale: 2, x: 0, y: 0 });
 
-    // Shadowbox na górze ekranu/książki
     setShadowbox({
         x: '50%',
         y: 0,        // na górze
         width: '80%',
-        height: 140  // domyślna wysokość
+        height: 140
     });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
@@ -139,16 +155,20 @@ function openBook(id, lang) {
     document.body.style.overflow = 'hidden';
 
     cornua.style.top = '-120%';
+    cornua.style.clipPath = 'inset(0 0 0 0)';
     text.style.opacity = '0';
 
     requestAnimationFrame(() => overlay.style.opacity = '1');
 
     void cornua.offsetWidth;
 
-    // Cornua wjeżdża spod shadowboxa i umbilicusa
     cornua.style.top = '10%';
 
+    // po 1 klatce – nałóż maskę
+    requestAnimationFrame(applyShadowboxMask);
+
     setTimeout(() => {
+        applyShadowboxMask();
         text.style.opacity = '1';
     }, 1200);
 }
@@ -166,6 +186,7 @@ function closeBook() {
         overlay.style.display = 'none';
         document.body.style.overflow = 'auto';
         cornua.style.top = '-120%';
+        cornua.style.clipPath = 'inset(0 0 0 0)';
         text.style.opacity = '0';
     }, 400);
 }
