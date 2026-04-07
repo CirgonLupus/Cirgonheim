@@ -145,7 +145,7 @@ function openBook(id, lang) {
     void cornua.offsetWidth;
 
     // cornua wjeżdża z góry na docelową pozycję
-    cornua.style.top = '10%';
+    cornua.style.top = '0%';
 
     setTimeout(() => {
         text.style.opacity = '1';
