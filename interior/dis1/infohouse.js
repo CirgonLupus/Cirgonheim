@@ -64,7 +64,7 @@ function fadeInAndGo(url) {
     setTimeout(() => window.location.href = url, 1000);
 }
 
-/* STEROWANIE UMBILICUSEM — skala + pozycja X/Y */
+/* UMBILICUS – skala + pozycja */
 
 function setUmbilicus({ scale = 2, x = 0, y = 0 } = {}) {
     const umb = document.getElementById('umbilicus');
@@ -77,7 +77,7 @@ function setUmbilicus({ scale = 2, x = 0, y = 0 } = {}) {
     `;
 }
 
-/* STEROWANIE CORNUA — skala + pozycja X/Y */
+/* CORNUA – skala + pozycja */
 
 function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
     const cor = document.getElementById('cornua');
@@ -90,29 +90,47 @@ function setCornua({ scale = 2, x = 0, y = 0 } = {}) {
     `;
 }
 
-/* STEROWANIE ZASŁONĄ (pseudo-maska) — wysokość + szerokość */
+/* SHADOWBOX – pełna sterowalność (x, y, width, height) */
 
-function setCornuaCover({ height = 140, width = '80%' } = {}) {
-    const cover = document.getElementById('cornua-cover');
-    if (!cover) return;
+function setShadowbox({ x = '50%', y = 0, width = '80%', height = 140 } = {}) {
+    const box = document.getElementById('shadowbox');
+    if (!box) return;
 
-    cover.style.height = typeof height === 'number' ? `${height}px` : height;
-    cover.style.width = typeof width === 'number' ? `${width}px` : width;
+    // Pozycja w pionie
+    box.style.top = typeof y === 'number' ? `${y}px` : y;
+
+    // Pozycja w poziomie – domyślnie center via translateX(-50%)
+    if (typeof x === 'number') {
+        box.style.left = `${x}px`;
+        box.style.transform = 'translateX(0)';
+    } else {
+        box.style.left = x;
+        box.style.transform = 'translateX(-50%)';
+    }
+
+    // Rozmiar
+    box.style.width = typeof width === 'number' ? `${width}px` : width;
+    box.style.height = typeof height === 'number' ? `${height}px` : height;
 }
 
-/* NOWA KSIĄŻKA */
+/* OTWIERANIE KSIĄŻKI */
 
 function openBook(id, lang) {
     const overlay = document.getElementById('book-overlay');
     const cornua = document.getElementById('cornua');
     const text = document.getElementById('cornua-text');
 
-    /* OGÓLNE ustawienia */
+    // Ustawienia startowe
     setUmbilicus({ scale: 2, x: 0, y: 0 });
     setCornua({ scale: 2, x: 0, y: 0 });
 
-    /* Zasłona – obszar od umbilicusa w górę (i trochę niżej) */
-    setCornuaCover({ height: 140, width: '80%' });
+    // Shadowbox na górze ekranu/książki
+    setShadowbox({
+        x: '50%',
+        y: 0,        // na górze
+        width: '80%',
+        height: 140  // domyślna wysokość
+    });
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
@@ -127,13 +145,15 @@ function openBook(id, lang) {
 
     void cornua.offsetWidth;
 
-    /* Cornua wjeżdża spod zasłony i umbilicusa */
+    // Cornua wjeżdża spod shadowboxa i umbilicusa
     cornua.style.top = '10%';
 
     setTimeout(() => {
         text.style.opacity = '1';
     }, 1200);
 }
+
+/* ZAMYKANIE KSIĄŻKI */
 
 function closeBook() {
     const overlay = document.getElementById('book-overlay');
