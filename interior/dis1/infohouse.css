@@ -174,27 +174,23 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: 150px;
+    height: 150px;      /* wysokość maski */
+    overflow: hidden;   /* <<< KLUCZOWE */
     background: transparent;
     z-index: 999;
     pointer-events: none;
-
-    --mask-height: 150px;
 }
 
-/* Cornua – wjeżdża od góry */
 #cornua {
     position: absolute;
-    top: -120%;
+    top: -120%;         /* start spoza maski */
     left: 50%;
     transform: translateX(-50%);
-    max-width: 80%;
-    z-index: 1;
+    max-width: 100%;
     transition: top 1.2s ease-out;
-
-    mask-image: linear-gradient(to bottom, transparent 0, transparent var(--mask-height), black var(--mask-height));
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent var(--mask-height), black var(--mask-height));
+    z-index: 1;
 }
+
 
 
 /* Tekst w książce */
