@@ -169,7 +169,7 @@ body {
 
 /* 🔥 Shadowbox – POMIĘDZY umbilicus (3) a cornua (1) */
 #shadowbox {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
