@@ -172,7 +172,7 @@ body {
     position: absolute;
     top: 600;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(2); /* 🔥 dodany scale */
     width: 80%;
     height: 140px;
     background: red;      /* 🔥 czerwony prostokąt */
