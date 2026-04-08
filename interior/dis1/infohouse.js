@@ -122,12 +122,12 @@ function openBook(id, lang) {
     setCornua({ scale: 2, x: 0, y: 0 });
 
     // shadowbox na górze
-    setShadowbox({
-        x: '50%',
-        y: 0,
-        width: '80%',
-        height: 140
-    });
+    //setShadowbox({
+    //    x: '50%',
+    //    y: 0,
+    //    width: '80%',
+    //    height: 140
+    //});
 
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
