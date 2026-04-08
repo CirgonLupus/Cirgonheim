@@ -170,7 +170,7 @@ body {
 /* Shadowbox – czerwony prostokąt, widoczny */
 #shadowbox {
     position: absolute;
-    top: 1000;
+    top: 600;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
