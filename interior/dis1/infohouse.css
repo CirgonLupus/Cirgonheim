@@ -175,7 +175,7 @@ body {
     transform: translateX(-50%) scale(2); /* 🔥 dodany scale */
     width: 80%;
     height: 140px;
-    background: red;      /* 🔥 czerwony prostokąt */
+    background: black;      /* 🔥 czerwony prostokąt */
     opacity: 1.0;         /* lekko prześwitujący jak wcześniej */
     z-index: 900;         /* między umbilicus a cornua */
     pointer-events: none;
