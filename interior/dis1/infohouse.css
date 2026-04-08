@@ -137,7 +137,7 @@ body {
 #book-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.9);
+    background: #000;
     display: none;
     justify-content: center;
     align-items: center;
@@ -176,7 +176,7 @@ body {
     width: 80%;
     height: 140px;
     background: #000;
-    z-index: 500;
+    z-index: 999;
     pointer-events: none;
 }
 
