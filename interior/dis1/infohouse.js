@@ -79,7 +79,7 @@ function setUmbilicus({ scale = 2, x = 0, y = 0 } = {}) {
 
 /* CORNUA – skala + pozycja */
 
-function setCornua({ scale = 1.9, x = 0, y = 0 } = {}) {
+function setCornua({ scale = 1.5, x = 0, y = 0 } = {}) {
     const cor = document.getElementById('cornua');
     if (!cor) return;
 
