@@ -119,7 +119,7 @@ function openBook(id, lang) {
 
     // startowe ustawienia
     setUmbilicus({ scale: 2, x: 0, y: 0 });
-    setCornua({ scale: 2, x: 0, y: 0 });
+    setCornua({ scale: 1.5, x: 0, y: 0 });
 
     // shadowbox na górze
     //setShadowbox({
