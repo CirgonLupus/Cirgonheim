@@ -119,7 +119,7 @@ function openBook(id, lang) {
 
     // startowe ustawienia
     setUmbilicus({ scale: 2, x: 0, y: 0 });
-    setCornua({ scale: 1.5, x: 0, y: 0 });
+    setCornua({ scale: 1.7, x: 0, y: 0 });
 
     // shadowbox na górze
     //setShadowbox({
@@ -145,7 +145,7 @@ function openBook(id, lang) {
     void cornua.offsetWidth;
 
     // cornua wjeżdża z góry na docelową pozycję
-    cornua.style.top = '30%';
+    cornua.style.top = '-30%';
 
     setTimeout(() => {
         text.style.opacity = '1';
