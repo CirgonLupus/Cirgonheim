@@ -10,10 +10,12 @@ const translations = {
         'close-book': 'Zamknij',
 
         'book-me-text': `
-Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych.<br><br>
-<b>Forma:</b> Cienkopis, który dyscyplinuje myśl.<br>
-<b>Głębia:</b> Markery alkoholowe.<br>
-<b>Ornament:</b> Detal, który zmienia wszystko.
+Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
+<b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach. Tu nie ma miejsca na błędy.<br>
+<b>Głębia:</b> Markery alkoholowe, dzięki którym bawię się cieniem i nasyceniem, nadając płaskiej kartce trzeci wymiar.<br>
+<b>Ornament:</b> Finałowa zabawa detalem, która potrafi całkowicie przekształcić pierwotne elementy, nadając im biżuteryjny charakter.<br><br>
+Inspiracją jest dla mnie wszystko, co dostrzeże moja świadomość – od skomplikowanej struktury neuronu po surowość architektury. Nie chcę jednak dawać Ci gotowych odpowiedzi. Moim celem jest rozbudzenie w Tobie ciekawości. Chcę, abyś patrząc na moje prace, poczuł chęć zajrzenia głębiej, odkrycia ukrytego splotu linii i zadania sobie pytania: „Co widzę tym razem?”.<br><br>
+Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się językiem snów.
         `,
 
         'book-city-text': `
