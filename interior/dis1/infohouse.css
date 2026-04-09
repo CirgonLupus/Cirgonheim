@@ -195,7 +195,7 @@ body {
 /* Tekst w książce */
 #cornua-text {
     position: absolute;
-    bottom: 60%;
+    bottom: 45%;
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
