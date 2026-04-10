@@ -148,10 +148,8 @@ body {
 
 .book-new {
     position: relative;
-    width: 80%;
-    max-width: 900px;
-    height: 80%;
-    max-height: 700px;
+    width: min(900px, 90vw);
+    height: calc(min(900px, 90vw) * 0.75); /* proporcja 4:3 */
     display: flex;
     justify-content: center;
     align-items: center;
