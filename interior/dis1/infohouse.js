@@ -4,14 +4,14 @@ const translations = {
     pl: {
         'title-main': 'Dom Informacyjny',
         'subtitle-main': 'Wybierz temat z paneli bocznych.',
-        'btn-me': 'O Mnie',
+        'btn-me': 'O Mnie: Cirgon',
         'btn-city': "O Cirgonheim'ie",
         'exit-label': 'Wyjście',
         'close-book': 'Zamknij',
 
         'book-me-text': `
-Mój styl to geoorganika ornamentalna. To miejsce, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
-<b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach. Tu nie ma miejsca na błędy.<br>
+Swoje dzieła tworzę jako Cirgon Tyberius Marcus Lupus. Zajmuję się głównie geoorganiką ornamentalną. Tak nazywam swój styl,, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
+<b>Forma:</b> Cienkopis, który dyscyplinuje myśl i zamyka ją w konkretnych liniach. Tu nie ma miejsca na błędy.<b>
 <b>Głębia:</b> Markery alkoholowe, dzięki którym bawię się cieniem i nasyceniem, nadając płaskiej kartce trzeci wymiar.<br>
 <b>Ornament:</b> Finałowa zabawa detalem, która potrafi całkowicie przekształcić pierwotne elementy, nadając im biżuteryjny charakter.<br><br>
 Inspiracją jest dla mnie wszystko, co dostrzeże moja świadomość – od skomplikowanej struktury neuronu po surowość architektury. Nie chcę jednak dawać Ci gotowych odpowiedzi. Moim celem jest rozbudzenie w Tobie ciekawości. Chcę, abyś patrząc na moje prace, poczuł chęć zajrzenia głębiej, odkrycia ukrytego splotu linii i zadania sobie pytania: „Co widzę tym razem?”.<br><br>
@@ -32,7 +32,12 @@ Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cie
         'close-book': 'Close',
 
         'book-me-text': `
-My style is ornamental geo-organics – where geometric precision meets organic unpredictability.
+I create my works as Cirgon Tyberius Marcus Lupus. My focus is ornamental geo-organics — that’s what I call my style, where the mathematical precision of geometry meets the unpredictability of organic forms. Every piece is a process built on three “rituals”:<br><br>
+<b>Form:</b> A fineliner that disciplines thought and locks it into deliberate lines. There is no room for mistakes here.<b>
+<b>Depth:</b> Alcohol markers that let me play with shadow and saturation, giving a flat sheet of paper a third dimension.<b>
+<b>Ornament:</b> The final dance of detail, capable of transforming the original elements entirely and giving them a jewel‑like character.<br><br>
+My inspiration is anything my awareness manages to catch — from the intricate structure of a neuron to the rawness of architecture. But I don’t want to hand you ready-made answers. My goal is to spark your curiosity. I want you, when looking at my work, to feel the urge to look deeper, to uncover the hidden weave of lines, and to ask yourself: “What do I see this time?”<b><b>
+I invite you into my world, where fineliner and color become the language of dreams.
         `,
 
         'book-city-text': `
