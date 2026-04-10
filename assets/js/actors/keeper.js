@@ -24,7 +24,7 @@ export function initKeepers() {
         char.style.left = `${posX}px`;
         char.style.top = `${posY}px`;
         char.style.transformOrigin = "bottom center";
-        char.style.transform = `translate(-50%, ${posY}px) scale(${scaleMin})`;
+        char.style.transform = `translateX(-50%) scale(${scaleMin})`;
 
         // --- FUNKCJA RUCHU GÓRA/DÓŁ + SKALA ---
         const moveVertical = () => {
@@ -44,7 +44,7 @@ export function initKeepers() {
             `;
 
             char.style.top = `${targetY}px`;
-            char.style.transform = `translate(-50%, ${targetY}px) scale(${targetScale})`;
+            char.style.transform = `translateX(-50%) scale(${targetScale})`;
 
             setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
