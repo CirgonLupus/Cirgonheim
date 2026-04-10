@@ -125,6 +125,7 @@ body {
     font-size: 0.9rem;
     letter-spacing: 1px;
     font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
 }
 
 .info-rect:hover {
