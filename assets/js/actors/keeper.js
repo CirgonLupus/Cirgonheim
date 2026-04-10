@@ -20,7 +20,7 @@ export function initKeepers() {
         const maxX = 1000;  // najbardziej w prawo
 
         // Ustawienia startowe
-        char.style.position = "absolute";
+        char.style.position = "fixed";
         char.style.left = `${posX}px`;
         char.style.top = `${posY}px`;
         char.style.transformOrigin = "bottom center";
