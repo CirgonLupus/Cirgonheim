@@ -232,7 +232,7 @@ body {
 }
 
 .character {
-    position: absolute;
+    position: fixed;
     width: 150px;
 }
 
