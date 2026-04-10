@@ -109,8 +109,8 @@ body {
     z-index: 100;
 }
 
-.menu-left { left: 40px; }
-.menu-right { right: 40px; }
+.menu-left { left: 20px; }
+.menu-right { right: 150px; }
 
 .info-rect {
     width: 220px;
