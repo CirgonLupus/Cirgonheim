@@ -115,7 +115,7 @@ body {
 .info-rect {
     width: 220px;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.85);
+    background: url("../../assets/img/umbilicus.png") no-repeat center/cover;
     border: 1px solid var(--gold);
     color: var(--gold);
     text-align: center;
