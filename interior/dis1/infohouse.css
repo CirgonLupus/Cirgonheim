@@ -116,7 +116,7 @@ body {
     width: 220px;
     padding: 15px;
     background: url("../../assets/img/umbilicus.png") no-repeat center/cover;
-    border: 1px solid var(--gold);
+    border: none;
     color: var(--gold);
     text-align: center;
     text-transform: uppercase;
@@ -124,6 +124,7 @@ body {
     transition: all 0.3s;
     font-size: 0.9rem;
     letter-spacing: 1px;
+    font-weight: bold;
 }
 
 .info-rect:hover {
