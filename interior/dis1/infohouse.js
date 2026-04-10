@@ -5,7 +5,7 @@ const translations = {
         'title-main': 'Dom Informacyjny',
         'subtitle-main': 'Wybierz temat z paneli bocznych.',
         'btn-me': 'O Mnie: Cirgon',
-        'btn-city': "O Cirgonheim'ie",
+        'btn-city': "O Cirgonheimie",
         'exit-label': 'Wyjście',
         'close-book': 'Zamknij',
 
@@ -26,7 +26,7 @@ Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cie
     en: {
         'title-main': 'Information House',
         'subtitle-main': 'Choose a topic from the side panels.',
-        'btn-me': 'About Me',
+        'btn-me': 'About Me: Cirgon',
         'btn-city': 'About Cirgonheim',
         'exit-label': 'Exit',
         'close-book': 'Close',
