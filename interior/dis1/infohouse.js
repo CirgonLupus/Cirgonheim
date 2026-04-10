@@ -32,11 +32,11 @@ Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cie
         'close-book': 'Close',
 
         'book-me-text': `
-I create my works as Cirgon Tyberius Marcus Lupus. My focus is ornamental geo-organics — that’s what I call my style, where the mathematical precision of geometry meets the unpredictability of organic forms. Every piece is a process built on three “rituals”:
-<b>Form:</b> A fineliner that disciplines thought and locks it into deliberate lines. There is no room for mistakes here.
-<b>Depth:</b> Alcohol markers that let me play with shadow and saturation, giving a flat sheet of paper a third dimension.
-<b>Ornament:</b> The final dance of detail, capable of transforming the original elements entirely and giving them a jewel‑like character.
-My inspiration is anything my awareness manages to catch — from the intricate structure of a neuron to the rawness of architecture. But I don’t want to hand you ready-made answers. My goal is to spark your curiosity. I want you, when looking at my work, to feel the urge to look deeper, to uncover the hidden weave of lines, and to ask yourself: “What do I see this time?”
+I create my works as Cirgon Tyberius Marcus Lupus. My focus is ornamental geo-organics — that’s what I call my style, where the mathematical precision of geometry meets the unpredictability of organic forms. Every piece is a process built on three “rituals”:<br><br>
+<b>Form:</b> A fineliner that disciplines thought and locks it into deliberate lines. There is no room for mistakes here.<br>
+<b>Depth:</b> Alcohol markers that let me play with shadow and saturation, giving a flat sheet of paper a third dimension.<br>
+<b>Ornament:</b> The final dance of detail, capable of transforming the original elements entirely and giving them a jewel‑like character.<br><br>
+My inspiration is anything my awareness manages to catch — from the intricate structure of a neuron to the rawness of architecture. But I don’t want to hand you ready-made answers. My goal is to spark your curiosity. I want you, when looking at my work, to feel the urge to look deeper, to uncover the hidden weave of lines, and to ask yourself: “What do I see this time?”<br><br>
 I invite you into my world, where fineliner and color become the language of dreams.
         `,
 
