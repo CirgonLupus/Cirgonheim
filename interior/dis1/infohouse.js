@@ -8,6 +8,7 @@ const translations = {
         'btn-city': "O Cirgonheimie",
         'exit-label': 'Wyjście',
         'close-book': 'Zamknij',
+        'btn-new': 'Nowy Przycisk',
 
         'book-me-text': `
 Swoje dzieła tworzę jako Cirgon Tyberius Marcus Lupus. Zajmuję się głównie geoorganiką ornamentalną. Tak nazywam swój styl, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
@@ -20,6 +21,9 @@ Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się język
 
         'book-city-text': `
 Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cienie tworzą fundamenty rzeczywistości.
+        `,
+        'book-new-text': `
+Tutaj treść nowego rozdziału.
         `
     },
 
@@ -30,6 +34,7 @@ Cirgonheim to bastion wiedzy i magii, kraina zrodzona w snach, gdzie linie i cie
         'btn-city': 'About Cirgonheim',
         'exit-label': 'Exit',
         'close-book': 'Close',
+        'btn-new': 'New Button',
 
         'book-me-text': `
 I create my works as Cirgon Tyberius Marcus Lupus. My focus is ornamental geo-organics — that’s what I call my style, where the mathematical precision of geometry meets the unpredictability of organic forms. Every piece is a process built on three “rituals”:<br><br>
@@ -192,6 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
         openBook('me', lang);
     });
 
+    document.getElementById('btn-new').addEventListener('click', () => {
+    const lang = localStorage.getItem('cirgon_lang') || 'pl';
+    openBook('new', lang);
+    });
+    
     document.getElementById('btn-city').addEventListener('click', () => {
         const lang = localStorage.getItem('cirgon_lang') || 'pl';
         openBook('city', lang);
