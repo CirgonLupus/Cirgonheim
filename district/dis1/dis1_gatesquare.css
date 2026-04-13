@@ -224,3 +224,10 @@ body::after {
 #transition-overlay.hidden {
     opacity: 0;
 }
+
+@media (max-width: 768px) {
+    body, html {
+        background-size: 160%;
+        background-position: center top;
+    }
+}
