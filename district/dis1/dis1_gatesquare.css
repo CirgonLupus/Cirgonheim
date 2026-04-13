@@ -85,7 +85,9 @@ body::after {
     max-height: 100%;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); 
+    filter: 
+        drop-shadow(0 20px 40px rgba(0,0,0,0.8))
+        drop-shadow(0 0 12px rgba(0,0,0,0.6));
     pointer-events: none; 
 }
 
