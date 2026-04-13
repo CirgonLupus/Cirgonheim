@@ -115,26 +115,3 @@ window.addEventListener('pageshow', (e) => {
         fadeOutOnEnter();
     }
 });
-let targetX = 50;
-let targetY = 50;
-let currentX = 50;
-let currentY = 50;
-
-document.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 6; 
-    const y = (e.clientY / window.innerHeight - 0.5) * 6;
-
-    targetX = 50 + x;
-    targetY = 50 + y;
-});
-
-function animateParallax() {
-    currentX += (targetX - currentX) * 0.05; 
-    currentY += (targetY - currentY) * 0.05;
-
-    document.body.style.backgroundPosition = `${currentX}% ${currentY}%`;
-
-    requestAnimationFrame(animateParallax);
-}
-
-animateParallax();
