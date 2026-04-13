@@ -227,7 +227,7 @@ body::after {
 
 @media (max-width: 768px) {
     body, html {
-        background-size: 160%;
+        background-size: 300%;
         background-position: center top;
     }
 }
