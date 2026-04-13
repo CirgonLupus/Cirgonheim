@@ -105,6 +105,10 @@ body::after {
     transform: scaleX(var(--dir, 1));
 }
 
+/* ============================
+   POPRAWIONY TYTUŁ BUDYNKU
+   ============================ */
+
 .house-title-frame {
     border: 2px solid var(--gold); 
     padding: 10px 25px;
@@ -115,8 +119,20 @@ body::after {
     margin-bottom: 15px;
     opacity: 0; 
     transition: 0.5s;
+
+    max-width: 90%;
+    text-align: center;
+    white-space: normal;
+
+    /* kluczowa zmiana — responsywne pozycjonowanie */
+    transform: translateY(-20%);
 }
+
 .active .house-title-frame { opacity: 1; }
+
+/* ============================
+   OPIS BUDYNKU
+   ============================ */
 
 .house-description-box {
     width: 85%; padding: 15px; margin-top: 15px;
@@ -138,14 +154,12 @@ body::after {
 @media (min-width: 900px) {
 
     .house-title-frame {
-        margin-top: -120px;
-        margin-bottom: 75px;
-        text-align: center;
         font-size: 2rem;
         padding: 14px 32px;
         border-width: 3px;
         letter-spacing: 4px;
-        white-space: nowrap;
+        margin-bottom: 40px;
+        transform: translateY(-25%);
     }
 
     .house-description-box {
@@ -178,7 +192,7 @@ body::after {
     width: 100%;
     height: 100%;
     background: black;
-    opacity: 1; /* startujemy od czerni */
+    opacity: 1;
     z-index: 5000;
     pointer-events: none;
     transition: opacity 1s ease;
