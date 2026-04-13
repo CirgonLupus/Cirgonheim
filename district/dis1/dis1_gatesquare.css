@@ -1,6 +1,9 @@
 :root { 
     --gold: #c5a059; 
     --card-width: 450px;
+
+    /* ★ ZMIANA — responsywna wysokość wizualizacji */
+    --visual-height: clamp(300px, 40vh, 500px);
 }
 
 @media (max-width: 768px) {
@@ -39,8 +42,11 @@ body::after {
     perspective: 2000px; z-index: 5;
 }
 
+/* ★ ZMIANA — responsywna wysokość karuzeli */
 .carousel-track { 
-    position: relative; width: var(--card-width); height: 600px; 
+    position: relative; 
+    width: var(--card-width); 
+    height: clamp(500px, 80vh, 900px);
     transform-style: preserve-3d;
 }
 
@@ -49,8 +55,6 @@ body::after {
     display: flex; justify-content: center;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-
-    --visual-height: 430px;
 }
 
 .house-card-inner {
@@ -124,7 +128,7 @@ body::after {
     text-align: center;
     white-space: normal;
 
-    /* kluczowa zmiana — responsywne pozycjonowanie */
+    /* ★ ZMIANA — responsywne pozycjonowanie */
     transform: translateY(-20%);
 }
 
@@ -135,11 +139,24 @@ body::after {
    ============================ */
 
 .house-description-box {
-    width: 85%; padding: 15px; margin-top: 15px;
-    background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gold);
-    color: white; text-align: center; font-size: 0.95rem; line-height: 1.4;
-    opacity: 0; transition: 0.5s; backdrop-filter: blur(5px);
+    width: 85%; 
+    padding: 15px; 
+    margin-top: 15px;
+    background: rgba(10, 10, 10, 0.9); 
+    border: 1px solid var(--gold);
+    color: white; 
+    text-align: center; 
+    font-size: 0.95rem; 
+    line-height: 1.4;
+    opacity: 0; 
+    transition: 0.5s; 
+    backdrop-filter: blur(5px);
+
+    /* ★ ZMIANA — brak sztywnej wysokości */
+    min-height: 100px;
+    height: auto;
 }
+
 .active .house-description-box { opacity: 1; }
 
 .nav-btn {
@@ -154,7 +171,7 @@ body::after {
 @media (min-width: 900px) {
 
     .house-title-frame {
-        font-size: 2rem;
+        font-size: clamp(1.4rem, 2vw, 2.2rem); /* ★ ZMIANA — responsywna czcionka */
         padding: 14px 32px;
         border-width: 3px;
         letter-spacing: 4px;
@@ -168,7 +185,10 @@ body::after {
         line-height: 1.5;
         padding: 20px 25px;
 
-        height: 120px;
+        /* ★ ZMIANA — brak sztywnej wysokości */
+        min-height: 120px;
+        height: auto;
+
         margin-top: 40px !important;
         display: flex;
         justify-content: center;
