@@ -239,3 +239,14 @@ body {
     bottom: 40px;
     right: 12%;
 }
+
+@media (max-width: 768px) {
+    .character {
+        width: 110px; /* mniejszy keeper na telefonach */
+    }
+
+    .char-keeper {
+        bottom: 6vh;  /* zamiast 40px — dopasowane do wysokości ekranu */
+        right: 6%;    /* lekko bliżej środka */
+    }
+}
