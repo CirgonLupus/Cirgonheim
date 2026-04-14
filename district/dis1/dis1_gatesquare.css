@@ -232,7 +232,7 @@ body::after {
     }
 }
 /* ============================
-   POPRAWNE, UNIWERSALNE USTAWIENIE KEEPERA
+   POPRAWNE USTAWIENIE KEEPERA
    ============================ */
 
 .character-zone {
@@ -247,3 +247,4 @@ body::after {
 .char-keeper {
     right: 6%;
 }
+
