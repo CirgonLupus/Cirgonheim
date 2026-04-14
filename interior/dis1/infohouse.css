@@ -233,3 +233,10 @@ body {
     height: 45vh; /* keeper będzie miał 45% wysokości ekranu */
     max-height: 600px; /* limit na dużych monitorach */
 }
+@media (max-width: 768px) {
+    .char-keeper {
+        height: 32vh; /* mniejszy keeper */
+        max-height: 380px;
+        transform: translate(-50%, -50%) scale(1); /* podniesiony wyżej */
+    }
+}
