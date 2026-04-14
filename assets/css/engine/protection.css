@@ -1,6 +1,6 @@
 /* Blokada zaznaczania i przeciągania */
-img, 
-.protected-image, 
+img,
+.protected-image,
 .protected-image * {
     user-select: none !important;
     -webkit-user-drag: none !important;
@@ -14,13 +14,5 @@ img,
     background-repeat: no-repeat;
 }
 
-/* Niewidzialna folia blokująca interakcje */
-.protected-image::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: transparent;
-    z-index: 10;
-    pointer-events: all;
-}
+/* USUNIĘTA niewidzialna folia */
+/* NIE dodajemy ::after, NIE dodajemy z-index, NIE dodajemy pointer-events */
