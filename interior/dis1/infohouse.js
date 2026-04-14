@@ -1,4 +1,4 @@
-import { initKeepers } from '../../assets/js/actors/keeper.js';
+//import { initKeepers } from '../../assets/js/actors/keeper.js';
 
 const translations = {
     pl: {
@@ -214,11 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeInAndGo('../../district/dis1/dis1_gatesquare.html');
     });
 
-   try {
-    initKeepers();
-} catch(e) {
-    console.error("KEEPER ERROR:", e);
-}
+//   try {
+//    initKeepers();
+//} catch(e) {
+//    console.error("KEEPER ERROR:", e);
+//}
 
 
     document.addEventListener('contextmenu', e => e.preventDefault());
