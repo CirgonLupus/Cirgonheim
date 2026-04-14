@@ -231,3 +231,19 @@ body::after {
          background-position: center 45%;
     }
 }
+/* ============================
+   UNIWERSALNE POZYCJONOWANIE KEEPERA
+   ============================ */
+
+.character {
+    position: fixed;
+    width: min(12vw, 140px); /* skaluje się do szerokości ekranu */
+    height: auto;
+    pointer-events: none;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
+}
+
+.char-keeper {
+    bottom: 6vh;   /* skaluje się do wysokości ekranu */
+    right: 6vw;    /* skaluje się do szerokości ekranu */
+}
