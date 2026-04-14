@@ -23,7 +23,13 @@ body {
 }
 
 #transition-overlay {
-    display: none !important;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    opacity: 1;
+    transition: opacity 1s ease;
+    z-index: 9999;
+    pointer-events: none;
 }
 
 .exit-btn {
