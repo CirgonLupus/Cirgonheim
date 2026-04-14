@@ -1,28 +1,39 @@
+/* ============================================
+   CIRGONHEIM — ACTOR: KEEPER (STABLE VERSION)
+   ============================================ */
+
 export function initKeepers() {
     const actors = document.querySelectorAll('.char-keeper');
 
     actors.forEach(char => {
 
-        // Zakres ruchu w % ekranu
-        const minY = 45;
-        const maxY = 70;
+        /* -----------------------------------------
+           ZAKRES RUCHU W JEDNOSTKACH VIEWPORTU
+           ----------------------------------------- */
 
-        const minX = 42;
-        const maxX = 58;
+        const minY = 45;   // 45vh
+        const maxY = 70;   // 70vh
 
-        // Skala przy górze i dole
+        const minX = 42;   // 42vw
+        const maxX = 58;   // 58vw
+
+        /* -----------------------------------------
+           SKALA W ZALEŻNOŚCI OD WYSOKOŚCI
+           ----------------------------------------- */
+
         const scaleAtMinY = 0.85;
         const scaleAtMaxY = 1.15;
 
-        const realH = () => window.innerHeight;
-        const realW = () => window.innerWidth;
+        /* -----------------------------------------
+           RUCH GÓRA/DÓŁ + SKALA
+           ----------------------------------------- */
 
-        // --- RUCH GÓRA/DÓŁ + SKALA ---
         const moveVertical = () => {
 
             const goingDown = Math.random() > 0.5;
             const targetY = goingDown ? maxY : minY;
 
+            // interpolacja skali
             const t = (targetY - minY) / (maxY - minY);
             const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
 
@@ -33,13 +44,17 @@ export function initKeepers() {
                 transform ${duration}ms ease-in-out
             `;
 
-            char.style.top = `${(targetY / 100) * realH()}px`;
+            // *** POPRAWIONE: stabilna pozycja bez teleportów ***
+            char.style.top = `${targetY}vh`;
             char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
 
             setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
 
-        // --- RUCH LEWO/PRAWO ---
+        /* -----------------------------------------
+           RUCH LEWO/PRAWO
+           ----------------------------------------- */
+
         const moveHorizontal = () => {
 
             const goingRight = Math.random() > 0.5;
@@ -51,12 +66,16 @@ export function initKeepers() {
                 left ${duration}ms ease-in-out
             `;
 
-            char.style.left = `${(targetX / 100) * realW()}px`;
+            // *** POPRAWIONE: stabilna pozycja bez teleportów ***
+            char.style.left = `${targetX}vw`;
 
             setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
         };
 
-        // Start ruchów
+        /* -----------------------------------------
+           START RUCHÓW
+           ----------------------------------------- */
+
         setTimeout(moveVertical, 500);
         setTimeout(moveHorizontal, 800);
     });
