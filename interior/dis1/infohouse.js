@@ -214,7 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeInAndGo('../../district/dis1/dis1_gatesquare.html');
     });
 
-    try { initKeepers(); } catch(e) {}
+   try {
+    initKeepers();
+} catch(e) {
+    console.error("KEEPER ERROR:", e);
+}
+
 
     document.addEventListener('contextmenu', e => e.preventDefault());
 });
