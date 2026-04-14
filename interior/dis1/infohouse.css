@@ -250,3 +250,18 @@ body {
         right: 6%;    /* lekko bliżej środka */
     }
 }
+.character-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.char-keeper {
+    position: absolute;
+    width: min(22vw, 160px);
+    transform: translate(-50%, -50%); /* środek keepera = punkt odniesienia */
+
+    left: 50%;   /* środek indoor.png */
+    top: 58%;    /* nieco poniżej środka indoor.png */
+}
