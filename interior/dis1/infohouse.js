@@ -1,4 +1,4 @@
-import { initKeepers } from '../../assets/js/actors/keeper.js';
+import { initKeepers } from '../../../assets/js/actors/keeper.js';
 
 const translations = {
     pl: {
