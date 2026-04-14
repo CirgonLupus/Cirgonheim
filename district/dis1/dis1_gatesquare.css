@@ -228,6 +228,6 @@ body::after {
 @media (max-width: 768px) {
     body, html {
         background-size: 500%;
-         background-position: center 40%;
+         background-position: center 45%;
     }
 }
