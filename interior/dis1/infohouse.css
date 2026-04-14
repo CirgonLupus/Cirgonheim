@@ -230,13 +230,14 @@ body {
     left: 50%;
     transform: translate(-50%, -25%) scale(1);
     width: auto;
-    height: 45vh; /* keeper będzie miał 45% wysokości ekranu */
-    max-height: 600px; /* limit na dużych monitorach */
+    height: 45vh;
+    max-height: 600px;
 }
+
 @media (max-width: 768px) {
     .char-keeper {
-        height: 32vh; /* mniejszy keeper */
+        height: 32vh;
         max-height: 380px;
-        transform: translate(-50%, -50%) scale(1); /* podniesiony wyżej */
+        transform: translate(-50%, -40%) scale(1); /* było -50%, teraz -40% */
     }
 }
