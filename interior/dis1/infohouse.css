@@ -222,20 +222,20 @@ body {
 
 .character-container {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
-    z-index: 50;
+    overflow: visible;
 }
 
 .char-keeper {
     position: absolute;
-    width: min(22vw, 160px);
-    height: auto;
-
+    top: 50%;
     left: 50%;
-    top: 58%;
-    transform: translate(-50%, -50%);
-
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
-    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1);
+    width: auto;
+    height: 45vh; /* keeper będzie miał 45% wysokości ekranu */
+    max-height: 600px; /* limit na dużych monitorach */
 }
