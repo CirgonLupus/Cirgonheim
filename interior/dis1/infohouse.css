@@ -138,7 +138,7 @@ body {
 #book-overlay {
     position: fixed;
     inset: 0;
-    background: #000; /* pełna czerń */
+    background: #000;
     display: none;
     justify-content: center;
     align-items: center;
@@ -150,13 +150,12 @@ body {
 .book-new {
     position: relative;
     width: min(900px, 90vw);
-    height: calc(min(900px, 90vw) * 0.75); /* proporcja 4:3 */
+    height: calc(min(900px, 90vw) * 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Umbilicus – na górze */
 #umbilicus {
     position: absolute;
     top: 0;
@@ -166,21 +165,19 @@ body {
     z-index: 1000;
 }
 
-/* Shadowbox – czerwony prostokąt, widoczny */
 #shadowbox {
     position: absolute;
     top: -150px;
     left: 50%;
-    transform: translateX(-50%) scale(2); /* 🔥 dodany scale */
+    transform: translateX(-50%) scale(2);
     width: 80%;
     height: 140px;
-    background: black;      /* 🔥 czerwony prostokąt */
-    opacity: 1.0;         /* lekko prześwitujący jak wcześniej */
-    z-index: 900;         /* między umbilicus a cornua */
+    background: black;
+    opacity: 1.0;
+    z-index: 900;
     pointer-events: none;
 }
 
-/* Cornua – wjeżdża z góry */
 #cornua {
     position: absolute;
     top: -120%;
@@ -191,7 +188,6 @@ body {
     z-index: 1;
 }
 
-/* Tekst w książce */
 #cornua-text {
     position: absolute;
     bottom: 28%;
@@ -220,48 +216,26 @@ body {
     z-index: 5;
 }
 
+/* ============================
+   KEEPER – STAŁA POZYCJA WZGLĘDEM INDOOR.PNG
+   ============================ */
 
-/* KEEPER */
-
-.character-container {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    pointer-events: none;
-}
-
-.character {
-    position: fixed;
-    width: 150px;
-}
-
-.char-keeper {
-    bottom: 40px;
-    right: 12%;
-}
-
-@media (max-width: 768px) {
-    .character {
-        width: 110px; /* mniejszy keeper na telefonach */
-    }
-
-    .char-keeper {
-        bottom: 6vh;  /* zamiast 40px — dopasowane do wysokości ekranu */
-        right: 6%;    /* lekko bliżej środka */
-    }
-}
 .character-container {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 20;
+    z-index: 50;
 }
 
 .char-keeper {
     position: absolute;
     width: min(22vw, 160px);
-    transform: translate(-50%, -50%); /* środek keepera = punkt odniesienia */
+    height: auto;
 
-    left: 50%;   /* środek indoor.png */
-    top: 58%;    /* nieco poniżej środka indoor.png */
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
+    pointer-events: none;
 }
