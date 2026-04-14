@@ -4,54 +4,59 @@ export function initKeepers() {
     actors.forEach(char => {
 
         // Zakres ruchu w % ekranu
-       const realH = () => window.innerHeight;
-const realW = () => window.innerWidth;
+        const minY = 45;
+        const maxY = 70;
 
-// --- FUNKCJA RUCHU GÓRA/DÓŁ + SKALA ---
-const moveVertical = () => {
+        const minX = 42;
+        const maxX = 58;
 
-    const goingDown = Math.random() > 0.5;
-    const targetY = goingDown ? maxY : minY;
+        // Skala przy górze i dole
+        const scaleAtMinY = 0.85;
+        const scaleAtMaxY = 1.15;
 
-    const t = (targetY - minY) / (maxY - minY);
-    const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
+        const realH = () => window.innerHeight;
+        const realW = () => window.innerWidth;
 
-    const duration = 2000 + Math.random() * 2000;
+        // --- RUCH GÓRA/DÓŁ + SKALA ---
+        const moveVertical = () => {
 
-    char.style.transition = `
-        top ${duration}ms ease-in-out,
-        transform ${duration}ms ease-in-out
-    `;
+            const goingDown = Math.random() > 0.5;
+            const targetY = goingDown ? maxY : minY;
 
-    char.style.top = `${(targetY/100) * realH()}px`;
-    char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
+            const t = (targetY - minY) / (maxY - minY);
+            const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
 
-    setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
-};
+            const duration = 2000 + Math.random() * 2000;
 
-// --- FUNKCJA RUCHU LEWO/PRAWO ---
-const moveHorizontal = () => {
+            char.style.transition = `
+                top ${duration}ms ease-in-out,
+                transform ${duration}ms ease-in-out
+            `;
 
-    const goingRight = Math.random() > 0.5;
-    const targetX = goingRight ? maxX : minX;
+            char.style.top = `${(targetY / 100) * realH()}px`;
+            char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
 
-    const duration = 1500 + Math.random() * 2000;
+            setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
+        };
 
-    char.style.transition = `
-        left ${duration}ms ease-in-out
-    `;
+        // --- RUCH LEWO/PRAWO ---
+        const moveHorizontal = () => {
 
-    char.style.left = `${(targetX/100) * realW()}px`;
+            const goingRight = Math.random() > 0.5;
+            const targetX = goingRight ? maxX : minX;
 
-    setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
-};
+            const duration = 1500 + Math.random() * 2000;
 
-            char.style.left = `${targetX}vw`;
+            char.style.transition = `
+                left ${duration}ms ease-in-out
+            `;
+
+            char.style.left = `${(targetX / 100) * realW()}px`;
 
             setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
         };
 
-        // start ruchów
+        // Start ruchów
         setTimeout(moveVertical, 500);
         setTimeout(moveHorizontal, 800);
     });
