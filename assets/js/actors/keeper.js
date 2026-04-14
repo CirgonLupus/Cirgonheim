@@ -3,28 +3,27 @@ export function initKeepers() {
 
     actors.forEach(char => {
 
-        // Skala minimalna i maksymalna (możesz zmieniać)
-        const scaleMin = 3.0;   // skala u góry
-        const scaleMax = 6.0;   // skala na dole
+        // Zakres ruchu w % ekranu
+        const minX = 45;   // 45% szerokości ekranu
+        const maxX = 55;   // 55% szerokości ekranu
+
+        const minY = 52;   // trochę poniżej środka
+        const maxY = 62;   // jeszcze niżej
+
+        // Skala zależna od Y (perspektywa)
+        const scaleAtMinY = 1.0;
+        const scaleAtMaxY = 1.4;
 
         // Pozycja startowa
-        let posX = 950;
-        let posY = 600;
-
-        // Zakres ruchu góra/dół
-        const minY = 600;   // najwyżej
-        const maxY = 950;   // najniżej
-
-        // Zakres ruchu lewo/prawo
-        const minX = 900;   // najbardziej w lewo
-        const maxX = 1000;  // najbardziej w prawo
+        let posX = 50;
+        let posY = 58;
 
         // Ustawienia startowe
         char.style.position = "fixed";
-        char.style.left = `${posX}px`;
-        char.style.top = `${posY}px`;
+        char.style.left = `${posX}vw`;
+        char.style.top = `${posY}vh`;
         char.style.transformOrigin = "bottom center";
-        char.style.transform = `translateX(-50%) scale(${scaleMin})`;
+        char.style.transform = `translate(-50%, -50%) scale(${scaleAtMinY})`;
 
         // --- FUNKCJA RUCHU GÓRA/DÓŁ + SKALA ---
         const moveVertical = () => {
@@ -32,19 +31,20 @@ export function initKeepers() {
             const goingDown = Math.random() > 0.5;
 
             const targetY = goingDown ? maxY : minY;
-            const targetScale = goingDown ? scaleMax : scaleMin;
+
+            // interpolacja skali
+            const t = (targetY - minY) / (maxY - minY);
+            const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
 
             const duration = 2000 + Math.random() * 2000;
 
-            // JEDEN transition dla wszystkiego
             char.style.transition = `
                 top ${duration}ms ease-in-out,
-                left ${duration}ms ease-in-out,
                 transform ${duration}ms ease-in-out
             `;
 
-            char.style.top = `${targetY}px`;
-            char.style.transform = `translateX(-50%) scale(${targetScale})`;
+            char.style.top = `${targetY}vh`;
+            char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
 
             setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
@@ -58,14 +58,11 @@ export function initKeepers() {
 
             const duration = 1500 + Math.random() * 2000;
 
-            // JEDEN transition dla wszystkiego
             char.style.transition = `
-                top ${duration}ms ease-in-out,
-                left ${duration}ms ease-in-out,
-                transform ${duration}ms ease-in-out
+                left ${duration}ms ease-in-out
             `;
 
-            char.style.left = `${targetX}px`;
+            char.style.left = `${targetX}vw`;
 
             setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
         };
