@@ -228,7 +228,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -25%) scale(1);
     width: auto;
     height: 45vh; /* keeper będzie miał 45% wysokości ekranu */
     max-height: 600px; /* limit na dużych monitorach */
