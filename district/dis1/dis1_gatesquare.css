@@ -231,20 +231,3 @@ body::after {
          background-position: center 45%;
     }
 }
-/* ============================
-   POPRAWNE USTAWIENIE KEEPERA
-   ============================ */
-
-.character-zone {
-    height: 18%; /* przestrzeń pod budynkiem */
-}
-
-.character {
-    bottom: 0;
-    width: min(14vw, 130px);
-}
-
-.char-keeper {
-    right: 6%;
-}
-
