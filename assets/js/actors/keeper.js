@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // skala zależna od Y: 0 → baza, maxY → największy
         const t = offsetY / moveRangeY; // 0 .. 1
-        const scaleFactor = 1 + t * 0.2; // 12% różnicy między bazą a dołem
+        const scaleFactor = 1 + t * 0.7; // 12% różnicy między bazą a dołem
         const finalScale = baseScale * scaleFactor;
 
         keeper.style.transition = `transform ${speed}ms ease-in-out`;
