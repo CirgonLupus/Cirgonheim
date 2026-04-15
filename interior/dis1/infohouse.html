@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wnętrze – Dom Informacyjny</title>
+
     <link rel="stylesheet" href="infohouse.css">
     <link rel="stylesheet" href="../../assets/css/security/protection.css">
 </head>
@@ -29,44 +30,48 @@
         </div>
     </div>
 
+    <!-- LEWY PANEL -->
     <div class="side-menu menu-left">
         <div id="btn-me" class="info-rect" data-key="btn-me"></div>
         <div id="btn-city" class="info-rect" data-key="btn-city"></div>
     </div>
 
+    <!-- PRAWY PANEL -->
     <div class="side-menu menu-right">
-        <!-- tu będzie nowy przycisk -->
         <div id="btn-new" class="info-rect" data-key="btn-new"></div>
     </div>
 
     <!-- KSIĄŻKA -->
-        <div id="book-overlay">
+    <div id="book-overlay">
+        <div class="book-new">
 
-            <div class="book-new">
+            <!-- Umbilicus -->
+            <img id="umbilicus" src="../../assets/img/umbilicus.png" alt="Umbilicus">
 
-                <!-- Umbilicus -->
-                <img id="umbilicus" src="../../assets/img/umbilicus.png" alt="Umbilicus">
+            <!-- Shadowbox -->
+            <div id="shadowbox"></div>
 
-                <!-- Shadowbox – czerwony prostokąt -->
-                <div id="shadowbox"></div>
-        
-                <!-- Cornua – wjeżdża z góry -->
-                <img id="cornua" src="../../assets/img/cornua.png" alt="Cornua">
-        
-                <!-- Tekst -->
-                <div id="cornua-text"></div>
+            <!-- Cornua -->
+            <img id="cornua" src="../../assets/img/cornua.png" alt="Cornua">
+
+            <!-- Tekst -->
+            <div id="cornua-text"></div>
 
             <button class="close-book-btn" id="close-book" data-key="close-book">Zamknij</button>
         </div>
     </div>
-
 
     <!-- KEEPER -->
     <div class="character-container">
         <img src="../../assets/img/001_winered.png" class="char-keeper" alt="Keeper">
     </div>
 
+    <!-- SKRYPTY -->
     <!-- <script type="module" src="../../assets/js/security/protection.js"></script> -->
     <script type="module" src="infohouse.js"></script>
+
+    <!-- TWÓJ RUCH KEEPERA -->
+    <script src="keeper.js"></script>
+
 </body>
 </html>
