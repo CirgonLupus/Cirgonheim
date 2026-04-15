@@ -254,7 +254,10 @@ body {
 
     /* Możemy też powiększyć odstęp między przyciskami */
     .info-rect {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+        min-width: 130px;
+        border-radius: 10px;
         margin: 12px 0;
     }
 }
-Efekt:
