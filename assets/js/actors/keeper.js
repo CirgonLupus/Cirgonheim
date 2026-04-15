@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // PARAMETRY MOBILE
     // ============================
     const mobile = {
-        moveRangeX: 12,    // większy zakres, bo ekran mały
-        moveRangeY: 10,    // schodzi wyraźnie niżej
+        moveRangeX: 20,    // większy zakres, bo ekran mały
+        moveRangeY: 15,    // schodzi wyraźnie niżej
         speed: 4500,       // jeszcze wolniejszy
         baseTranslateX: -50,
         baseTranslateY: -55, // z Twojego CSS
