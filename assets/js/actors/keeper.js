@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ZAKRES RUCHU — ZWIĘKSZONY
     const moveRangeX = 8;   // było 4 — teraz dwa razy większy zakres
-    const moveRangeY = 6;   // było 3 — teraz schodzi niżej i wyżej
+    const moveRangeY = 25;   // było 3 — teraz schodzi niżej i wyżej
 
     // PRĘDKOŚĆ — WOLNIEJSZA
     const speed = 4000;     // było 2500 — teraz płynniejszy, spokojniejszy
