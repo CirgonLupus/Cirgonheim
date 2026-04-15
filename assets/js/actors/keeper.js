@@ -2,27 +2,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const keeper = document.querySelector(".char-keeper");
     if (!keeper) return;
 
-    // ZAKRES RUCHU — ZWIĘKSZONY
-    const moveRangeX = 8;   // było 4 — teraz dwa razy większy zakres
-    const moveRangeY = 25;   // było 3 — teraz schodzi niżej i wyżej
+    // ZAKRES RUCHU
+    const moveRangeX = 8;   // szerzej na boki
+    const moveRangeY = 25;   // tylko w dół od bazy
+    const speed = 4000;     // wolniejszy ruch
 
-    // PRĘDKOŚĆ — WOLNIEJSZA
-    const speed = 4000;     // było 2500 — teraz płynniejszy, spokojniejszy
-
-    // Twoja baza z CSS
+    // BAZA z CSS
     const baseTranslateX = -50;
     const baseTranslateY = -40;
     const baseScale = 1.3;
 
     function animateKeeper() {
+        // X: symetrycznie w lewo/prawo
+        const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX; // -8 .. +8
 
-        // losowe przesunięcia
-        const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX;
-        const offsetY = (Math.random() * moveRangeY * 2) - moveRangeY;
+        // Y: TYLKO W DÓŁ od bazy
+        const offsetY = Math.random() * moveRangeY; // 0 .. +6
 
-        // skala zależna od Y
-        const t = offsetY / moveRangeY; 
-        const scaleFactor = 1 + t * 0.10; // było 0.08 — teraz wyraźniejsza zmiana
+        // skala zależna od Y: 0 → baza, maxY → największy
+        const t = offsetY / moveRangeY; // 0 .. 1
+        const scaleFactor = 1 + t * 0.12; // 12% różnicy między bazą a dołem
         const finalScale = baseScale * scaleFactor;
 
         keeper.style.transition = `transform ${speed}ms ease-in-out`;
