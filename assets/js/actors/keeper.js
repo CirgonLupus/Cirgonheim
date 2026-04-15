@@ -1,3 +1,4 @@
+console.log("KEEPER.JS LOADED");
 document.addEventListener("DOMContentLoaded", () => {
     const keeper = document.querySelector(".char-keeper");
     if (!keeper) return;
