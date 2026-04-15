@@ -241,3 +241,6 @@ body {
         transform: translate(-50%, -25%) scale(1); /* było -50%, teraz -10% */
     }
 }
+.char-keeper {
+    outline: 5px solid red !important;
+}
