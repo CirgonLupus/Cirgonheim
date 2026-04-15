@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ============================
     const desktop = {
         moveRangeX: 20,     // szeroki ruch na boki
-        moveRangeY: 36,     // tylko w dół
+        moveRangeY: 30,     // tylko w dół
         speed: 4000,       // wolniejszy
         baseTranslateX: -50,
         baseTranslateY: -40,
