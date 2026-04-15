@@ -244,3 +244,17 @@ body {
 .char-keeper {
     outline: 5px solid red !important;
 }
+@media (max-width: 768px) {
+
+    /* Obniżamy całe panele boczne */
+    .side-menu {
+        top: 60%; /* było pewnie 50% – teraz niżej */
+        transform: translateY(-50%);
+    }
+
+    /* Możemy też powiększyć odstęp między przyciskami */
+    .info-rect {
+        margin: 12px 0;
+    }
+}
+Efekt:
