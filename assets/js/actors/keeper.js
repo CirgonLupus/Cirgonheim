@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!keeper) return;
 
     // ZAKRES RUCHU
-    const moveRangeX = 8;   // szerzej na boki
-    const moveRangeY = 50;   // tylko w dół od bazy
+    const moveRangeX = 16;   // szerzej na boki
+    const moveRangeY = 40;   // tylko w dół od bazy
     const speed = 4000;     // wolniejszy ruch
 
     // BAZA z CSS
