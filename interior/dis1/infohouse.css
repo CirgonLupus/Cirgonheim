@@ -228,7 +228,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -25%) scale(1);
+    transform: translate(-50%, -35%) scale(1);
     width: auto;
     height: 45vh;
     max-height: 600px;
@@ -243,7 +243,4 @@ body {
 }
 .char-keeper {
     outline: 5px solid red !important;
-}
-.character {
-    outline: 5px solid blue !important;
 }
