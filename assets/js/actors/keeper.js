@@ -2,32 +2,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const keeper = document.querySelector(".char-keeper");
     if (!keeper) return;
 
-    // PARAMETRY RUCHU
-    const moveRangeX = 4;   // maksymalne odchylenie lewo-prawo (%)
-    const moveRangeY = 3;   // maksymalne odchylenie góra-dół (%)
-    const speed = 2500;     // czas jednego przejścia (ms)
+    const moveRangeX = 4;
+    const moveRangeY = 3;
+    const speed = 2500;
 
-    function parseTransform(transform) {
-        // transform: translate(-50%, -40%) scale(1.3)
-        const translateMatch = transform.match(/translate\(([-0-9.]+)%,\s*([-0-9.]+)%\)/);
-        const scaleMatch = transform.match(/scale\(([-0-9.]+)\)/);
+    function parseMatrix(matrix) {
+        // matrix(a, b, c, d, tx, ty)
+        const values = matrix.match(/matrix\((.+)\)/)[1].split(",").map(v => parseFloat(v.trim()));
 
-        return {
-            baseX: translateMatch ? parseFloat(translateMatch[1]) : -50,
-            baseY: translateMatch ? parseFloat(translateMatch[2]) : -40,
-            baseScale: scaleMatch ? parseFloat(scaleMatch[1]) : 1
-        };
+        const a = values[0];
+        const d = values[3];
+        const tx = values[4];
+        const ty = values[5];
+
+        // scale = a (lub d)
+        const scale = a;
+
+        // przeliczamy px → %
+        const baseX = (tx / window.innerWidth) * 100;
+        const baseY = (ty / window.innerHeight) * 100;
+
+        return { baseX, baseY, baseScale: scale };
     }
 
     function animateKeeper() {
         const style = window.getComputedStyle(keeper);
-        const { baseX, baseY, baseScale } = parseTransform(style.transform);
+        const transform = style.transform;
 
-        // losowe przesunięcia
+        if (transform === "none") return;
+
+        const { baseX, baseY, baseScale } = parseMatrix(transform);
+
         const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX;
         const offsetY = (Math.random() * moveRangeY * 2) - moveRangeY;
 
-        // skala zależna od Y
         const scaleOffset = offsetY / (moveRangeY * 10);
         const finalScale = baseScale + scaleOffset;
 
