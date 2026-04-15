@@ -1,57 +1,76 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const keeper = document.querySelector(".char-keeper");
-    if (!keeper) return;
+export function initKeepers() {
+    const actors = document.querySelectorAll('.char-keeper');
 
-    // PARAMETRY RUCHU
-    const moveRangeX = 4;   // odchylenie lewo-prawo w %
-    const moveRangeY = 3;   // odchylenie góra-dół w %
-    const speed = 2500;     // czas jednego przejścia (ms)
+    actors.forEach(char => {
 
-    // BAZA – zgodna z Twoim CSS
-    function getBaseTransform() {
-        const isMobile = window.innerWidth <= 768;
+        /* -----------------------------------------
+           ZAKRES RUCHU W JEDNOSTKACH VIEWPORTU
+           ----------------------------------------- */
 
-        return {
-            baseX: -50,                 // zawsze -50%
-            baseY: isMobile ? -60 : -40, // jak w media query
-            baseScale: isMobile ? 0.7 : 1.3
+        const minY = 45;   // 45vh
+        const maxY = 70;   // 70vh
+
+        const minX = 42;   // 42vw
+        const maxX = 58;   // 58vw
+
+        /* -----------------------------------------
+           SKALA W ZALEŻNOŚCI OD WYSOKOŚCI
+           ----------------------------------------- */
+
+        const scaleAtMinY = 0.85;   // najwyżej → najmniejszy
+        const scaleAtMaxY = 1.15;   // najniżej → największy
+
+        /* -----------------------------------------
+           RUCH GÓRA/DÓŁ + SKALA
+           ----------------------------------------- */
+
+        const moveVertical = () => {
+
+            const goingDown = Math.random() > 0.5;
+            const targetY = goingDown ? maxY : minY;
+
+            // interpolacja skali (0–1)
+            const t = (targetY - minY) / (maxY - minY);
+            const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
+
+            const duration = 2000 + Math.random() * 2000;
+
+            char.style.transition = `
+                top ${duration}ms ease-in-out,
+                transform ${duration}ms ease-in-out
+            `;
+
+            char.style.top = `${targetY}vh`;
+            char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
+
+            setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
         };
-    }
 
-    function animateKeeper() {
-        const { baseX, baseY, baseScale } = getBaseTransform();
+        /* -----------------------------------------
+           RUCH LEWO/PRAWO
+           ----------------------------------------- */
 
-        // losowe przesunięcia wokół pozycji bazowej
-        const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX; // [-moveRangeX, +moveRangeX]
-        const offsetY = (Math.random() * moveRangeY * 2) - moveRangeY; // [-moveRangeY, +moveRangeY]
+        const moveHorizontal = () => {
 
-        // skala zależna od Y:
-        // offsetY = 0  → skala bazowa
-        // offsetY > 0  → niżej → większy
-        // offsetY < 0  → wyżej → mniejszy
-        const scaleStrength = 0.06; // jak mocno reaguje na Y
-        const t = offsetY / moveRangeY; // -1 .. 1
-        const scaleFactor = 1 + t * scaleStrength;
-        const finalScale = baseScale * scaleFactor;
+            const goingRight = Math.random() > 0.5;
+            const targetX = goingRight ? maxX : minX;
 
-        keeper.style.transition = `transform ${speed}ms ease-in-out`;
-        keeper.style.transform = `
-            translate(${baseX + offsetX}%, ${baseY + offsetY}%)
-            scale(${finalScale})
-        `;
+            const duration = 1500 + Math.random() * 2000;
 
-        setTimeout(animateKeeper, speed);
-    }
+            char.style.transition = `
+                left ${duration}ms ease-in-out
+            `;
 
-    animateKeeper();
+            char.style.left = `${targetX}vw`;
 
-    // opcjonalnie: reaguj na zmianę rozmiaru okna, żeby po resize nie zostać w złej bazie
-    window.addEventListener("resize", () => {
-        // reset do bazy po resize
-        const { baseX, baseY, baseScale } = getBaseTransform();
-        keeper.style.transform = `
-            translate(${baseX}%, ${baseY}%)
-            scale(${baseScale})
-        `;
+            setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
+        };
+
+        /* -----------------------------------------
+           START RUCHÓW
+           ----------------------------------------- */
+
+        setTimeout(moveVertical, 500);
+        setTimeout(moveHorizontal, 800);
     });
-});
+}
