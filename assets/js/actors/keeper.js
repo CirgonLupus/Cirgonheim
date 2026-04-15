@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // PARAMETRY DESKTOP
     // ============================
     const desktop = {
-        moveRangeX: 16,     // szeroki ruch na boki
-        moveRangeY: 40,     // tylko w dół
+        moveRangeX: 20,     // szeroki ruch na boki
+        moveRangeY: 36,     // tylko w dół
         speed: 4000,       // wolniejszy
         baseTranslateX: -50,
         baseTranslateY: -40,
         baseScale: 1.3,
-        scalePower: 1.0   // jak mocno rośnie
+        scalePower: 0.95   // jak mocno rośnie
     };
 
     // ============================
