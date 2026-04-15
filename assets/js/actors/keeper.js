@@ -1,82 +1,44 @@
-/* ============================================
-   CIRGONHEIM — ACTOR: KEEPER (STABLE VERSION)
-   ============================================ */
+document.addEventListener("DOMContentLoaded", () => {
+    const keeper = document.querySelector(".char-keeper");
+    if (!keeper) return;
 
-export function initKeepers() {
-    const actors = document.querySelectorAll('.char-keeper');
+    // PARAMETRY RUCHU
+    const moveRangeX = 4;   // maksymalne odchylenie lewo-prawo (%)
+    const moveRangeY = 3;   // maksymalne odchylenie góra-dół (%)
+    const speed = 2500;     // czas jednego przejścia (ms)
 
-    actors.forEach(char => {
+    function parseTransform(transform) {
+        // transform: translate(-50%, -40%) scale(1.3)
+        const translateMatch = transform.match(/translate\(([-0-9.]+)%,\s*([-0-9.]+)%\)/);
+        const scaleMatch = transform.match(/scale\(([-0-9.]+)\)/);
 
-        /* -----------------------------------------
-           ZAKRES RUCHU W JEDNOSTKACH VIEWPORTU
-           ----------------------------------------- */
-
-        const minY = 45;   // 45vh
-        const maxY = 70;   // 70vh
-
-        const minX = 42;   // 42vw
-        const maxX = 58;   // 58vw
-
-        /* -----------------------------------------
-           SKALA W ZALEŻNOŚCI OD WYSOKOŚCI
-           ----------------------------------------- */
-
-        const scaleAtMinY = 0.85;
-        const scaleAtMaxY = 1.15;
-
-        /* -----------------------------------------
-           RUCH GÓRA/DÓŁ + SKALA
-           ----------------------------------------- */
-
-        const moveVertical = () => {
-
-            const goingDown = Math.random() > 0.5;
-            const targetY = goingDown ? maxY : minY;
-
-            // interpolacja skali
-            const t = (targetY - minY) / (maxY - minY);
-            const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
-
-            const duration = 2000 + Math.random() * 2000;
-
-            char.style.transition = `
-                top ${duration}ms ease-in-out,
-                transform ${duration}ms ease-in-out
-            `;
-
-            // *** POPRAWIONE: stabilna pozycja bez teleportów ***
-            char.style.top = `${targetY}vh`;
-            char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
-
-            setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
+        return {
+            baseX: translateMatch ? parseFloat(translateMatch[1]) : -50,
+            baseY: translateMatch ? parseFloat(translateMatch[2]) : -40,
+            baseScale: scaleMatch ? parseFloat(scaleMatch[1]) : 1
         };
+    }
 
-        /* -----------------------------------------
-           RUCH LEWO/PRAWO
-           ----------------------------------------- */
+    function animateKeeper() {
+        const style = window.getComputedStyle(keeper);
+        const { baseX, baseY, baseScale } = parseTransform(style.transform);
 
-        const moveHorizontal = () => {
+        // losowe przesunięcia
+        const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX;
+        const offsetY = (Math.random() * moveRangeY * 2) - moveRangeY;
 
-            const goingRight = Math.random() > 0.5;
-            const targetX = goingRight ? maxX : minX;
+        // skala zależna od Y
+        const scaleOffset = offsetY / (moveRangeY * 10);
+        const finalScale = baseScale + scaleOffset;
 
-            const duration = 1500 + Math.random() * 2000;
+        keeper.style.transition = `transform ${speed}ms ease-in-out`;
+        keeper.style.transform = `
+            translate(${baseX + offsetX}%, ${baseY + offsetY}%)
+            scale(${finalScale})
+        `;
 
-            char.style.transition = `
-                left ${duration}ms ease-in-out
-            `;
+        setTimeout(animateKeeper, speed);
+    }
 
-            // *** POPRAWIONE: stabilna pozycja bez teleportów ***
-            char.style.left = `${targetX}vw`;
-
-            setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
-        };
-
-        /* -----------------------------------------
-           START RUCHÓW
-           ----------------------------------------- */
-
-        setTimeout(moveVertical, 500);
-        setTimeout(moveHorizontal, 800);
-    });
-}
+    animateKeeper();
+});
