@@ -242,7 +242,7 @@ body {
     }
 }
 .char-keeper {
-    outline: 5px solid red !important;
+    outline: 5px solid yellow !important;
 }
 @media (max-width: 768px) {
 
