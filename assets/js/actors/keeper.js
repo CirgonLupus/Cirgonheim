@@ -1,76 +1,37 @@
-export function initKeepers() {
-    const actors = document.querySelectorAll('.char-keeper');
+document.addEventListener("DOMContentLoaded", () => {
+    const keeper = document.querySelector(".char-keeper");
+    if (!keeper) return;
 
-    actors.forEach(char => {
+    const moveRangeX = 4;   // % przesunięcia względem pozycji bazowej
+    const moveRangeY = 3;   // % przesunięcia względem pozycji bazowej
+    const speed = 2500;
 
-        /* -----------------------------------------
-           ZAKRES RUCHU W JEDNOSTKACH VIEWPORTU
-           ----------------------------------------- */
+    // Twoja baza z CSS
+    const baseTranslateX = -50;
+    const baseTranslateY = -40;
+    const baseScale = 1.3;
 
-        const minY = 45;   // 45vh
-        const maxY = 70;   // 70vh
+    function animateKeeper() {
 
-        const minX = 42;   // 42vw
-        const maxX = 58;   // 58vw
+        // losowe przesunięcia
+        const offsetX = (Math.random() * moveRangeX * 2) - moveRangeX; // -4% .. +4%
+        const offsetY = (Math.random() * moveRangeY * 2) - moveRangeY; // -3% .. +3%
 
-        /* -----------------------------------------
-           SKALA W ZALEŻNOŚCI OD WYSOKOŚCI
-           ----------------------------------------- */
+        // skala zależna od Y
+        const t = offsetY / moveRangeY; // -1 .. 1
+        const scaleFactor = 1 + t * 0.08; // 8% różnicy między górą a dołem
+        const finalScale = baseScale * scaleFactor;
 
-        const scaleAtMinY = 0.85;   // najwyżej → najmniejszy
-        const scaleAtMaxY = 1.15;   // najniżej → największy
+        keeper.style.transition = `transform ${speed}ms ease-in-out`;
 
-        /* -----------------------------------------
-           RUCH GÓRA/DÓŁ + SKALA
-           ----------------------------------------- */
+        keeper.style.transform = `
+            translate(${baseTranslateX}%, ${baseTranslateY}%)
+            translate(${offsetX}%, ${offsetY}%)
+            scale(${finalScale})
+        `;
 
-        const moveVertical = () => {
+        setTimeout(animateKeeper, speed);
+    }
 
-            const goingDown = Math.random() > 0.5;
-            const targetY = goingDown ? maxY : minY;
-
-            // interpolacja skali (0–1)
-            const t = (targetY - minY) / (maxY - minY);
-            const targetScale = scaleAtMinY + t * (scaleAtMaxY - scaleAtMinY);
-
-            const duration = 2000 + Math.random() * 2000;
-
-            char.style.transition = `
-                top ${duration}ms ease-in-out,
-                transform ${duration}ms ease-in-out
-            `;
-
-            char.style.top = `${targetY}vh`;
-            char.style.transform = `translate(-50%, -50%) scale(${targetScale})`;
-
-            setTimeout(moveVertical, duration + 500 + Math.random() * 1000);
-        };
-
-        /* -----------------------------------------
-           RUCH LEWO/PRAWO
-           ----------------------------------------- */
-
-        const moveHorizontal = () => {
-
-            const goingRight = Math.random() > 0.5;
-            const targetX = goingRight ? maxX : minX;
-
-            const duration = 1500 + Math.random() * 2000;
-
-            char.style.transition = `
-                left ${duration}ms ease-in-out
-            `;
-
-            char.style.left = `${targetX}vw`;
-
-            setTimeout(moveHorizontal, duration + 500 + Math.random() * 1000);
-        };
-
-        /* -----------------------------------------
-           START RUCHÓW
-           ----------------------------------------- */
-
-        setTimeout(moveVertical, 500);
-        setTimeout(moveHorizontal, 800);
-    });
-}
+    animateKeeper();
+});
