@@ -248,7 +248,7 @@ body {
 
     /* Obniżamy całe panele boczne */
     .side-menu {
-        top: 100%; /* było pewnie 50% – teraz niżej */
+        top: 70%; /* było pewnie 50% – teraz niżej */
         transform: translateY(-50%);
     }
 
