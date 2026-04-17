@@ -283,4 +283,10 @@ body {
         border-radius: 10px;
         margin: 12px 0;
     }
+    .info-box {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    padding: 6px 14px;   /* było 12px 26px → teraz dużo niżej */
+    margin-top: 6px;     /* było 20px → teraz kompaktowo */
+    }
 }
+
