@@ -272,7 +272,7 @@ body {
 
     /* Panele boczne */
     .side-menu {
-        top: 80%;
+        top: 75%;
         transform: translateY(-50%);
     }
 
