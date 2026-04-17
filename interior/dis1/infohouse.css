@@ -170,7 +170,7 @@ body {
     left: 50%;
     transform: translateX(-50%) scale(2);
     width: 80%;
-    height: 140px;
+    height: 15%;
     background: black;
     opacity: 1.0;
     z-index: 900;
