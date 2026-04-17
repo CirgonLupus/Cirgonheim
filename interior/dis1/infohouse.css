@@ -248,6 +248,7 @@ body {
     .info-header-container {
         top: 12vh;
         width: 90%;
+        transform: translateX(-50%);
     }
 
     .info-title {
