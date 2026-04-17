@@ -239,37 +239,14 @@ body {
     max-height: 600px;
 }
 
-@media (max-width: 768px) {
-    .char-keeper {
-        height: 32vh;
-        max-height: 380px;
-        transform: translate(-50%, -55%) scale(0.7); /* było -50%, teraz -70% */
-    }
-}
-.char-keeper {
-    outline: 5px solid yellow !important;
-}
+/* ============================
+   MOBILE (max-width: 768px)
+   ============================ */
 @media (max-width: 768px) {
 
-    /* Obniżamy całe panele boczne */
-    .side-menu {
-        top: 70%; /* było pewnie 50% – teraz niżej */
-        transform: translateY(-50%);
-    }
-
-    /* Możemy też powiększyć odstęp między przyciskami */
-    .info-rect {
-        font-size: 0.85rem;
-        padding: 10px 14px;
-        min-width: 130px;
-        border-radius: 10px;
-        margin: 12px 0;
-    }
-}
-@media (max-width: 768px) {
-
+    /* Nagłówek */
     .info-header-container {
-        top: 6vh; /* zamiast 80px */
+        top: 6vh;
         width: 90%;
     }
 
@@ -283,5 +260,26 @@ body {
         font-size: clamp(0.9rem, 3.5vw, 1.1rem);
         padding: 10px 18px;
         margin-top: 10px;
+    }
+
+    /* Keeper */
+    .char-keeper {
+        height: 32vh;
+        max-height: 380px;
+        transform: translate(-50%, -55%) scale(0.7);
+    }
+
+    /* Panele boczne */
+    .side-menu {
+        top: 70%;
+        transform: translateY(-50%);
+    }
+
+    .info-rect {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+        min-width: 130px;
+        border-radius: 10px;
+        margin: 12px 0;
     }
 }
