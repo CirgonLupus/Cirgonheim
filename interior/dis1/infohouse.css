@@ -289,4 +289,11 @@ body {
         margin-top: 6px;     /* było 20px → teraz kompaktowo */
     }
 }
+@media (max-width: 1024px) {
+
+    #umbilicus {
+        top: -4%;
+        max-width: 55%;
+    }
+}
 
