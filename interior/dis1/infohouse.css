@@ -296,7 +296,7 @@ body {
         max-width: 55%;
     }
     #shadowbox {
-        top: -22%;
+        top: -10%;
         height: 50%;
         transform: translateX(-50%);
     }
@@ -304,7 +304,7 @@ body {
         max-width: 52%;
     }
     #cornua-text {
-        width: 60%; /* dopasowane matematycznie do cornua */
+        width: 70%; /* dopasowane matematycznie do cornua */
         white-space: normal;     /* pozwala na zawijanie */
         word-wrap: break-word;   /* łamie długie słowa */
         overflow-wrap: break-word;
