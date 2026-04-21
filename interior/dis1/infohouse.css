@@ -300,6 +300,8 @@ body {
         height: 30%;
         transform: translateX(-50%);
     }
-
+    #cornua {
+        max-width: 50%;
+    }
 }
 
