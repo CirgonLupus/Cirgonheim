@@ -166,11 +166,11 @@ body {
 
 #shadowbox {
     position: absolute;
-    top: -150px;
+    top: -150px; /* zostawiamy na razie, zaraz poprawimy */
     left: 50%;
-    transform: translateX(-50%) scale(2);
+    transform: translateX(-50%);
     width: 80%;
-    height: 15%;
+    height: 30%;
     background: black;
     opacity: 1.0;
     z-index: 900;
