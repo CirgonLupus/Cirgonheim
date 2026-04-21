@@ -297,7 +297,7 @@ body {
     }
     #shadowbox {
         top: -50%;
-        height: 30%;
+        height: 500%;
         transform: translateX(-50%);
     }
     #cornua {
