@@ -95,7 +95,9 @@ body {
     padding: 12px 26px;
     display: inline-block;
     backdrop-filter: blur(8px);
-    margin-top: 20px;
+    margin-top: 30px; /* było 20px → teraz wyraźnie niżej */
+    padding: 10px 22px; /* delikatnie mniejszy padding */
+
 }
 
 .side-menu {
