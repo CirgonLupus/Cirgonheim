@@ -303,13 +303,20 @@ body {
     #cornua {
         max-width: 52%;
     }
-    #cornua-text {
-        width: 70%; /* dopasowane matematycznie do cornua */
-        white-space: normal;     /* pozwala na zawijanie */
-        word-wrap: break-word;   /* łamie długie słowa */
+   #cornua-text {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        max-height: 45%;   /* <<< KLUCZOWE – obszar przewijania */
+        overflow-y: auto;  /* <<< przewijanie */
+        padding-right: 10px;
+        color: #000;
+        text-align: center;
+        white-space: normal;
+        word-wrap: break-word;
         overflow-wrap: break-word;
-        overflow-y: auto;     /* włącza przewijanie */
-        padding-right: 10px;  /* żeby scroll nie nachodził na tekst */
     }
 }
 
