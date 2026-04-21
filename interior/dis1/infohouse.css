@@ -304,7 +304,7 @@ body {
         max-width: 50%;
     }
     #cornua-text {
-        width: 52%; /* dopasowane matematycznie do cornua */
+        width: 60%; /* dopasowane matematycznie do cornua */
         white-space: normal;     /* pozwala na zawijanie */
         word-wrap: break-word;   /* łamie długie słowa */
         overflow-wrap: break-word;
