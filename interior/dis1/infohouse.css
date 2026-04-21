@@ -308,6 +308,8 @@ body {
         white-space: normal;     /* pozwala na zawijanie */
         word-wrap: break-word;   /* łamie długie słowa */
         overflow-wrap: break-word;
+        overflow-y: auto;     /* włącza przewijanie */
+        padding-right: 10px;  /* żeby scroll nie nachodził na tekst */
     }
 }
 
