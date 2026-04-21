@@ -296,7 +296,7 @@ body {
         max-width: 55%;
     }
     #shadowbox {
-        top: -10%;
+        top: -50%;
         height: 50%;
         transform: translateX(-50%);
     }
