@@ -133,14 +133,6 @@ function openBook(id, lang) {
     setUmbilicus({ scale: 2, x: 0, y: 0 });
     setCornua({ scale: 1.7, x: 0, y: 0 });
 
-    // shadowbox na górze
-    //setShadowbox({
-    //    x: '50%',
-    //    y: 0,
-    //    width: '80%',
-    //    height: 140
-    //});
-
     text.innerHTML = translations[lang][`book-${id}-text`] || '';
 
     overlay.style.display = 'flex';
@@ -157,7 +149,13 @@ function openBook(id, lang) {
     void cornua.offsetWidth;
 
     // cornua wjeżdża z góry na docelową pozycję
-    cornua.style.top = '-50%';
+    if (window.innerWidth <= 768) {
+        // MOBILE – niżej
+        cornua.style.top = '-30%';
+    } else {
+        // DESKTOP – bez zmian
+        cornua.style.top = '-50%';
+    }
 
     setTimeout(() => {
         text.style.opacity = '1';
@@ -198,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('btn-new').addEventListener('click', () => {
-    const lang = localStorage.getItem('cirgon_lang') || 'pl';
-    openBook('new', lang);
+        const lang = localStorage.getItem('cirgon_lang') || 'pl';
+        openBook('new', lang);
     });
     
     document.getElementById('btn-city').addEventListener('click', () => {
@@ -213,13 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         fadeInAndGo('../../district/dis1/dis1_gatesquare.html');
     });
-
-//   try {
-//    initKeepers();
-//} catch(e) {
-//    console.error("KEEPER ERROR:", e);
-//}
-
 
     document.addEventListener('contextmenu', e => e.preventDefault());
 });
