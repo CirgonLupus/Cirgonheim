@@ -151,7 +151,7 @@ function openBook(id, lang) {
     // cornua wjeżdża z góry na docelową pozycję
     if (window.innerWidth <= 768) {
         // MOBILE – niżej
-        cornua.style.top = '-30%';
+        cornua.style.top = '-25%';
     } else {
         // DESKTOP – bez zmian
         cornua.style.top = '-50%';
