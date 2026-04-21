@@ -301,7 +301,7 @@ body {
         transform: translateX(-50%);
     }
     #cornua {
-        max-width: 50%;
+        max-width: 52%;
     }
     #cornua-text {
         width: 60%; /* dopasowane matematycznie do cornua */
