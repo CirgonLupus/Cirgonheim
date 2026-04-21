@@ -303,5 +303,8 @@ body {
     #cornua {
         max-width: 50%;
     }
+    #cornua-text {
+    width: 50%; /* dopasowane matematycznie do cornua */
+    }
 }
 
