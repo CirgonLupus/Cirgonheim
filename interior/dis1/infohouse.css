@@ -297,8 +297,9 @@ body {
     }
     #shadowbox {
         top: -50%;
-        transform: translateX(-50%) scale(2);
-}
+        height: 30%;
+        transform: translateX(-50%);
+    }
 
 }
 
