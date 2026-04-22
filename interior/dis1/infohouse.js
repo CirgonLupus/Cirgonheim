@@ -8,7 +8,7 @@ const translations = {
         'btn-city': "Cirgonheim",
         'exit-label': 'Wyjście',
         'close-book': 'Zamknij',
-        'btn-new': 'Nowy Przycisk',
+        'btn-new': 'Księga Mieszkańców',
 
         'book-me-text': `
 Swoje dzieła tworzę jako Cirgon Tyberius Marcus Lupus. Zajmuję się głównie geoorganiką ornamentalną. Tak nazywam swój styl, w którym matematyczna precyzja geometrii spotyka się z nieprzewidywalnością form organicznych. Każda praca to proces składający się z trzech "rytuałów":<br><br>
@@ -26,7 +26,7 @@ Na razie Cirgonheim może wydawać się skromny, ale z każdym kolejnym elemente
 Cirgonheim nie jest tylko stroną internetową. To przestrzeń, która żyje i rozwija się razem ze mną.
         `,
         'book-new-text': `
-<b>Księga Mieszkańców Cirgonheimu</b><br><br>
+<b>Księga Mieszkańców</b><br><br>
 
 <b>001 — Wine Red</b><br>
 <i>Gatunek: Dreamer</i><br>
@@ -53,7 +53,7 @@ Cirgonheim nie jest tylko stroną internetową. To przestrzeń, która żyje i r
         'btn-city': 'Cirgonheim',
         'exit-label': 'Exit',
         'close-book': 'Close',
-        'btn-new': 'New Button',
+        'btn-new': 'Book of Residents',
 
         'book-me-text': `
 I create my works as Cirgon Tyberius Marcus Lupus. My focus is ornamental geo-organics — that’s what I call my style, where the mathematical precision of geometry meets the unpredictability of organic forms. Every piece is a process built on three “rituals”:<br><br>
@@ -72,7 +72,7 @@ Cirgonheim is not just a website. It is a space that lives and evolves together 
         `
     }
         'book-new-text': `
-<b>Book of Residents of Cirgonheim</b><br><br>
+<b>Book of Residents</b><br><br>
 
 <b>001 — Wine Red</b><br>
 <i>Species: Dreamer</i><br>
