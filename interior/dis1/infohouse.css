@@ -202,7 +202,7 @@ body {
     transition: opacity .6s ease-out;
     z-index: 4;
     text-shadow: 0 0 10px #000;
-    max-height: 55%;
+    height: 55%;
     overflow-y: auto;
     padding-right: 10px;
 }
