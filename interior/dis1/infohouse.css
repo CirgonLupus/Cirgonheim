@@ -307,11 +307,11 @@ body {
     }
    #cornua-text {
         position: absolute;
-        bottom: 43%;
+        bottom: 46%;
         left: 50%;
         transform: translateX(-50%);
         width: 60%;
-        max-height: 70%;   /* <<< KLUCZOWE – obszar przewijania */
+        max-height: 73%;   /* <<< KLUCZOWE – obszar przewijania */
         overflow-y: auto;  /* <<< przewijanie */
         padding-right: 10px;
         color: #000;
