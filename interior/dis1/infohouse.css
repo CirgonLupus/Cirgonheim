@@ -311,7 +311,7 @@ body {
         left: 50%;
         transform: translateX(-50%);
         width: 60%;
-        max-height: 65%;   /* <<< KLUCZOWE – obszar przewijania */
+        max-height: 60%;   /* <<< KLUCZOWE – obszar przewijania */
         overflow-y: auto;  /* <<< przewijanie */
         padding-right: 10px;
         color: #000;
