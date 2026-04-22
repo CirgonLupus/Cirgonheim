@@ -20,9 +20,9 @@ Zapraszam Cię do mojego świata, w którym cienkopis i kolor stają się język
         `,
 
         'book-city-text': `
-Cirgonheim powstaje w całości moimi rękami. To projekt, który tworzę samodzielnie — od pierwszej kreski po ostatni detal. Jedyną pomocą, jaką mam, jest sztuczna inteligencja wspierająca mnie w kodowaniu, bo w tej dziedzinie zaczynałem od zera. Z czasem nauczyłem się więcej, ale Cirgonheim wciąż jest dla mnie miejscem, w którym uczę się, eksperymentuję i rozwijam.
-To miasto‑strona, które pełni kilka ról jednocześnie. Jest moją wizytówką, moim portfolio i przestrzenią, w której mogę puścić wodze wyobraźni. To świat, który buduję krok po kroku — tak jak powstaje miasto: od pierwszych fundamentów, przez dzielnice, aż po detale, które nadają mu charakter.
-Na razie Cirgonheim może wydawać się skromny, ale z każdym kolejnym elementem rośnie. Będą pojawiać się nowe budynki, nowe miejsca, nowe struktury. Każda z nich będzie częścią większej całości — świata, który tworzę jako Cirgon Tyberius Marcus Lupus.
+Cirgonheim powstaje w całości moimi rękami. To projekt, który tworzę samodzielnie — od pierwszej kreski po ostatni detal. Jedyną pomocą, jaką mam, jest sztuczna inteligencja wspierająca mnie w kodowaniu, bo w tej dziedzinie zaczynałem od zera. Z czasem nauczyłem się więcej, ale Cirgonheim wciąż jest dla mnie miejscem, w którym uczę się, eksperymentuję i rozwijam.<br><br>
+To miasto‑strona, które pełni kilka ról jednocześnie. Jest moją wizytówką, moim portfolio i przestrzenią, w której mogę puścić wodze wyobraźni. To świat, który buduję krok po kroku — tak jak powstaje miasto: od pierwszych fundamentów, przez dzielnice, aż po detale, które nadają mu charakter.<br><br>
+Na razie Cirgonheim może wydawać się skromny, ale z każdym kolejnym elementem rośnie. Będą pojawiać się nowe budynki, nowe miejsca, nowe struktury. Każda z nich będzie częścią większej całości — świata, który tworzę jako Cirgon Tyberius Marcus Lupus.<br><br>
 Cirgonheim nie jest tylko stroną internetową. To przestrzeń, która żyje i rozwija się razem ze mną.
         `,
         'book-new-text': `
@@ -49,9 +49,9 @@ I invite you into my world, where fineliner and color become the language of dre
         `,
 
         'book-city-text': `
-Cirgonheim is a project built entirely by my own hands. I create it on my own — from the first line to the final detail. The only assistance I have comes from artificial intelligence supporting me in coding, because in that field I started from absolute zero. Over time I’ve learned more, but Cirgonheim is still a place where I study, experiment, and grow.
-It is a city‑website that serves several roles at once. It is my personal introduction, my portfolio, and a space where I can let my imagination run free. It is a world I build step by step — just like a real city: from its first foundations, through districts, all the way to the details that give it character.
-For now, Cirgonheim may seem modest, but with every new element it expands. New buildings, new places, new structures will appear. Each of them will become part of a larger whole — the world I create as Cirgon Tyberius Marcus Lupus.
+Cirgonheim is a project built entirely by my own hands. I create it on my own — from the first line to the final detail. The only assistance I have comes from artificial intelligence supporting me in coding, because in that field I started from absolute zero. Over time I’ve learned more, but Cirgonheim is still a place where I study, experiment, and grow.<br><br>
+It is a city‑website that serves several roles at once. It is my personal introduction, my portfolio, and a space where I can let my imagination run free. It is a world I build step by step — just like a real city: from its first foundations, through districts, all the way to the details that give it character.<br><br>
+For now, Cirgonheim may seem modest, but with every new element it expands. New buildings, new places, new structures will appear. Each of them will become part of a larger whole — the world I create as Cirgon Tyberius Marcus Lupus.<br><br>
 Cirgonheim is not just a website. It is a space that lives and evolves together with me..
         `
     }
