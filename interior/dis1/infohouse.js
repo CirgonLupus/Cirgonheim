@@ -26,7 +26,23 @@ Na razie Cirgonheim może wydawać się skromny, ale z każdym kolejnym elemente
 Cirgonheim nie jest tylko stroną internetową. To przestrzeń, która żyje i rozwija się razem ze mną.
         `,
         'book-new-text': `
-Tutaj treść nowego rozdziału.
+<b>Księga Mieszkańców Cirgonheimu</b><br><br>
+
+<b>001 — Wine Red</b><br>
+<i>Gatunek: Dreamer</i><br>
+<i>Plac Bramny → Dom Informacyjny → Wnętrze</i><br><br>
+
+<b>007 — Cosmos</b><br>
+<i>Gatunek: Chromata</i><br>
+<i>Plac Bramny → Dom Informacyjny</i><br><br>
+
+<b>023 — Orange</b><br>
+<i>Gatunek: Chromaton</i><br>
+<i>Plac Bramny → Pinakoteka</i><br><br>
+
+<b>172 — Spectrum Green</b><br>
+<i>Gatunek: Spectre</i><br>
+<i>Plac Bramny → Dom Informacyjny</i><br><br>
         `
     },
 
@@ -55,6 +71,26 @@ For now, Cirgonheim may seem modest, but with every new element it expands. New 
 Cirgonheim is not just a website. It is a space that lives and evolves together with me..
         `
     }
+        'book-new-text': `
+<b>Book of Residents of Cirgonheim</b><br><br>
+
+<b>001 — Wine Red</b><br>
+<i>Species: Dreamer</i><br>
+<i>Gate Square → Information House → Interior</i><br><br>
+
+<b>007 — Cosmos</b><br>
+<i>Species: Chromata</i><br>
+<i>Gate Square → Information House</i><br><br>
+
+<b>023 — Orange</b><br>
+<i>Species: Chromaton</i><br>
+<i>Gate Square → Pinacotheca</i><br><br>
+
+<b>172 — Spectrum Green</b><br>
+<i>Species: Spectre</i><br>
+<i>Gate Square → Information House</i><br><br>
+
+        `
 };
 
 function updateLanguage(lang) {
