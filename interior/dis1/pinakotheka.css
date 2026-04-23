@@ -1,15 +1,10 @@
-/* ===========================
-   RESET
-=========================== */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===========================
-   BODY
-=========================== */
 body {
     background: #0f0f0f;
     color: #e6e6e6;
@@ -17,9 +12,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===========================
-   PROTEKCJA — OVERLAY
-=========================== */
+/* PROTEKCJA */
 #transition-overlay {
     position: fixed;
     top: 0;
@@ -37,9 +30,7 @@ body {
     opacity: 0;
 }
 
-/* ===========================
-   PANEL JĘZYKOWY
-=========================== */
+/* PANEL JĘZYKOWY */
 #lang-panel {
     position: fixed;
     top: 20px;
@@ -63,9 +54,26 @@ body {
     color: gold;
 }
 
-/* ===========================
-   NAGŁÓWEK
-=========================== */
+/* POWRÓT */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid gold;
+    color: gold;
+    cursor: pointer;
+    z-index: 1000;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: gold;
+    color: #000;
+}
+
+/* NAGŁÓWEK */
 #pina-header {
     text-align: center;
     padding: 60px 0 30px;
@@ -77,9 +85,7 @@ body {
     color: gold;
 }
 
-/* ===========================
-   PRZYCISKI SERII
-=========================== */
+/* SERIE */
 #series-selector {
     display: flex;
     justify-content: center;
@@ -97,20 +103,13 @@ body {
     font-size: 16px;
 }
 
-.series-btn:hover {
-    border-color: gold;
-    color: gold;
-}
-
+.series-btn:hover,
 .series-btn.active {
     border-color: gold;
     color: gold;
-    background: rgba(255, 215, 0, 0.1);
 }
 
-/* ===========================
-   KARUZELA
-=========================== */
+/* KARUZELA */
 #carousel-container {
     display: flex;
     justify-content: center;
@@ -122,13 +121,10 @@ body {
 #carousel {
     width: 60%;
     max-width: 800px;
-    height: auto;
-    position: relative;
 }
 
 #carousel img {
     width: 100%;
-    height: auto;
     border: 2px solid #333;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
     opacity: 0;
@@ -139,9 +135,7 @@ body {
     opacity: 1;
 }
 
-/* ===========================
-   STRZAŁKI
-=========================== */
+/* STRZAŁKI */
 .nav-btn {
     background: transparent;
     border: none;
@@ -155,9 +149,7 @@ body {
     color: #fff;
 }
 
-/* ===========================
-   PANEL OPISU
-=========================== */
+/* PANEL OPISU */
 #description-panel {
     position: fixed;
     right: -400px;
@@ -177,7 +169,6 @@ body {
 
 #description-content h2 {
     color: gold;
-    margin-bottom: 10px;
 }
 
 #desc-text {
@@ -201,20 +192,10 @@ body {
     color: #000;
 }
 
-/* ===========================
-   RESPONSYWNOŚĆ
-=========================== */
+/* RESPONSYWNOŚĆ */
 @media (max-width: 900px) {
-    #carousel-container {
-        gap: 20px;
-    }
-
     #carousel {
         width: 80%;
-    }
-
-    .nav-btn {
-        font-size: 36px;
     }
 }
 
