@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initSeries();
     initCarousel();
     initDescriptionPanel();
+    preloadImages();
 });
 
 /* ===========================
@@ -103,6 +104,16 @@ let currentSeries = "swiaty";
 let currentIndex = 0;
 
 /* ===========================
+   PRELOAD OBRAZÓW
+=========================== */
+function preloadImages() {
+    Object.values(series).flat().forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
+/* ===========================
    INICJALIZACJA SERII
 =========================== */
 function initSeries() {
@@ -139,12 +150,14 @@ function initCarousel() {
 
 function updateCarouselImage() {
     const img = document.getElementById("carousel-image");
+
     img.classList.remove("visible");
 
-    setTimeout(() => {
-        img.src = series[currentSeries][currentIndex];
+    img.onload = () => {
         img.classList.add("visible");
-    }, 200);
+    };
+
+    img.src = series[currentSeries][currentIndex];
 }
 
 /* ===========================
