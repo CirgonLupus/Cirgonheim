@@ -75,23 +75,23 @@ function updateLanguage(lang) {
 const series = {
     swiaty: [
         { src: "../../assets/img/ro01.jpg", rotate: 0 },
-        { src: "../../assets/img/ro02.jpg", rotate: 90 },
-        { src: "../../assets/img/ro03.jpg", rotate: 0 },
-        { src: "../../assets/img/ro04.jpg", rotate: 0 },
-        { src: "../../assets/img/ro05.jpg", rotate: 90 },
-        { src: "../../assets/img/ro06.jpg", rotate: 0 },
+        { src: "../../assets/img/ro02.jpg", rotate: -90 },
+        { src: "../../assets/img/ro03.jpg", rotate: -90 },
+        { src: "../../assets/img/ro04.jpg", rotate: -90 },
+        { src: "../../assets/img/ro05.jpg", rotate: 0 },
+        { src: "../../assets/img/ro06.jpg", rotate: -90 },
         { src: "../../assets/img/ro07.jpg", rotate: 0 }
     ],
     zaklecia: [
-        { src: "../../assets/img/sp01.jpg", rotate: 0 },
-        { src: "../../assets/img/sp02.jpg", rotate: 0 },
-        { src: "../../assets/img/sp03.jpg", rotate: 90 },
-        { src: "../../assets/img/sp04.jpg", rotate: 0 },
-        { src: "../../assets/img/sp05.jpg", rotate: 0 },
-        { src: "../../assets/img/sp06.jpg", rotate: 90 },
-        { src: "../../assets/img/sp07.jpg", rotate: 0 },
-        { src: "../../assets/img/sp08.jpg", rotate: 0 },
-        { src: "../../assets/img/sp09.jpg", rotate: 90 }
+        { src: "../../assets/img/sp01.jpg", rotate: -90 },
+        { src: "../../assets/img/sp02.jpg", rotate: -90 },
+        { src: "../../assets/img/sp03.jpg", rotate: -90 },
+        { src: "../../assets/img/sp04.jpg", rotate: -90 },
+        { src: "../../assets/img/sp05.jpg", rotate: -90 },
+        { src: "../../assets/img/sp06.jpg", rotate: -90 },
+        { src: "../../assets/img/sp07.jpg", rotate: -90 },
+        { src: "../../assets/img/sp08.jpg", rotate: -90 },
+        { src: "../../assets/img/sp09.jpg", rotate: -90 }
     ]
 };
 
