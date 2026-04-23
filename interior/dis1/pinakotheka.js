@@ -12,18 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     preloadImages();
 });
 
-/* ===========================
-   BLOKADA PRAWEGO KLIKU
-=========================== */
+/* BLOKADA PRAWEGO KLIKU */
 document.addEventListener("contextmenu", e => e.preventDefault());
 
-/* ===========================
-   BLOKADA POWROTU Z CACHE
-=========================== */
+/* BLOKADA POWROTU Z CACHE */
 window.addEventListener("pageshow", (event) => {
-    if (event.persisted) {
-        window.location.reload();
-    }
+    if (event.persisted) window.location.reload();
 });
 
 /* ===========================
@@ -35,14 +29,16 @@ const translations = {
         series_worlds: "Światy równo‑odległe",
         series_spells: "Zaklęcia",
         desc_title: "Opis",
-        close: "Zamknij"
+        close: "Zamknij",
+        back: "Powrót"
     },
     en: {
         title: "Pinacotheca",
         series_worlds: "Equidistant Worlds",
         series_spells: "Spells",
         desc_title: "Description",
-        close: "Close"
+        close: "Close",
+        back: "Back"
     }
 };
 
@@ -68,35 +64,34 @@ function initLanguage() {
 function updateLanguage(lang) {
     document.querySelectorAll("[data-key]").forEach(el => {
         const key = el.dataset.key;
-        if (translations[lang][key]) {
-            el.textContent = translations[lang][key];
-        }
+        if (translations[lang][key]) el.textContent = translations[lang][key];
     });
 }
 
 /* ===========================
    SERIE — LISTA OBRAZÓW
+   (z obsługą obrotu)
 =========================== */
 const series = {
     swiaty: [
-        "../../assets/img/ro01.jpg",
-        "../../assets/img/ro02.jpg",
-        "../../assets/img/ro03.jpg",
-        "../../assets/img/ro04.jpg",
-        "../../assets/img/ro05.jpg",
-        "../../assets/img/ro06.jpg",
-        "../../assets/img/ro07.jpg"
+        { src: "../../assets/img/ro01.jpg", rotate: 0 },
+        { src: "../../assets/img/ro02.jpg", rotate: 90 },
+        { src: "../../assets/img/ro03.jpg", rotate: 0 },
+        { src: "../../assets/img/ro04.jpg", rotate: 0 },
+        { src: "../../assets/img/ro05.jpg", rotate: 90 },
+        { src: "../../assets/img/ro06.jpg", rotate: 0 },
+        { src: "../../assets/img/ro07.jpg", rotate: 0 }
     ],
     zaklecia: [
-        "../../assets/img/sp01.jpg",
-        "../../assets/img/sp02.jpg",
-        "../../assets/img/sp03.jpg",
-        "../../assets/img/sp04.jpg",
-        "../../assets/img/sp05.jpg",
-        "../../assets/img/sp06.jpg",
-        "../../assets/img/sp07.jpg",
-        "../../assets/img/sp08.jpg",
-        "../../assets/img/sp09.jpg"
+        { src: "../../assets/img/sp01.jpg", rotate: 0 },
+        { src: "../../assets/img/sp02.jpg", rotate: 0 },
+        { src: "../../assets/img/sp03.jpg", rotate: 90 },
+        { src: "../../assets/img/sp04.jpg", rotate: 0 },
+        { src: "../../assets/img/sp05.jpg", rotate: 0 },
+        { src: "../../assets/img/sp06.jpg", rotate: 90 },
+        { src: "../../assets/img/sp07.jpg", rotate: 0 },
+        { src: "../../assets/img/sp08.jpg", rotate: 0 },
+        { src: "../../assets/img/sp09.jpg", rotate: 90 }
     ]
 };
 
@@ -107,9 +102,9 @@ let currentIndex = 0;
    PRELOAD OBRAZÓW
 =========================== */
 function preloadImages() {
-    Object.values(series).flat().forEach(src => {
+    Object.values(series).flat().forEach(item => {
         const img = new Image();
-        img.src = src;
+        img.src = item.src;
     });
 }
 
@@ -134,30 +129,38 @@ function initSeries() {
 =========================== */
 function initCarousel() {
     document.getElementById("prev-btn").addEventListener("click", () => {
-        currentIndex--;
-        if (currentIndex < 0) currentIndex = series[currentSeries].length - 1;
+        currentIndex = (currentIndex - 1 + series[currentSeries].length) % series[currentSeries].length;
         updateCarouselImage();
     });
 
     document.getElementById("next-btn").addEventListener("click", () => {
-        currentIndex++;
-        if (currentIndex >= series[currentSeries].length) currentIndex = 0;
+        currentIndex = (currentIndex + 1) % series[currentSeries].length;
         updateCarouselImage();
     });
 
     updateCarouselImage();
 }
 
+/* ===========================
+   ŁADOWANIE OBRAZU + OBRÓT
+=========================== */
 function updateCarouselImage() {
     const img = document.getElementById("carousel-image");
-
     img.classList.remove("visible");
 
-    img.onload = () => {
+    const item = series[currentSeries][currentIndex];
+    const newImg = new Image();
+
+    newImg.onload = () => {
+        img.src = newImg.src;
+
+        // OBRÓT OBRAZU
+        img.style.transform = `rotate(${item.rotate}deg)`;
+
         img.classList.add("visible");
     };
 
-    img.src = series[currentSeries][currentIndex];
+    newImg.src = item.src + "?v=" + Math.random();
 }
 
 /* ===========================
@@ -177,3 +180,16 @@ function initDescriptionPanel() {
         panel.classList.remove("open");
     });
 }
+
+/* ===========================
+   POWRÓT NA PLAC BRAMNY
+=========================== */
+document.getElementById("back-btn").addEventListener("click", () => {
+    const overlay = document.getElementById("transition-overlay");
+    overlay.classList.remove("fade-out");
+    overlay.style.opacity = "1";
+
+    setTimeout(() => {
+        window.location.href = "../../district/dis1/dis1_gatesquare.html";
+    }, 300);
+});
