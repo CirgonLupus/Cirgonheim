@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinakoteka</title>
+    <link rel="stylesheet" href="pinakotheka.css">
+</head>
+
+<body>
+
+    <!-- PROTEKCJA: overlay fade -->
+    <div id="transition-overlay"></div>
+
+    <!-- GÓRNY PANEL JĘZYKOWY -->
+    <div id="lang-panel">
+        <button class="lang-btn" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- NAGŁÓWEK PINAKOTEKI -->
+    <header id="pina-header">
+        <h1 data-key="title">Pinakoteka</h1>
+    </header>
+
+    <!-- PRZYCISKI SERII -->
+    <div id="series-selector">
+        <button class="series-btn active" data-series="swiaty" data-key="series_worlds">
+            Światy równo‑odległe
+        </button>
+
+        <button class="series-btn" data-series="zaklecia" data-key="series_spells">
+            Zaklęcia
+        </button>
+    </div>
+
+    <!-- KARUZELA -->
+    <div id="carousel-container">
+
+        <button id="prev-btn" class="nav-btn">&#10094;</button>
+
+        <div id="carousel">
+            <img id="carousel-image" src="" alt="Artwork">
+        </div>
+
+        <button id="next-btn" class="nav-btn">&#10095;</button>
+
+    </div>
+
+    <!-- PANEL OPISU -->
+    <div id="description-panel">
+        <div id="description-content">
+            <h2 data-key="desc_title">Opis</h2>
+            <p id="desc-text"></p>
+        </div>
+        <button id="close-desc" data-key="close">Zamknij</button>
+    </div>
+
+    <script src="pinakotheka.js"></script>
+</body>
+</html>
