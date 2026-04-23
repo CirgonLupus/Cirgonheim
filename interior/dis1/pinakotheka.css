@@ -123,15 +123,25 @@ body {
     max-width: 800px;
 }
 
-#carousel img {
+/* NOWY KONTENER NA OBRAZ — ZAPOBIEGA ZASŁANIANIU */
+#image-wrapper {
     width: 100%;
-    border: 2px solid #333;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
-    opacity: 0;
-    transition: opacity 0.5s ease;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* kluczowe */
 }
 
-#carousel img.visible {
+#carousel-image {
+    max-width: 100%;
+    max-height: 100%;
+    transform-origin: center center;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+#carousel-image.visible {
     opacity: 1;
 }
 
