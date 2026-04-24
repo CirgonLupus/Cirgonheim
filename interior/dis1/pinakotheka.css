@@ -121,29 +121,29 @@ body {
 #carousel {
     width: 60%;
     max-width: 800px;
-    aspect-ratio: 3 / 4; /* stały pionowy kształt */
+    aspect-ratio: 3 / 4;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* NOWY KONTENER NA OBRAZ — ZAPOBIEGA ZASŁANIANIU */
 #image-wrapper {
     width: 100%;
     height: 100%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 #carousel-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* KLUCZOWE */
-    transform-origin: center center;
-    opacity: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: opacity 0.5s ease, transform 0.3s ease;
+    opacity: 0;
 }
 
 #carousel-image.visible {
