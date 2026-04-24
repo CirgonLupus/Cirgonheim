@@ -70,7 +70,6 @@ function updateLanguage(lang) {
 
 /* ===========================
    SERIE — LISTA OBRAZÓW
-   (z obsługą obrotu)
 =========================== */
 const series = {
     swiaty: [
@@ -145,19 +144,16 @@ function initCarousel() {
    ŁADOWANIE OBRAZU + OBRÓT
 =========================== */
 function updateCarouselImage() {
-    const img = document.getElementById("carousel-image");
-    img.classList.remove("visible");
+    const box = document.getElementById("carousel-image");
+    box.classList.remove("visible");
 
     const item = series[currentSeries][currentIndex];
     const newImg = new Image();
 
     newImg.onload = () => {
-        img.src = newImg.src;
-
-        // OBRÓT OBRAZU
-        img.style.transform = `rotate(${item.rotate}deg)`;
-
-        img.classList.add("visible");
+        box.style.backgroundImage = `url('${newImg.src}')`;
+        box.style.transform = `rotate(${item.rotate}deg)`;
+        box.classList.add("visible");
     };
 
     newImg.src = item.src + "?v=" + Math.random();
