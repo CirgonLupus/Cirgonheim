@@ -128,6 +128,7 @@ body {
     letter-spacing: 1px;
     font-weight: bold;
     text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    font-family: 'Cinzel', serif;
     font-weight: 900; /* albo 700 jeśli chcesz mniej */
 }
 
