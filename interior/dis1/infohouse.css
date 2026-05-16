@@ -97,11 +97,12 @@ body {
     backdrop-filter: blur(8px);
     margin-top: 30px; /* było 20px → teraz wyraźnie niżej */
     padding: 10px 22px; /* delikatnie mniejszy padding */
-    -webkit-text-stroke: 1px #000;
-    text-stroke: 1px #000; /* dla przeglądarek które wspierają */
-}
-
-
+    -webkit-text-stroke: 1px #000; /* idealny kontur tam, gdzie działa */
+    text-shadow:                   /* fallback dla reszty */
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
 }
 
 .side-menu {
