@@ -313,7 +313,7 @@ body {
     }
    #cornua-text {
         position: absolute;
-        top: 5%;
+        top: -20%;
         left: 50%;
         transform: translateX(-50%);
         width: 60%;
@@ -327,7 +327,7 @@ body {
         overflow-wrap: break-word;
     }
     .close-book-btn {
-    bottom: 1.5%;
+    bottom: -5%;
     }
 }
 
