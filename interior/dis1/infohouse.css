@@ -317,7 +317,7 @@ body {
         left: 50%;
         transform: translateX(-50%);
         width: 70%;           /* możesz zwiększyć lub zmniejszyć */
-        max-height: 85%;      /* <<< TU ZWIĘKSZAMY POLE TEKSTOWE */
+        max-height: 100%;      /* <<< TU ZWIĘKSZAMY POLE TEKSTOWE */
         overflow-y: auto;
         padding-right: 10px;
         color: #000;
