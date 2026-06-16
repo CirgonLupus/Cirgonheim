@@ -311,14 +311,14 @@ body {
     #cornua {
         max-width: 52%;
     }
-   #cornua-text {
+    #cornua-text {
         position: absolute;
-        top: -20%;
+        top: 8%;              /* tekst zaczyna się WYŻEJ */
         left: 50%;
         transform: translateX(-50%);
-        width: 60%;
-        max-height: 150%;   /* <<< KLUCZOWE – obszar przewijania */
-        overflow-y: auto;  /* <<< przewijanie */
+        width: 70%;           /* możesz zwiększyć lub zmniejszyć */
+        max-height: 85%;      /* <<< TU ZWIĘKSZAMY POLE TEKSTOWE */
+        overflow-y: auto;
         padding-right: 10px;
         color: #000;
         text-align: center;
