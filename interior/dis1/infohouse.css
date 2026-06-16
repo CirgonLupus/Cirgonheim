@@ -313,11 +313,11 @@ body {
     }
     #cornua-text {
         position: absolute;
-        top: 8%;              /* tekst zaczyna się WYŻEJ */
+        top: 20%;              /* tekst zaczyna się WYŻEJ */
         left: 50%;
         transform: translateX(-50%);
         width: 70%;           /* możesz zwiększyć lub zmniejszyć */
-        max-height: 100%;      /* <<< TU ZWIĘKSZAMY POLE TEKSTOWE */
+        max-height: 150%;      /* <<< TU ZWIĘKSZAMY POLE TEKSTOWE */
         overflow-y: auto;
         padding-right: 10px;
         color: #000;
