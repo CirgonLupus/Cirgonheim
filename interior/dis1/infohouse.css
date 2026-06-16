@@ -313,7 +313,7 @@ body {
     }
     #cornua-text {
         position: absolute;
-        top: 20%;              /* tekst zaczyna się WYŻEJ */
+        top: -20%;              /* tekst zaczyna się WYŻEJ */
         left: 50%;
         transform: translateX(-50%);
         width: 70%;           /* możesz zwiększyć lub zmniejszyć */
